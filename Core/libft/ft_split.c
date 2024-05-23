@@ -1,76 +1,120 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 21:09:03 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/22 21:33:12 by ysetiawa         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
-
-size_t	countw(const char *s, char c)
+static int	countword(const char *s, char c)
 {
-	size_t count;
-    int flag;
-    
-    count = 0;
-    flag = 0; // to track if its a word
-	while (*s)
+	int i;
+    int countw;
+
+    i = 0; // iterate each char
+    countw = 0; // to count if its a word
+	while (s[i])
 	{
-		if (*s != c && !flag) // start of a word
-		{
-			count++;
-			flag = 1; // flag as a word
-		}
-		else if (*s == c) 
-			flag = 0; // reset the flag
-		s++;
+		if (!(s[i] == c) && ((s[i+1] == c) || !(s[i+1])))
+			countw++;
+		i++;
 	}
-	return (count);
+	return (countw);
+}
+
+static int wordlen(const char *s, char c)
+{
+    int i = 0;
+    int wlen = 0;
+
+    while (s[i] && s[i] != c)
+    {
+        wlen++;
+        i++;
+    }
+    return wlen;
+}
+
+static char	*writeword(char const *s, int len)
+{
+    char *word;
+	int i;
+
+	word = (char *)malloc((len + 1) * sizeof(char));
+	if (!word)
+		return (NULL);
+
+	i = 0;
+	while (i < len)
+	{
+		word[i] = s[i];
+		i++;
+	}
+	word[len] = '\0';
+	return (word);
+}
+
+static char **free_array(char **ptr, int i)
+{
+    while (i > 0)
+    {
+        i--;
+        free(ptr[i]);
+    }
+    free(ptr);
+    return NULL;
+}
+
+static char **split_words(const char *s, char c, int word_count)
+{
+    char **result;
+	int i;
+	int j;
+	int len;
+	
+	result = (char **)malloc((word_count + 1) * sizeof(char *));
+    if (!result)
+        return NULL;
+
+    i = 0;
+    j = 0;
+	  while (s[i])
+    {
+		while (s[i] == c)
+			i++;
+		if (s[i])
+		{
+			len = wordlen(s + i, c);
+            result[j] = writeword(s + i, len);
+            if (!result[j])
+                return free_array(result, j);
+            i += len;
+            j++;
+        }
+	}
+    result[j] = NULL;
+    return result;
 }
 
 char **ft_split(char const *s, char c)
 {
-    size_t count;
-    char **result;
-    size_t i;
-    
     if (!s)
-		return (NULL);
-    
-    count = countw(s, c);
-    result = (char **)malloc((count + 1) * sizeof(char *));
-	if (!result)
-		return (NULL);
+        return NULL;
 
-	i = 0;
-	while (*s)
-	{
-		if (*s != c)
-		{
-			const char *start;
-            
-            start = s; // start
-			while (*s && *s != c)
-				s++;
-			size_t word_length = s - start;
-			result[i] = ft_substr(start, 0, word_length);
-			if (!result[i])
-			{
-				while (i > 0)
-					free(result[--i]);
-				free(result);
-				return (NULL);
-			}
-			i++;
-		}
-		else
-			s++;
-	}
-	result[i] = NULL;
-	return (result);
+    int word_count = countword(s, c);
+    return split_words(s, c, word_count);
 }
+
+// int main()
+// {
+//     char str[] = "  this is  a string ";
+//     char **result = ft_split(str, ' ');
+
+//     if (result != NULL)
+//     {
+//         int i = 0;
+//         while (result[i] != NULL)
+//         {
+//             printf("%s\n", result[i]);
+//             free(result[i]);
+//             i++;
+//         }
+//         free(result);
+//     }
+//     else
+//         printf("Memory allocation failed or empty string\n");
+//     return 0;
+// }
