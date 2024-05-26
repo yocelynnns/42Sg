@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42singapor      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 15:38:41 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/14 17:54:51 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:44:08 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-//#include <stdio.h>
 
 int	atoi(const char *nptr)
 {
@@ -21,15 +20,11 @@ int	atoi(const char *nptr)
 	result = 0;
 	sign = 1;
 	while ((*nptr >= 9 && *nptr <= 13) || (*nptr == 32))
-	{
 		nptr++;
-	}
 	if (*nptr == '-' || *nptr == '+')
 	{
 		if (*nptr == '-')
-		{
 			sign *= -1;
-		}
 		nptr++;
 	}
 	while (*nptr >= '0' && *nptr <= '9')

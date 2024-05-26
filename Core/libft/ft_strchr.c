@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42singapor      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 14:34:15 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/18 19:52:51 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:21:43 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	char	*temp;
 	int		i;
-	
-	temp = (char*)s;
+
+	temp = (char *)s;
 	i = 0;
 	while (*(temp + i))
 	{

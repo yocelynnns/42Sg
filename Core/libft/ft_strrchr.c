@@ -6,17 +6,17 @@
 /*   By: ysetiawa <ysetiawa@student.42singapor      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:59:21 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/18 20:02:40 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:11:56 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char*	ft_strrchr(char* str, int chr)
+char	*ft_strrchr(char *str, int chr)
 {
 	char	*temp;
 	size_t	i;
-	
+
 	temp = (char *)str;
 	i = ft_strlen(str);
 	if (chr == '\0')

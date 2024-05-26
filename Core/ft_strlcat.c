@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 #include <string.h>
-// #include <bsd/string.h>
+#include <bsd/string.h>
 
 int main()
 {

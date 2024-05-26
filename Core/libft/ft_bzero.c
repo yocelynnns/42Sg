@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42singapor      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 18:00:47 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/18 20:02:01 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:21:06 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_bzero(void *s, size_t n)
 {
 	unsigned char	*temp;
-	
+
 	temp = (unsigned char *)s;
 	while (n > 0)
 	{
