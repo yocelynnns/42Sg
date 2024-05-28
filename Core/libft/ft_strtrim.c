@@ -6,13 +6,13 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:49:38 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/24 16:15:07 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:52:32 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	checkset(char const c, char const *set)
+static size_t	checkset(char const c, char const *set)
 {
 	size_t	i;
 
@@ -34,10 +34,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	i;
 	char	*trimmed;
 
-	// if (!s1 || !set)
-	// 	return (0);
 	start = 0;
-	end = strlen(s1) - 1;
+	end = ft_strlen(s1);
 	while (s1[start] && checkset(s1[start], set))
 		start++;
 	while (end > start && checkset(s1[end - 1], set))

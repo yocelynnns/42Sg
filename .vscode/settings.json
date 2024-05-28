@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "ft_lstiter.C": "cpp"
+    }
+}

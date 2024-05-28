@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42singapor      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 14:34:15 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/24 14:21:43 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:03:34 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*ft_strchr(const char *s, int c)
 	char	*temp;
 	int		i;
 
+	c = (unsigned char)c;
 	temp = (char *)s;
 	i = 0;
 	while (*(temp + i))

@@ -6,62 +6,75 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:53:37 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/25 15:16:38 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:34:30 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char invert(char *s, unsigned int num, long int len)
+static char	invert(char *s, unsigned int num, long int len)
 {
-    while (num > 0)
-    {
-        s[len--] = 48 + (num % 10);
-        num = num / 10;
-    }
-    return *s;
+	while (num > 0)
+	{
+		s[len--] = 48 + (num % 10);
+		num = num / 10;
+	}
+	return (*s);
 }
 
-static long int countlen(int n)
+static long int	countlen(int n)
 {
-    int len;
+	int	len;
 
-    len = 0;
-    if (n <= 0)
-        len = 1;
-    while (n != 0)
-    {
-        n = n / 10;
-        len++;
-    }
-    return (len);
+	len = 0;
+	if (n <= 0)
+		len = 1;
+	while (n != 0)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
 }
 
-char *ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-    char            *s;
-    long int        len;
-    unsigned int    num;
-    int             sign;
+	char			*s;
+	long int		len;
+	unsigned int	num;
+	int				sign;
 
-    sign = 1;
-    len = countlen(n);
-    s = (char *)malloc(sizeof(char) * (len + 1));
-    if (n == 0)
-        s[0] = '0';
-    if (n < 0)
-    {
-        sign *= -1;
-        num = n * -1;
-        s[0] = '-';
-    }
-    else
-        num = n;
-    invert(s, num, len - 1);
-    return (s);
+	sign = 1;
+	len = countlen(n);
+	s = (char *)malloc(sizeof(char) * (len + 1));
+	if (!s)
+		return (NULL);
+	if (n == 0)
+		s[0] = '0';
+	if (n < 0)
+	{
+		sign *= -1;
+		num = n * -1;
+		s[0] = '-';
+	}
+	else
+		num = n;
+	invert(s, num, len - 1);
+	s[len] = '\0';
+	return (s);
 }
 
-int main()
+/* int	main(int argc, char **argv)
+{
+	if (argc == 2)
+	{
+		printf("Length: %ld\nitoa: %s\n", 
+		countlen(atoi(argv[1])), ft_itoa(atoi(argv[1])));
+	}
+	return (EXIT_SUCCESS);
+} */
+
+/* int main()
 {
     // Test strings
     unsigned int testint1 = 00123;
@@ -88,4 +101,4 @@ int main()
     // printf("Integer \"%d\" to String is %s\n", testint6, char6);
 
     return 0;
-}  
+}   */

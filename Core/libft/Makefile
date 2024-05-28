@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/05/28 13:37:32 by ysetiawa          #+#    #+#              #
+#    Updated: 2024/05/28 21:53:05 by ysetiawa         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
@@ -13,20 +25,28 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
        ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
        ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
        ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
-OBJS = ${SRCS:.c =.o}
+# SRCSB = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
+#         ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
+#         ft_lstmap.c 
+OBJS = $(SRCS:.c=.o)
+# OBJSB = $(SRCSB:.c=.o)
 
-all = ${NAME}
+all: $(NAME)
 
-${NAME}: ${OBJS}
-	ar -r ${NAME} ${OBJS}
+$(NAME): $(OBJS)
+	ar r $(NAME) $(OBJS)
 
-%.0: %.c
-	${CC} ${CFLAGS} $< -o $@
+# bonus: ${NAME} ${OBJSB}
+# 	ar r ${NAME} ${OBJSB}
 
-clean: rm -f ${OBJS}
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS) 
 
 fclean: clean
-	rm -f ${NAME}
+	rm -f $(NAME) 
 
 re: fclean all
 

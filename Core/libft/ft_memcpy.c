@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42singapor      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:07:13 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/18 19:48:56 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:02:52 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	unsigned char	*d;
 	unsigned char	*s;
 
+	if (!dest && !src)
+		return (0);
 	d = (unsigned char *)dest;
 	s = (unsigned char *)src;
 	while (n > 0)

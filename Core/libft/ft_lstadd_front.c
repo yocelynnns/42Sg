@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 16:07:30 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/25 17:13:03 by ysetiawa         ###   ########.fr       */
+/*   Created: 2024/05/28 14:31:01 by ysetiawa          #+#    #+#             */
+/*   Updated: 2024/05/29 01:36:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_putchar_fd(char c, int fd)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-    write (fd, &c, 1);
+	new->next = *lst;
+	*lst = new;
 }
-
-// #include <sys/stat.h>
-// #include <fcntl.h>
-
-// int main()
-// { 
-//     int fd = open("test.txt", O_WRONLY);
-//     ft_putchar_fd('H', fd);
-// }

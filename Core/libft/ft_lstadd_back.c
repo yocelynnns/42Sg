@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/25 15:48:20 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/25 17:17:38 by ysetiawa         ###   ########.fr       */
+/*   Created: 2024/05/28 13:50:50 by ysetiawa          #+#    #+#             */
+/*   Updated: 2024/05/28 16:54:03 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_striteri(char *s, void (*f)(unsigned int, char*))
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-    int i;
-
-    i = 0;
-    while (s[i] != '\0')
-    {
-        (*f)(i, &s[i]);
-        i++;
-    }
-    s[i] = '\0';
+	while ((*lst)->next)
+	{
+		*lst = (*lst)->next;
+	}
+	(*lst)->next = new;
 }
-
-// void	upper(unsigned int i, char *c)
-// {
-//     i = 0;
-//     if (*c >= 'a' && *c <= 'z')
-//         *c = *c - 32;
-// }
-
-// int main()
-// {
-//     char str[10] = "hello";
-//     ft_striteri(str, upper);
-//     printf("%s\n", str);
-//     return 0;
-// }

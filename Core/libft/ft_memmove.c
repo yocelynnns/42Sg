@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42singapor      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:57:04 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/24 14:11:05 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:56:21 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 			d[n] = s[n];
 		return (dest);
 	}
-	else //dest < src
+	else
 	{
 		while (i < n)
 		{

@@ -1,53 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 15:55:40 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/24 15:56:11 by ysetiawa         ###   ########.fr       */
+/*   Created: 2024/05/21 14:37:44 by ysetiawa          #+#    #+#             */
+/*   Updated: 2024/05/28 20:14:18 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		i;
-	int		j;
-	char	*join;
+	size_t	i;
+	char	*d;
 
-	if (!s1 || !s2)
+	if (!s)
 		return (NULL);
-	join = (char *)malloc(sizeof(char) * \
-			((ft_strlen(s1) + ft_strlen(s2)) + 1));
+	if (start >= ft_strlen(s))
+		len = 0;
+	if (len >= ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	d = (char *)malloc(sizeof(char) * (len + 1));
+	if (!d)
+		return (NULL);
 	i = 0;
-	j = 0;
-	while (s1[i])
+	while (i < len)
 	{
-		join[i] = s1[i];
+		d[i] = s[start + i];
 		i++;
 	}
-	while (s2[j])
-	{
-		join[i] = s2[j];
-		i++;
-		j++;
-	}
-	join[i] = '\0';
-	return (join);
+	d[len] = '\0';
+	return (d);
 }
 
 /* int main()
 {
-    char s1[20] = "Hello"; 
-    char s2[20] = "World";
-    char *result = ft_strjoin (s1, s2);
-	
+    char s1[20] = "tripouille"; 
+    size_t start = 0;
+    size_t len = 42000;
+    char *result = ft_substr (s1, start, len);
+
     printf("The first string: %s\n", s1);
-    printf("The second string: %s\n", s2);
-    printf("Join string = %s\n", result);
+    printf("Found Substring: %s\n", result);
     
-    return (0);
-}*/
+    return 0;
+}  */

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42singapor      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 15:16:32 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/18 19:41:53 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:44:33 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 //big = str, little = find
-char	*strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -28,7 +28,7 @@ char	*strnstr(const char *big, const char *little, size_t len)
 	while (big[i] != '\0' && i < len)
 	{
 		j = 0;
-		while (big[i + j] == little[j])
+		while (big[i + j] == little[j] && (i + j < len))
 		{
 			if (little[j + 1] == '\0')
 				return (bg + i);
