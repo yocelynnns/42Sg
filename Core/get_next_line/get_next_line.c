@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 16:42:16 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/06/11 00:46:24 by marvin           ###   ########.fr       */
+/*   Created: 2024/06/07 14:37:34 by ysetiawa          #+#    #+#             */
+/*   Updated: 2024/06/12 02:14:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,14 @@ static char	*read_line(int fd, char *str, char *remain)
 			remain = ft_strdup("");
 		temp = remain;
 		remain = ft_strjoin(temp, str);
-		free(temp);
+		free (temp);
+		temp = NULL;
 		if (!remain)
 			return (NULL);
 		if (ft_strchr(str, '\n'))
 			break ;
 	}
 	return (remain);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
 }
 
 static char	*get_line(char *peepoo)
@@ -72,21 +63,51 @@ static char	*get_line(char *peepoo)
 	return (temp);
 }
 
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	char		*str;
-	char		*peepoo;
-	static char	*remain;
+    char *str;
+    char *peepoo;
+    static char *remain = NULL;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	str = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!str)
-		return (NULL);
-	peepoo = read_line(fd, str, remain);
-	free(str);
-	if (!peepoo)
-		return (NULL);
-	remain = get_line(peepoo);
-	return (peepoo);
+    if (fd < 0 || BUFFER_SIZE <= 0)
+        return (NULL);
+
+    str = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+    if (!str)
+        return (handle_memory_error(&remain));
+
+    peepoo = read_line(fd, str, remain);
+    free(str);
+
+    if (!peepoo)
+        return (handle_read_error(&remain));
+
+    remain = get_line(peepoo);
+    char *temp = ft_strdup(peepoo);
+    free(peepoo);
+
+    if (!temp)
+        return (handle_memory_error(&remain));
+
+    return (temp);
+}
+
+static char *handle_memory_error(char **remain)
+{
+    if (*remain)
+    {
+        free(*remain);
+        *remain = NULL;
+    }
+    return (NULL);
+}
+
+static char *handle_read_error(char **remain)
+{
+    if (*remain)
+    {
+        free(*remain);
+        *remain = NULL;
+    }
+    return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:45:08 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/06/06 15:22:54 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/06/12 02:13:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,35 +84,34 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (d);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned char	*d;
-	unsigned char	*s;
-
-	if (!dest && !src)
-		return (0);
-	d = (unsigned char *)dest;
-	s = (unsigned char *)src;
-	while (n > 0)
-	{
-		*d = *s;
-		d++;
-		s++;
-		n--;
-	}
-	return (dest);
-}
-
 char	*ft_strdup(const char *s)
 {
-	size_t	size;
-	char	*d;
+	int		i;
+	char	*dst;
 
-	size = ft_strlen(s);
-	d = (char *)malloc(size * sizeof(char) + 1);
-	if (d == NULL)
+	i = 1;
+	while (s[i - 1])
+		i++;
+	dst = malloc(sizeof(*s) * i);
+	i = 0;
+	if (dst == NULL)
 		return (NULL);
-	ft_memcpy(d, s, size);
-	d[size] = '\0';
-	return (d);
+	while (s[i])
+	{
+		dst[i] = s[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
