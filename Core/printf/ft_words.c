@@ -21,15 +21,16 @@ int	ft_putchar(char c)
 	return (count);
 }
 
-int	ft_putstr(char *s)
+int	ft_putstr(const char *s)
 {
 	int count;
 	int i;
 
 	count = 0;
 	i = 0;
+	if (!s[i])
+		s = "(NULL)";
 	while (s[i] != '\0')
 		count += write (1, &s[i++], 1);
 	return (count);
 }
-

@@ -10,47 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-int	ft_putnbr(long n)
+static int ft_putptr_hex(unsigned long long n)
 {
-	int	count;
-
-	count = 0;
-	if (n < 0)
-	{
-		count += write(1, "-", 1);
-		n *= -1;
-	}
-	if (n >= 10)
-		count += ft_putnbr(n / 10);
-	count += ft_putchar((n % 10) + '0');
-	return (count);
-}
-
-int	ft_putnbrUI(unsigned int n)
-{
-	int count;
-
-	count = 0;
-	if (n >= 10)
-		count += ft_putnbr(n / 10);
-	count += ft_putchar((n % 10) + '0');
-	return (count);
-}
-
-int ft_puthex(unsigned int n, char *format)
-{
-	int count;
-	const char *base;
-
-	count = 0;
-	if (format == 'x')
-		base = "0123456789abcdef";
-	if (format == 'X')
-		base = "0123456789ABCDEF";
+    int count;
+    const char *base;
+    
+    count = 0;
+    base = "0123456789abcdef";
     if (n >= 16)
-        count += ft_puthex(n / 16, format);
+        count += ft_putptr_hex(n / 16);
     count += ft_putchar(base[n % 16]);
-	return (count);
+    return (count);
+}
+
+int ft_putaddress(void *ptr)
+{
+    int count;
+    
+    count = 0;
+    count += ft_putstr("0x");
+    count += ft_putptr_hex((unsigned long long)ptr);
+    return (count);
 }
