@@ -10,7 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_printf(const char *format, ...)
-{
+#include "ft_printf.h"
 
+static int ft_format(va_list args, const char format)
+{
+    if (format == 'c')
+        return ft_putchar(va_arg(args, int));
+    else if (format == 's')
+        return ft_putstr(va_arg(args, char *));
+    else if (format == 'd' || format == 'i')
+        return ft_putnbr(va_arg(args, int));
+    else if (format == 'X' || format == 'x')
+        return ft_puthex(va_arg(args, unsigned int), format);
+    else if (format == 'p')
+        return ft_putadd(va_arg(args, void *));
+    else if (format == 'u')
+        return ft_putunsign(va_arg(args, unsigned int));
+    else if (format == '%')
+        return ft_putchar('%');
+    else
+        return (-1);
+}
+
+int ft_printf(const char *str, ...)
+{
+    va_list args;
+    int i = 0;
+    int length = 0;
+
+    va_start(args, str);
+    while (*(str + i)) {
+        if (*(str + i) == '%' && ft_strchr("cspdiuxX%", *(str + i + 1)))
+        {
+            length += ft_format(args, *(str + i + 1));
+            i++;
+        }
+        else
+            length += ft_putchar(*(str + i));
+        i++;
+    }
+    va_end(args);
+    return length;
 }

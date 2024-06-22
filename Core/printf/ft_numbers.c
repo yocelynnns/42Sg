@@ -28,7 +28,7 @@ int	ft_putnbr(long n)
 	return (count);
 }
 
-int	ft_putnbrUI(unsigned int n)
+int	ft_putunsign(unsigned int n)
 {
 	int count;
 

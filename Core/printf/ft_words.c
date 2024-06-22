@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "ft_printf.h"
 
 int	ft_putchar(char c)
 {
@@ -33,4 +33,23 @@ int	ft_putstr(const char *s)
 	while (s[i] != '\0')
 		count += write (1, &s[i++], 1);
 	return (count);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*temp;
+	int		i;
+
+	c = (unsigned char)c;
+	temp = (char *)s;
+	i = 0;
+	while (*(temp + i))
+	{
+		if (*(temp + i) == c)
+			return (temp + i);
+		i++;
+	}
+	if (c == '\0')
+		return (temp + i);
+	return (0);
 }
