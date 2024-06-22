@@ -30,7 +30,7 @@ int	ft_putnbr(long n)
 
 int	ft_putunsign(unsigned int n)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	if (n >= 10)
@@ -39,18 +39,18 @@ int	ft_putunsign(unsigned int n)
 	return (count);
 }
 
-int ft_puthex(unsigned int n, char *format)
+int	ft_puthex(unsigned int n, char format)
 {
-	int count;
-	const char *base;
+	int			count;
+	const char	*base;
 
 	count = 0;
 	if (format == 'x')
 		base = "0123456789abcdef";
 	if (format == 'X')
 		base = "0123456789ABCDEF";
-    if (n >= 16)
-        count += ft_puthex(n / 16, format);
-    count += ft_putchar(base[n % 16]);
+	if (n >= 16)
+		count += ft_puthex(n / 16, format);
+	count += ft_putchar(base[n % 16]);
 	return (count);
 }

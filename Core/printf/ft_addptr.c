@@ -12,25 +12,25 @@
 
 #include "ft_printf.h"
 
-static int ft_ptrhex(unsigned long long n)
+static int	ft_ptrhex(unsigned long long n)
 {
-    int count;
-    const char *base;
-    
-    count = 0;
-    base = "0123456789abcdef";
-    if (n >= 16)
-        count += ft_ptrhex(n / 16);
-    count += ft_putchar(base[n % 16]);
-    return (count);
+	int			count;
+	const char	*base;
+
+	count = 0;
+	base = "0123456789abcdef";
+	if (n >= 16)
+		count += ft_ptrhex(n / 16);
+	count += ft_putchar(base[n % 16]);
+	return (count);
 }
 
-int ft_putaddr(void *ptr)
+int	ft_putaddr(void *ptr)
 {
-    int count;
-    
-    count = 0;
-    count += ft_putstr("0x");
-    count += ft_ptrhex((unsigned long long)ptr);
-    return (count);
+	int	count;
+
+	count = 0;
+	count += ft_putstr("0x");
+	count += ft_ptrhex((unsigned long long)ptr);
+	return (count);
 }
