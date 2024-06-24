@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/07 14:37:34 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/06/13 20:25:16 by ysetiawa         ###   ########.fr       */
+/*   Created: 2024/06/12 14:24:29 by ysetiawa          #+#    #+#             */
+/*   Updated: 2024/06/14 17:32:01 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*read_line(int fd, char *buf, char *remain)
 {
 	int		readcheck;
-	char	*temp_buf;
+	char	*temp;
 
 	readcheck = 1;
 	while (readcheck)
@@ -28,11 +28,10 @@ static char	*read_line(int fd, char *buf, char *remain)
 		buf[readcheck] = '\0';
 		if (!remain)
 			remain = ft_strdup("");
-		temp_buf = remain;
-		remain = ft_strjoin(temp_buf, buf);
-		if (temp_buf)
-			free (temp_buf);
-		temp_buf = NULL;
+		temp = remain;
+		remain = ft_strjoin(temp, buf);
+		free (temp);
+		temp = NULL;
 		if (!remain)
 			return (NULL);
 		if (ft_strchr(buf, '\n'))
@@ -43,7 +42,7 @@ static char	*read_line(int fd, char *buf, char *remain)
 
 static char	*get_line(char *line)
 {
-	char	*temp_line;
+	char	*temp;
 	int		lkoh;
 
 	lkoh = 0;
@@ -51,17 +50,17 @@ static char	*get_line(char *line)
 		lkoh++;
 	if (line[lkoh] == '\0')
 		return (NULL);
-	temp_line = ft_substr(line, lkoh + 1, ft_strlen(line) - lkoh);
-	if (!temp_line)
+	temp = ft_substr(line, lkoh + 1, ft_strlen(line) - lkoh);
+	if (!temp)
 		return (NULL);
-	if (temp_line[0] == '\0')
+	if (temp[0] == '\0')
 	{
-		free(temp_line);
-		temp_line = NULL;
+		free(temp);
+		temp = NULL;
 		return (NULL);
 	}
 	line[lkoh + 1] = '\0';
-	return (temp_line);
+	return (temp);
 }
 
 static char	*handle_error(char **remain)
@@ -79,21 +78,21 @@ char	*get_next_line(int fd)
 	char		*buf;
 	char		*line;
 	char		*temp;
-	static char	*remain = NULL;
+	static char	*remain[4096] = {NULL};
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
-		return (handle_error(&remain));
-	line = read_line(fd, buf, remain);
+		return (handle_error(&remain[fd]));
+	line = read_line(fd, buf, remain[fd]);
 	free(buf);
 	if (!line)
-		return (handle_error(&remain));
-	remain = get_line(line);
+		return (handle_error(&remain[fd]));
+	remain[fd] = get_line(line);
 	temp = ft_strdup(line);
 	free(line);
 	if (!temp)
-		return (handle_error(&remain));
+		return (handle_error(&remain[fd]));
 	return (temp);
 }

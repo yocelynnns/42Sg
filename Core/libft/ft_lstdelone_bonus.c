@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 14:30:56 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/05/28 17:02:17 by ysetiawa         ###   ########.fr       */
+/*   Created: 2024/05/29 13:44:17 by ysetiawa          #+#    #+#             */
+/*   Updated: 2024/05/30 13:39:32 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	if (lst)
+	{
+		(*del)(lst->content);
+		free(lst);
+	}
 }
