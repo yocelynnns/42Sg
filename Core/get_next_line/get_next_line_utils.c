@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:45:08 by ysetiawa          #+#    #+#             */
 /*   Updated: 2024/06/13 13:48:55 by ysetiawa         ###   ########.fr       */
+=======
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 13:45:08 by ysetiawa          #+#    #+#             */
+/*   Updated: 2024/06/12 02:13:39 by marvin           ###   ########.fr       */
+>>>>>>> 9036cc03042a4babcfb9cb9e3faa1052bcc6b4a3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +112,10 @@ char	*ft_strdup(const char *s)
 	return (dst);
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9036cc03042a4babcfb9cb9e3faa1052bcc6b4a3
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
