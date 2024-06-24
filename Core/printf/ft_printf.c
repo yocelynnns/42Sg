@@ -54,3 +54,35 @@ int ft_printf(const char *str, ...)
     va_end(args);
     return len;
 }
+
+//int main()
+// {
+//     char c = 'A';
+//     char *str = "Hello, world!";
+//     int num = 42;
+//     int neg = -100;
+//     unsigned int hex = 123456789;
+
+//     ft_printf("%%c: %c\n", c);
+//     ft_printf("%%s: %s\n", str);
+//     ft_printf("%%p: %p\n", str);
+//     ft_printf("%%d: %d\n", num);
+//     ft_printf("%%i: %i\n", num);
+//     ft_printf("%%u: %u\n", neg);
+//     ft_printf("%%x: %x\n", hex);
+//     ft_printf("%%X: %X\n", hex);
+// 	ft_printf("%%\n");
+
+// 	printf("----------\n");
+// 	printf("%%c: %c\n", c);
+//     printf("%%s: %s\n", str);
+//     printf("%%p: %p\n", str);
+//     printf("%%d: %d\n", num);
+//     printf("%%i: %i\n", num);
+//     printf("%%u: %u\n", neg);
+//     printf("%%x: %x\n", hex);
+//     printf("%%X: %X\n", hex);
+// 	printf("%%\n");
+
+// 	return (0);
+// }
