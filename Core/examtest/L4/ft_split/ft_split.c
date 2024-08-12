@@ -6,11 +6,11 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:39:33 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/12 17:55:09 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:58:59 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void ft_strncpy(char *s1, char *s2, int n)
+char ft_strncpy(char *s1, char *s2, int n)
 {
     int i = -1;
     while (++i < n && s2[i])
@@ -46,8 +46,8 @@ char **ft_split(char *str)
             i++;
         if (i < j)
         {
-            res[k] = (char *)malloc(sizeof(char) * (i - j));
-            ft_strncpy(res[k++], &str[j], ((i - j) + 1));
+            res[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
+            ft_strncpy(res[k++], &str[j], i - j);
         }
     }
     res[k] = '\0';
