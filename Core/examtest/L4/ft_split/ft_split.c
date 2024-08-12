@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:39:33 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/12 17:58:59 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:02:57 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char **ft_split(char *str)
         j = i;
         while (str[i] && (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
             i++;
-        if (i < j)
+        if (i > j)
         {
             res[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
             ft_strncpy(res[k++], &str[j], i - j);
