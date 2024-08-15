@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   lists.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:19:35 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/01 17:07:03 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:17:24 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 t_node	*createNode(int data)
-{
+{ 
 	t_node	*newNode;
 
 	newNode = (t_node *)malloc(sizeof(t_node));
@@ -24,11 +24,28 @@ t_node	*createNode(int data)
 	return (newNode);
 }
 
+void	add_back(t_node **node, t_node *new)
+{
+	t_node	*temp;
+
+	if (*node == NULL)
+	{
+		*node = new;
+		return ;
+	}
+	temp = *node;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+}
+
 void	push(t_node **top, int newData)
 {
 	t_node *newNode;
 	
 	newNode = createNode(newData);
+	if (!newNode)
+        return;
 	newNode->next = *top;
 	*top = newNode;
 }
@@ -43,7 +60,6 @@ int		pop(t_node **top)
     if (*top == NULL)
         return (0);
     *top = (*top)->next;
-    
     free(temp);
     return (popped);
 }
@@ -57,3 +73,4 @@ void printList(t_node *node)
     }
     printf("\n");
 }
+

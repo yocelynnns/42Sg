@@ -1,10 +1,4 @@
-int ft_strlen(char s)
-{
-	int i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
+#include <stdlib.h>
 
 char *ft_strdup(char *src)
 {
@@ -12,7 +6,8 @@ char *ft_strdup(char *src)
 	char *dest;
 	int i = 0;
 
-	size = ft_strlen(src);
+	while (src[size])
+		size++;
 	dest = (char *)malloc(size * sizeof(char) + 1);
 	if (dest == NULL)
 		return (NULL);
