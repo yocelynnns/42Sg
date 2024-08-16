@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:28:16 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/15 19:19:13 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:14:46 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,16 @@ t_node *createNode(int data);
 void push(t_node **top, int newData);
 int pop(t_node **top);
 void printList(t_node *node);
+
+void	sort_three(t_node **stack_a);
+int	error_argvs(char *argvs);
+int	error_duplicate(t_node *stack_a);
+void	print_error(void);
+void	free_node(t_node **node);
+t_node *ft_process(int argc, char **argv);
+t_node	*next_process(char **argv);
+static long	ft_atol(const char *str);
+int	check_sort(t_node *stack_a);
+
 
 #endif

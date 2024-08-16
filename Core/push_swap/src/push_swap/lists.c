@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:19:35 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/15 17:17:24 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:12:59 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,20 @@ void printList(t_node *node)
         node = node->next;
     }
     printf("\n");
+}
+
+int	stack_sz(t_node *stack) 
+{
+	int	count;
+
+	if (!stack) 
+		return (0);
+	count = 0;
+	while (stack) 
+	{
+		stack = stack->next; 
+		count++;
+	}
+	return (count);
 }
 

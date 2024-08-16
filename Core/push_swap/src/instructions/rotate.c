@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:26:41 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/07/30 16:36:18 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:45:47 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ra(t_node **stack_a)
 	*stack_a = first->next;
 	first->next = NULL;
 	last->next = first;
+	printf("ra\n");
 }
 
 void	rb(t_node **stack_b)
@@ -42,10 +43,12 @@ void	rb(t_node **stack_b)
 	*stack_b = first->next;
 	first->next = NULL;
 	last->next = first;
+	printf("rb\n");
 }
 
 void	rr(t_node **stack_a, t_node **stack_b)
 {
 	ra(stack_a);
 	rb(stack_b);
+	printf("rr\n");
 }
