@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pgcd.c                                             :+:      :+:    :+:   */
+/*   epur_str.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 18:51:54 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/21 02:13:34 by yocelynnns       ###   ########.fr       */
+/*   Created: 2024/08/21 01:13:26 by yocelynnns        #+#    #+#             */
+/*   Updated: 2024/08/21 01:18:27 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <unistd.h>
 
 int main(int argc, char **argv)
 {
-    int a;
-    int b;
+    int i = 0;
+    int flag = 0;
     
-    if (argc == 3)
+    if (argc == 2)
     {
-        a = atoi(argv[1]);
-        b = atoi(argv[2]);
-
-        while (a != b)
+        while (argv[1][i] == ' ' || argv[1][i] == '\t')
+            i++;
+        while (argv[1][i])
         {
-            if (a > b)
-                a -= b;
+            if (argv[1][i] == ' ' || argv[1][i] == '\t')
+                flag = 1;
             else
-                b -= a;
+            {
+                if (flag)
+                    write (1, " ", 1);
+                flag = 0;
+                write (1, &argv[1][i], 1);
+            }
+            i++;
         }
-        printf ("%d", a);
     }
-    printf ("\n");
+    write (1, "\n", 1);
 }

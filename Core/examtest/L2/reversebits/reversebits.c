@@ -1,4 +1,16 @@
-unsigned char reversebits(unsigned char octet)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reversebits.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/21 12:11:14 by yocelynnns        #+#    #+#             */
+/*   Updated: 2024/08/21 12:11:15 by yocelynnns       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+unsigned char reverse_bits(unsigned char octet)
 {
 	int i = 8;
 	unsigned char res = 0;

@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pgcd.c                                             :+:      :+:    :+:   */
+/*   ft_list_remove.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 18:51:54 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/21 02:13:34 by yocelynnns       ###   ########.fr       */
+/*   Created: 2024/08/21 11:29:03 by yocelynnns        #+#    #+#             */
+/*   Updated: 2024/08/21 11:36:42 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "ft_list.h"
 #include <stdlib.h>
 
-int main(int argc, char **argv)
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
 {
-    int a;
-    int b;
-    
-    if (argc == 3)
-    {
-        a = atoi(argv[1]);
-        b = atoi(argv[2]);
+    if (begin_list == NULL || *begin_list == NULL)
+        return;
 
-        while (a != b)
-        {
-            if (a > b)
-                a -= b;
-            else
-                b -= a;
-        }
-        printf ("%d", a);
+    t_list *cur = *begin_list;
+    
+    if (cmp(cur->data, data_ref) == 0)
+    {
+        *begin_list = cur->next;
+        free(cur);
+        ft_list_remove_if(begin_list, data_ref, cmp);
     }
-    printf ("\n");
+    else
+    {
+        cur = *begin_list;
+        ft_list_remove_if(&cur->next, data_ref, cmp);
+    }
 }

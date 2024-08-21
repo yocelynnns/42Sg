@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pgcd.c                                             :+:      :+:    :+:   */
+/*   ft_list.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 18:51:54 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/21 02:13:34 by yocelynnns       ###   ########.fr       */
+/*   Created: 2024/08/21 11:22:23 by yocelynnns        #+#    #+#             */
+/*   Updated: 2024/08/21 11:25:18 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef FT_LIST_H
+# define FT_LIST_H
 
-int main(int argc, char **argv)
+typedef struct s_list
 {
-    int a;
-    int b;
-    
-    if (argc == 3)
-    {
-        a = atoi(argv[1]);
-        b = atoi(argv[2]);
+    struct s_list *next;
+    void          *data;
+} t_list;
 
-        while (a != b)
-        {
-            if (a > b)
-                a -= b;
-            else
-                b -= a;
-        }
-        printf ("%d", a);
-    }
-    printf ("\n");
-}
+#endif

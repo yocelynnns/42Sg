@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pgcd.c                                             :+:      :+:    :+:   */
+/*   sort_int_tab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 18:51:54 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/21 02:13:34 by yocelynnns       ###   ########.fr       */
+/*   Created: 2024/08/21 11:56:45 by yocelynnns        #+#    #+#             */
+/*   Updated: 2024/08/21 12:00:23 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(int argc, char **argv)
+void sort_int_tab(int *tab, unsigned int size)
 {
-    int a;
-    int b;
-    
-    if (argc == 3)
-    {
-        a = atoi(argv[1]);
-        b = atoi(argv[2]);
+    unsigned int i = 0;
+    int temp;
 
-        while (a != b)
+    while (i < (size - 1))
+    {
+        if (tab[i] > tab[i + 1])
         {
-            if (a > b)
-                a -= b;
-            else
-                b -= a;
+            temp = tab[i];
+            tab[i] = tab[i + 1];
+            tab[i + 1] = temp;
+            i = 0;
         }
-        printf ("%d", a);
+        else
+            i++;
     }
-    printf ("\n");
 }

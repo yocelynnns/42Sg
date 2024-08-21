@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ispowerof2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 16:09:08 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/12 16:10:00 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:13:01 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,4 @@ int is_power_of_2(unsigned int n)
 		return (0);
 	else
 		return (n & (n - 1)) == 0;
-} 
+}

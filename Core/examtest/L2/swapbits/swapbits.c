@@ -1,4 +1,16 @@
-unsigned char swapbits(unsigned char octet)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swapbits.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/21 12:11:11 by yocelynnns        #+#    #+#             */
+/*   Updated: 2024/08/21 12:11:12 by yocelynnns       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+unsigned char swap_bits(unsigned char octet)
 {
 	return ((octet >> 4) | (octet << 4));
 }

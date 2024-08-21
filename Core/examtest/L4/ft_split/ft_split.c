@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:39:33 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/12 18:28:34 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:48:17 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-char *ft_strncpy(char *s1, char *s2, int n)
+char *ft_strncpy (char *s1, char *s2, int n)
 {
     int i = -1;
 

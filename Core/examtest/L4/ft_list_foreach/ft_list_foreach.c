@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pgcd.c                                             :+:      :+:    :+:   */
+/*   ft_list_foreach.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 18:51:54 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/21 02:13:34 by yocelynnns       ###   ########.fr       */
+/*   Created: 2024/08/21 11:21:59 by yocelynnns        #+#    #+#             */
+/*   Updated: 2024/08/21 11:27:49 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "ft_list.h"
 #include <stdlib.h>
 
-int main(int argc, char **argv)
+void ft_list_foreach(t_list *begin_list, void (*f)(void *))
 {
-    int a;
-    int b;
-    
-    if (argc == 3)
+    while (begin_list)
     {
-        a = atoi(argv[1]);
-        b = atoi(argv[2]);
-
-        while (a != b)
-        {
-            if (a > b)
-                a -= b;
-            else
-                b -= a;
-        }
-        printf ("%d", a);
+        (*f)(begin_list->data);
+        begin_list = begin_list->next;
     }
-    printf ("\n");
 }
