@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/22 20:16:36 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/22 20:28:34 by ysetiawa         ###   ########.fr       */
+/*   Created: 2024/08/03 17:55:45 by ysetiawa          #+#    #+#             */
+/*   Updated: 2024/08/16 17:31:47 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../inc/push_swap.h"
 
 static long	ft_atol(const char *str)
 {
@@ -36,42 +36,15 @@ static long	ft_atol(const char *str)
 	return (res * sign);
 }
 
-t_node	*find_smallest(t_node *stack) 
+int	check_sort(t_node *stack_a)
 {
-	long			smallest; //smallest value
-	t_node	*smallest_n; //pointer to smallest number
-
-	if (!stack)
-		return (NULL);
-	smallest = LONG_MAX;
-	while (stack)
+	if (!stack_a)
+		return (1);
+	while (stack_a->next)
 	{
-		if (stack->data < smallest) 
-		{
-			smallest = stack->data; 
-			smallest_n = stack; 
-		}
-		stack = stack->next;
+		if (stack_a->data > stack_a->next->data) 
+			return (0); //Check if curr node value > next node
+		stack_a = stack_a->next; 
 	}
-	return (smallest_n); 
-}
-
-t_node	*find_largest(t_node *stack) 
-{
-	long			largest; //largest value
-	t_node	*largest_n; //pointer to largest number
-
-	if (!stack)
-		return (NULL);
-	largest = LONG_MIN; 
-	while (stack) 
-	{
-		if (stack->data > largest) 
-		{
-			largest = stack->data; 
-			largest_n = stack; 
-		}
-		stack = stack->next;
-	}
-	return (largest_n);
+	return (1);
 }

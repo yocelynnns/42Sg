@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:30:21 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/22 20:27:33 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:23:44 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,27 @@ int	error_argvs(char *argvs)
 	return (0);
 }
 
-int	check_dup(t_node *stack_a, int value) 
+int	error_duplicate(t_node *stack_a) 
 {
 	t_node *temp;
     
 	while (stack_a) 
 	{
-		if (stack_a->data == value) 
-			return (1); //Check if the current node value = value u want to add
-		stack_a = stack_a->next; 
+        temp = stack_a->next;
+		while (temp)
+        {
+            if (stack_a->data == temp->data) 
+			    return (1); //Check if the current node is same to next node
+		    stack_a = stack_a->next; 
+	    }
     }
 	return (0);
+}
+
+void	print_error(void) //error msg
+{
+	ft_printf("Error\n");
+	exit(1);
 }
 
 void	free_stack(t_node **stack)
@@ -55,11 +65,4 @@ void	free_stack(t_node **stack)
 		curr = temp;
 	}
 	*stack = NULL;
-}
-
-void	free_n_error(t_node **stack_a) //error msg & freestack
-{
-	free_stack(stack_a);
-	ft_printf("Error\n");
-	exit(1);
 }

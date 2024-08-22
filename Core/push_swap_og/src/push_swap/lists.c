@@ -6,22 +6,22 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:19:35 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/22 20:14:23 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:12:59 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_node	*create_node(int value)
+t_node	*createNode(int data)
 { 
-	t_node	*new_node;
+	t_node	*newNode;
 
-	new_node = (t_node *)malloc(sizeof(t_node));
-	if (!new_node)
+	newNode = (t_node *)malloc(sizeof(t_node));
+	if (!newNode)
 		return (NULL);
-	new_node->data = value;
-	new_node->next = NULL;
-	return (new_node);
+	newNode->data = data;
+	newNode->next = NULL;
+	return (newNode);
 }
 
 void	add_back(t_node **node, t_node *new)
@@ -39,7 +39,42 @@ void	add_back(t_node **node, t_node *new)
 	temp->next = new;
 }
 
-int	stack_size(t_node *stack) 
+void	push(t_node **top, int newData)
+{
+	t_node *newNode;
+	
+	newNode = createNode(newData);
+	if (!newNode)
+        return;
+	newNode->next = *top;
+	*top = newNode;
+}
+
+int		pop(t_node **top)
+{
+	t_node	*temp;
+	int		popped;
+
+	temp = *top;
+	popped = temp->data;
+    if (*top == NULL)
+        return (0);
+    *top = (*top)->next;
+    free(temp);
+    return (popped);
+}
+
+void printList(t_node *node)
+{
+    while (node != NULL)
+    {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+
+int	stack_sz(t_node *stack) 
 {
 	int	count;
 

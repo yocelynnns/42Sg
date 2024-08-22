@@ -1,0 +1,36 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    MakeFile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/07/26 18:27:06 by ysetiawa          #+#    #+#              #
+#    Updated: 2024/08/01 18:49:45 by ysetiawa         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC = cc
+
+CFLAGS = -Wall -Werror -Wextra
+
+NAME = push_swap.a
+
+SRCS = push.c reverse_rotate.c rotate.c swap.c utils.c
+OBJS = $(SRCS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	ar rc $(NAME) $(OBJS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJS) 
+
+fclean: clean
+	rm -rf $(NAME) 
+
+re: fclean all

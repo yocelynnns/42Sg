@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:53:33 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/22 20:10:11 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:13:26 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	main(int argc, char **argv)
 	initial_a(&stack_a, argv + 1); //Initiate stack `a`, which also handles errors
 	if (!check_sorted(stack_a)) 
 	{
-		if (stack_size(stack_a) == 2) //If not, and there are two numbers, swap the first two nodes
+		if (stack_sz(stack_a) == 2) //If not, and there are two numbers, swap the first two nodes
 			sa(&stack_a);
-		else if (stack_size(stack_a) == 3) //If not, and there are three numbers, call the sort three algorithm
+		else if (stack_sz(stack_a) == 3) //If not, and there are three numbers, call the sort three algorithm
 			sort_three(&stack_a);
 		else
 			sort_stacks(&stack_a, &stack_b); //If not, and there are more than three numbers, call the sort stacks algorithm
