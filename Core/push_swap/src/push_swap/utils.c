@@ -6,11 +6,11 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 20:16:36 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/08/22 20:28:34 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:22:52 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../inc/push_swap.h"
 
 static long	ft_atol(const char *str)
 {
