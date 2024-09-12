@@ -15,7 +15,6 @@ typedef struct s_median
     int index;
 } t_median;
 
-
 // Function to create a new node
 t_node *create_node(int value)
 {
@@ -217,27 +216,6 @@ void pb(t_node **stack_a, t_node **stack_b)
     printf("pb\n");
 }
 
-void pa(t_node **stack_a, t_node **stack_b)
-{
-    t_node *top_b;
-
-    if (*stack_b == NULL)
-        return;
-
-    top_b = *stack_b;
-    *stack_b = top_b->next;
-
-    if (*stack_b)
-        (*stack_b)->prev = NULL;
-
-    top_b->next = *stack_a;
-    if (*stack_a)
-        (*stack_a)->prev = top_b;
-
-    *stack_a = top_b;
-    printf("pa\n");
-}
-
 // Function to rotate stack A
 void ra(t_node **stack_a)
 {
@@ -254,23 +232,6 @@ void ra(t_node **stack_a)
     first->next = NULL;
     last->next = first;
     printf("ra\n");
-}
-
-void rb(t_node **stack_b)
-{
-    t_node *first;
-    t_node *last;
-
-    first = *stack_b;
-    last = first;
-    if (*stack_b == NULL || (*stack_b)->next == NULL)
-        return;
-    while (last->next != NULL)
-        last = last->next;
-    *stack_b = first->next;
-    first->next = NULL;
-    last->next = first;
-    printf("rb\n");
 }
 
 void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
@@ -311,19 +272,6 @@ void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
 
         nodes_processed++;
     }
-}
-
-int	check_sorted(t_node *stack)
-{
-	if (!stack)
-		return (1);
-	while (stack->next)
-	{
-		if (stack->data > stack->next->data) 
-			return (0); //Check if curr node value > next node
-		stack = stack->next; 
-	}
-	return (1);
 }
 
 // Function to print a list
@@ -395,92 +343,159 @@ void print_list_with_label(t_node *stack, const char *label)
     printf("\n");
 }
 
-void process_nodesb(t_node **stack_a, t_node **stack_b, int median_value)
+void	rra(t_node **stack_a)
 {
-    int total_nodes = count_nodes(*stack_b); // Count total nodes in stack_a
-    int nodes_processed = 0;
+	t_node	*prev;
+	t_node	*curr;
 
-    while (nodes_processed < total_nodes)
-    {
-        t_node *current = *stack_b;
+	prev = NULL;
+	curr = *stack_a;
+	if (*stack_a == NULL || (*stack_a)->next == NULL)
+		return ;
+	while (curr->next != NULL)
+	{
+		prev = curr;
+		curr = curr->next;
+	}
+	if (prev != NULL)
+	{
+		prev->next = NULL;
+		curr->next = *stack_a;
+		*stack_a = curr;
+		printf("rra\n");
+	}
+}
 
-        if (current->data > median_value)
-        {
-            pa(stack_b, stack_a); // Move node to stack B
-        }
-        else
-        {
-            // Check if all remaining nodes in stack A are greater than or equal to the median
-            t_node *temp = *stack_b;
-            int has_bigger = 0;
+void	sa(t_node **stack_a)
+{
+	if (*stack_a && (*stack_a)->next)
+	{
+		t_node	*first;
+		t_node	*second;
 
-            // Look ahead to see if there are still nodes smaller than the median
-            while (temp)
-            {
-                if (temp->data > median_value)
-                {
-                    has_bigger = 1;
-                    break;
-                }
-                temp = temp->next;
-            }
-
-            if (!has_bigger)
-                break; // Stop rotating if all remaining nodes are >= median_value
-
-            rb(stack_b); // Rotate current node to the end
-        }
-
-        nodes_processed++;
+		first = *stack_a;
+		second = first->next;
+		if (*stack_a == NULL || (*stack_a)->next == NULL)
+		return ;
+        first->next = second->next;
+        second->next = first;
+        *stack_a = second;
+		printf("sa\n");
     }
 }
 
-void process_nodes_for_b(t_node **stack_a, t_node **stack_b)
+void	pa(t_node **stack_a, t_node **stack_b)
 {
-    t_node *temp_stack;
-    t_median median;
+	t_node	*top_b;
 
-    // Keep processing until stack A is small enough or empty
-    while (count_nodes(*stack_b) > 1)
-    {
+	top_b = *stack_b;
+	if (*stack_b == NULL)
+		return ;
+	*stack_b = top_b->next;
+	top_b->next = *stack_a;
+	*stack_a = top_b;
+}
 
-        if (count_nodes(*stack_b) == 2)
-        {
-            break;
-        }
-        // Copy the current stack A
-        temp_stack = copy_list(*stack_b);
-        if (!temp_stack)
-        {
-            printf("Memory allocation failed\n");
-            return;
-        }
+t_node	*find_last_node(t_node *stack)
+{
+	if (!stack)
+		return (NULL);
+	while (stack->next != NULL)
+		stack = stack->next;
+	return (stack);
+}
 
-        // Sort the copied list
-        temp_stack = sort_list(temp_stack);
+int	check_sorted(t_node *stack)
+{
+	if (!stack)
+		return (1);
+	while (stack->next)
+	{
+		if (stack->data > stack->next->data) 
+			return (0); //Check if curr node value > next node
+		stack = stack->next; 
+	}
+	return (1);
+}
 
-        // Print the temporary sorted list
-        print_list_with_label(temp_stack, "Temporary Sorted List");
+t_node	*find_min(t_node *stack) 
+{
+	long			smallest; //smallest value
+	t_node	*smallest_n; //pointer to smallest number
 
-        // Find the median of the sorted list
-        median = find_median(temp_stack);
+	if (!stack)
+		return (NULL);
+	smallest = LONG_MAX;
+	while (stack)
+	{
+		if (stack->data < smallest) 
+		{
+			smallest = stack->data; 
+			smallest_n = stack; 
+		}
+		stack = stack->next;
+	}
+	return (smallest_n); 
+}
 
-        printf("New Median value: %d\n", median.value);
+t_node	*find_max(t_node *stack) 
+{
+	long			largest; //largest value
+	t_node	*largest_n; //pointer to largest number
 
-        if (check_sorted(*stack_a))
-        {
-            break;
-        }
-        // Process nodes based on the new median value
-        process_nodesb(stack_a, stack_b, median.value);
+	if (!stack)
+		return (NULL);
+	largest = LONG_MIN; 
+	while (stack) 
+	{
+		if (stack->data > largest) 
+		{
+			largest = stack->data; 
+			largest_n = stack; 
+		}
+		stack = stack->next;
+	}
+	return (largest_n);
+}
 
-        // Print the final state of both stacks after each iteration
-        print_list_with_label(*stack_a, "Stack A after processing new median");
-        print_list_with_label(*stack_b, "Stack B");
 
-        // Free the temporary stack
-        free_list(temp_stack);
-    }
+void	sort_three(t_node **stack_a) 
+{
+	t_node	*biggest; 
+
+	biggest = find_max(*stack_a);
+	if (*stack_a == biggest)
+		ra(stack_a); //If the 1st node is the biggest rotate to bottom
+	else if ((*stack_a)->next == biggest) 
+		rra(stack_a); //If the 2nd node is the biggest rerotate bottom to top
+	if ((*stack_a)->data > (*stack_a)->next->data) 
+		sa(stack_a); //If the bottom node is the biggest, but the top node is higher than the second node, swap 
+}
+
+void sort_five(t_node **stack_a, t_node **stack_b)
+{
+	// t_node *smallest = find_min(*stack_a);
+	if (count_nodes(*stack_a) == 4)
+		pb(stack_a, stack_b);
+	else
+	{
+		pb(stack_a, stack_b);
+		pb(stack_a, stack_b);
+	}
+	sort_three(stack_a);
+	if (count_nodes(*stack_b) == 2 && (*stack_b)->data < (*stack_b)->next->data)
+		sa(stack_a);
+	pa(stack_a, stack_b);
+	if ((*stack_a)->data > find_last_node(*stack_a)->data)
+		ra(stack_a);
+	if ((*stack_a)->data > (*stack_a)->next->data)
+		sa(stack_a);
+	while (check_sorted(*stack_a) && count_nodes(*stack_b))
+		pa(stack_a, stack_b);
+	if ((*stack_a)->data > (*stack_a)->next->data)
+		sa(stack_a);
+	if (!check_sorted(*stack_a))
+		sort_five(stack_a, stack_b);
 }
 
 void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
@@ -494,10 +509,8 @@ void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
         // Stop if stack A is left with 2 nodes
         if (count_nodes(*stack_a) == 2)
         {
-            if (check_sorted(*stack_a))
-            {
-                process_nodes_for_b(stack_a, stack_b);
-            }
+            printf("Stopping as Stack A has only 2 nodes left\n");
+            break;
         }
 
         // Copy the current stack A
@@ -519,8 +532,14 @@ void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
 
         printf("New Median value: %d\n", median.value);
 
-        // Process nodes based on the new median value
-        process_nodes(stack_a, stack_b, median.value);
+        if (count_nodes(*stack_a) == 2) //If not, and there are two numbers, swap the first two nodes
+			sa(stack_a);
+		else if (count_nodes(*stack_a) == 3) //If not, and there are three numbers, call the sort three algorithm
+			sort_three(stack_a);
+		else if (count_nodes(*stack_a) == 4 || count_nodes(*stack_a) == 5)
+			sort_five(stack_a, stack_b);
+        else
+            process_nodes(stack_a, stack_b, median.value);
 
         // Print the final state of both stacks after each iteration
         print_list_with_label(*stack_a, "Stack A after processing new median");
@@ -530,6 +549,7 @@ void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
         free_list(temp_stack);
     }
 }
+
 
 int main(int argc, char **argv)
 {
