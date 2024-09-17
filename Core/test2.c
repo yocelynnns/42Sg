@@ -273,6 +273,29 @@ void rb(t_node **stack_b)
     printf("rb\n");
 }
 
+void	rra(t_node **stack_a)
+{
+	t_node	*prev;
+	t_node	*curr;
+
+	prev = NULL;
+	curr = *stack_a;
+	if (*stack_a == NULL || (*stack_a)->next == NULL)
+		return ;
+	while (curr->next != NULL)
+	{
+		prev = curr;
+		curr = curr->next;
+	}
+	if (prev != NULL)
+	{
+		prev->next = NULL;
+		curr->next = *stack_a;
+		*stack_a = curr;
+		printf("rra\n");
+	}
+}
+
 void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
 {
     int total_nodes = count_nodes(*stack_a); // Count total nodes in stack_a
@@ -291,7 +314,10 @@ void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
             // Check if all remaining nodes in stack A are greater than or equal to the median
             t_node *temp = *stack_a;
             int has_smaller = 0;
+            t_node *last_node = *stack_a;
 
+            while (last_node && last_node->next != NULL)
+                last_node = last_node->next;
             // Look ahead to see if there are still nodes smaller than the median
             while (temp)
             {
@@ -306,7 +332,10 @@ void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
             if (!has_smaller)
                 break; // Stop rotating if all remaining nodes are >= median_value
 
-            ra(stack_a); // Rotate current node to the end
+            if (last_node->data < median_value)
+                rra(stack_a); // Rotate current node to the end
+            else
+                ra(stack_a);
         }
 
         nodes_processed++;
