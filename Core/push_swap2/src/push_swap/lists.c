@@ -6,13 +6,12 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:19:35 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:01:33 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/22 20:14:23 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Function to create a new node
 t_node	*create_node(int value)
 { 
 	t_node	*new_node;
@@ -25,21 +24,19 @@ t_node	*create_node(int value)
 	return (new_node);
 }
 
-// Function to add a node to the back of the list
-void	add_back(t_node **stack, t_node *new_node)
+void	add_back(t_node **node, t_node *new)
 {
 	t_node	*temp;
 
-	if (!*stack)
+	if (*node == NULL)
 	{
-		*stack = new_node;
+		*node = new;
 		return ;
 	}
-	temp = *stack;
+	temp = *node;
 	while (temp->next)
 		temp = temp->next;
-	temp->next = new_node;
-	new_node->prev = temp;
+	temp->next = new;
 }
 
 int	stack_size(t_node *stack) 
@@ -57,30 +54,3 @@ int	stack_size(t_node *stack)
 	return (count);
 }
 
-t_node *copy_list(t_node *src)
-{
-    t_node *new_list;
-    t_node *current;
-    t_node *new_node;
-
-	new_list = NULL;
-	current = src;
-    while (current)
-    {
-        new_node = create_node(current->data);
-        if (!new_node)
-            return NULL;
-        add_back(&new_list, new_node);
-        current = current->next;
-    }
-    return (new_list);
-}
-
-t_node	*find_last_node(t_node *stack)
-{
-	if (!stack)
-		return (NULL);
-	while (stack->next != NULL)
-		stack = stack->next;
-	return (stack);
-}

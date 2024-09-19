@@ -6,13 +6,12 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 20:16:36 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:21:56 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:22:52 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-// Utility function to convert string to long
 static long	ft_atol(const char *str)
 {
 	long res;
@@ -37,72 +36,42 @@ static long	ft_atol(const char *str)
 	return (res * sign);
 }
 
-int find_min(t_node *stack) 
+t_node	*find_smallest(t_node *stack) 
 {
-    int index;
-    int min_index;
-    long smallest;
-    t_node *current;
-
-	index = 0;
-	min_index = 0;
-	smallest = LONG_MAX;
-	current = stack;
-    while (current)
-    {
-        if (current->data < smallest)
-        {
-            smallest = current->data;
-            min_index = index;
-        }
-        index++;
-        current = current->next;
-    }
-    return (min_index); // Return the index of the smallest element
-}
-
-t_node	*find_max(t_node *stack) 
-{
-	long			biggest; 
-	t_node	*max_index;
+	long			smallest; //smallest value
+	t_node	*smallest_n; //pointer to smallest number
 
 	if (!stack)
 		return (NULL);
-	biggest = LONG_MIN; 
-	while (stack) 
+	smallest = LONG_MAX;
+	while (stack)
 	{
-		if (stack->data > biggest) 
+		if (stack->data < smallest) 
 		{
-			biggest = stack->data; 
-			max_index = stack; 
+			smallest = stack->data; 
+			smallest_n = stack; 
 		}
 		stack = stack->next;
 	}
-	return (max_index);
+	return (smallest_n); 
 }
 
-t_median find_median(t_node *sorted_list)
+t_node	*find_largest(t_node *stack) 
 {
-	int node_count;
-    t_node *current;
-    t_median median;
-	int mid_position;
-	int i;
-	
-	node_count = stack_size(sorted_list);
-	current = sorted_list;
-    if (node_count == 0)
-    {
-        median.value = 0;
-        return (median);
-    }
-    mid_position = node_count / 5;
-    i = 0;
-    while (i < mid_position)
-    {
-        current = current->next;
-        i++;
-    }
-    median.value = current->data;
-    return (median);
+	long			largest; //largest value
+	t_node	*largest_n; //pointer to largest number
+
+	if (!stack)
+		return (NULL);
+	largest = LONG_MIN; 
+	while (stack) 
+	{
+		if (stack->data > largest) 
+		{
+			largest = stack->data; 
+			largest_n = stack; 
+		}
+		stack = stack->next;
+	}
+	return (largest_n);
 }

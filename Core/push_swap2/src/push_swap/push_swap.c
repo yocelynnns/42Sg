@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 21:14:22 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:01:35 by ysetiawa         ###   ########.fr       */
+/*   Created: 2024/08/16 16:53:33 by ysetiawa          #+#    #+#             */
+/*   Updated: 2024/08/22 20:10:11 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,16 @@ int	main(int argc, char **argv)
 		return (1);
 	else if (argc == 2) 
 		argv = ft_split(argv[1], ' ');
-	init_stack_a(&stack_a, argv + 1);
+	initial_a(&stack_a, argv + 1); //Initiate stack `a`, which also handles errors
 	if (!check_sorted(stack_a)) 
 	{
 		if (stack_size(stack_a) == 2) //If not, and there are two numbers, swap the first two nodes
-			sa(stack_a);
+			sa(&stack_a);
 		else if (stack_size(stack_a) == 3) //If not, and there are three numbers, call the sort three algorithm
-			sort_three(stack_a);
-		else if (stack_size(stack_a) == 4 || stack_size(stack_a) == 5)
-			sort_five(stack_a, stack_b);
+			sort_three(&stack_a);
 		else
-			sort_stacks(stack_a, stack_b); //If not, and there are more than three numbers, call the sort stacks algorithm
+			sort_stacks(&stack_a, &stack_b); //If not, and there are more than three numbers, call the sort stacks algorithm
 	}
-	free_stack(&stack_a); 
+	free_stack(&stack_a); //Clean up the stack
 	return (0);
 }

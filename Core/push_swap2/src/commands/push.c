@@ -6,44 +6,32 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:36:08 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:01:18 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:43:05 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void pa(t_node **stack_a, t_node **stack_b)
+void	pa(t_node **stack_a, t_node **stack_b)
 {
-    t_node *first_b;
-    if (!stack_b || !*stack_b)
-    {
-        printf("Error: Stack B is empty\n");
-        return;
-    }
-    if (!stack_a || !*stack_a)
-    {
-        printf("Error: Stack A is empty\n");
-        return;
-    }
-    first_b = *stack_b;
-    *stack_b = (*stack_b)->next;
-    first_b->next = *stack_a;
-    *stack_a = first_b;
-    printf("pa\n");
+	t_node	*top_b;
+
+	top_b = *stack_b;
+	if (*stack_b == NULL)
+		return ;
+	*stack_b = top_b->next;
+	top_b->next = *stack_a;
+	*stack_a = top_b;
 }
 
-void pb(t_node **stack_a, t_node **stack_b)
+void	pb(t_node **stack_a, t_node **stack_b)
 {
-    t_node *top_a;
-    if (*stack_a == NULL)
-        return;
-    top_a = *stack_a;
-    *stack_a = top_a->next;
-    if (*stack_a)
-        (*stack_a)->prev = NULL;
-    top_a->next = *stack_b;
-    if (*stack_b)
-        (*stack_b)->prev = top_a;
-    *stack_b = top_a;
-    printf("pb\n");
+	t_node	*top_a;
+
+	top_a = *stack_a;
+	if (*stack_a == NULL)
+		return ;
+	*stack_a = top_a->next;
+	top_a->next = *stack_b;
+	*stack_b = top_a;
 }

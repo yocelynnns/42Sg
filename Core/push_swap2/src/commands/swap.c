@@ -6,44 +6,44 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:22:42 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:01:28 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:45:23 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/push_swap.h"
+#include "push_swap.h"
 
-void sa(t_node **stack_a)
+void	sa(t_node **stack_a)
 {
-	t_node *first;
-	t_node *second;
-	
-    if (!stack_a || !*stack_a || !(*stack_a)->next)
-    {
-        printf("Error: Stack A is empty or has only one node\n");
-        return;
-    }
-    first = *stack_a;
-    second = (*stack_a)->next;
-    *stack_a = second;
-    first->next = second->next;
-    second->next = first;
-    printf("sa\n");
-}
-
-void	sb(t_node **stack_b)
-{
-	if (*stack_b && (*stack_b)->next)
+	if (*stack_a && (*stack_a)->next)
 	{
 		t_node	*first;
+		t_node	*second;
+
+		first = *stack_a;
+		second = first->next;
+		if (*stack_a == NULL || (*stack_a)->next == NULL)
+		return ;
+        first->next = second->next;
+        second->next = first;
+        *stack_a = second;
+		printf("sa\n");
+    }
+}
+
+void sb(t_node **stack_b)
+{
+    if (*stack_b && (*stack_b)->next)
+	{
+        t_node	*first;
 		t_node	*second;
 
 		first = *stack_b;
 		second = first->next;
 		if (*stack_b == NULL || (*stack_b)->next == NULL)
-		    return;
-        first->next = second->next;
-        second->next = first;
-        *stack_b = second;
+			return ;
+		first->next = second->next;
+		second->next = first;
+		*stack_b = second;
 		printf("sb\n");
     }
 }

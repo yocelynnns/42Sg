@@ -15,6 +15,95 @@ typedef struct s_median
     int index;
 } t_median;
 
+static int	wordlen(const char *s, char c)
+{
+	int	i;
+	int	wlen;
+
+	i = 0;
+	wlen = 0;
+	while (s[i] && s[i] != c)
+	{
+		wlen++;
+		i++;
+	}
+	return (wlen);
+}
+
+static char	*writeword(char const *s, int len)
+{
+	char	*word;
+	int		i;
+
+	word = (char *)malloc((len + 1) * sizeof(char));
+	if (!word)
+		return (0);
+	i = 0;
+	while (i < len)
+	{
+		word[i] = s[i];
+		i++;
+	}
+	word[len] = '\0';
+	return (word);
+}
+
+static char	**free_array(char **ptr, int i)
+{
+	while (i > 0)
+	{
+		i--;
+		free(ptr[i]);
+	}
+	free(ptr);
+	return (0);
+}
+
+static char	**split_words(const char *s, char c, int word_count)
+{
+	char	**result;
+	int		i;
+	int		j;
+
+	result = (char **)malloc((word_count + 1) * sizeof(char *));
+	if (!result)
+		return (0);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		while (s[i] == c)
+			i++;
+		if (s[i])
+		{
+			result[j] = writeword(s + i, wordlen(s + i, c));
+			if (!result[j])
+				return (free_array(result, j));
+			i += wordlen(s + i, c);
+			j++;
+		}
+	}
+	result[j] = NULL;
+	return (result);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	int	word_count;
+	int	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	word_count = 0;
+	while (s[i])
+	{
+		if (!(s[i] == c) && ((s[i + 1] == c) || !(s[i + 1])))
+			word_count++;
+		i++;
+	}
+	return (split_words(s, c, word_count));
+}
 
 // Function to create a new node
 t_node *create_node(int value)
@@ -221,13 +310,13 @@ void pa(t_node **stack_a, t_node **stack_b)
 {
     if (!stack_b || !*stack_b)
     {
-        printf("Error: Stack B is empty\n");
+        // printf("Error: Stack B is empty\n");
         return;
     }
 
     if (!stack_a || !*stack_a)
     {
-        printf("Error: Stack A is empty\n");
+        // printf("Error: Stack A is empty\n");
         return;
     }
 
@@ -517,32 +606,33 @@ t_node	*find_max(t_node *stack)
 	return (largest_n);
 }
 
-t_node	*find_min(t_node *stack) 
+int find_min_index(t_node *stack) 
 {
-	long			smallest; //smallest value
-	t_node	*smallest_n; //pointer to smallest number
+    int index = 0;
+    int min_index = 0;
+    long smallest = LONG_MAX;
+    t_node *current = stack;
 
-	if (!stack)
-		return (NULL);
-	smallest = LONG_MAX;
-	while (stack)
-	{
-		if (stack->data < smallest) 
-		{
-			smallest = stack->data; 
-			smallest_n = stack; 
-		}
-		stack = stack->next;
-	}
-	return (smallest_n); 
+    while (current)
+    {
+        if (current->data < smallest)
+        {
+            smallest = current->data;
+            min_index = index;
+        }
+        index++;
+        current = current->next;
+    }
+    return min_index; // Return the index of the smallest element
 }
+
 
 void	sort_three(t_node **stack_a) 
 {
 	t_node	*biggest; 
 
 	biggest = find_max(*stack_a);
-	if (*stack_a == biggest)
+	if (biggest == *stack_a)
 		ra(stack_a); //If the 1st node is the biggest rotate to bottom
 	else if ((*stack_a)->next == biggest) 
 		rra(stack_a); //If the 2nd node is the biggest rerotate bottom to top
@@ -552,44 +642,32 @@ void	sort_three(t_node **stack_a)
 
 void sort_five(t_node **stack_a, t_node **stack_b)
 {
-    if (stack_size(*stack_a) == 4)
-        pb(stack_a, stack_b);  // Push one node to stack B
-    else
+    // Step 1: Push the two smallest elements to stack_b
+    int min_index;
+
+    while (count_nodes(*stack_a) > 3) // Loop until only 3 elements are left in stack_a
     {
-        pb(stack_a, stack_b);  // Push two nodes to stack B
-        pb(stack_a, stack_b);
-    }
-
-    sort_three(stack_a);  // Sort the remaining 3 nodes in stack A
-
-    // Ensure the two nodes in stack B are sorted before pushing back to stack A
-    if (stack_size(*stack_b) == 2 && (*stack_b)->data < (*stack_b)->next->data)
-        sb(stack_b);  // Swap in stack B
-
-    // Push back from stack B to stack A
-    pa(stack_a, stack_b);
-
-    // Check if the node just pushed needs to be rotated to its correct position
-    if ((*stack_a)->data > find_last_node(*stack_a)->data)
-        ra(stack_a);
-
-    pa(stack_a, stack_b);
-
-    // Final check if sorting is needed after all pushes
-    if ((*stack_a)->data > (*stack_a)->next->data)
-        sa(stack_a);
-
-    // Ensure stack A is fully sorted
-    while (!stack_sorted(*stack_a))
-    {
-        // If stack A is not sorted, rotate or swap as needed
-        if ((*stack_a)->data > (*stack_a)->next->data)
-            sa(stack_a);
+        min_index = find_min_index(*stack_a); // Find index of the smallest element
+        
+        if (min_index == 0)
+            pb(stack_a, stack_b); // Push the smallest element to stack_b
+        else if (min_index <= count_nodes(*stack_a) / 2)
+            ra(stack_a); // Rotate until the smallest is at the top
         else
-            ra(stack_a);
+            rra(stack_a); // Reverse rotate until the smallest is at the top
     }
-}
 
+    // Step 2: Sort the remaining three elements in stack_a
+    sort_three(stack_a); // Sort the three elements left in stack_a (using your sort_three function)
+
+    // Step 3: Push back the two smallest elements from stack_b to stack_a
+    pa(stack_a, stack_b); // Push the smaller element back
+    pa(stack_a, stack_b); // Push the other element back
+
+    // Final step: If needed, sort stack_a again
+    if ((*stack_a)->data > (*stack_a)->next->data)
+        sa(stack_a); // Swap the first two elements if they are out of order
+}
 
 void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
 {
@@ -682,37 +760,45 @@ void find_and_push_biggest(t_node **stack_a, t_node **stack_b)
 
 int main(int argc, char **argv)
 {
-    (void)argc; // To suppress unused parameter warning
-    t_node *stack_a = NULL;
-    t_node *stack_b = NULL;
+   t_node	*stack_a;
+	t_node	*stack_b; 
 
-    if (argc < 2)
-    {
-        printf("Usage: %s <numbers>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
+	stack_a = NULL;
+	stack_b = NULL;
+	if (argc == 1 || (argc == 2 && !argv[1][0]))
+		return (1);
+	else if (argc == 2) 
+		argv = ft_split(argv[1], ' ');
 
     initial_a(&stack_a, &argv[1]);
 
     // printf("Initial Stack A: ");
     // print_list(stack_a);
 
-    if (stack_a)
-        process_nodes_with_new_median(&stack_a, &stack_b);
+    if (!stack_sorted(stack_a)) 
+	{
+		if (stack_size(stack_a) == 2) //If not, and there are two numbers, swap the first two nodes
+			sa(&stack_a);
+		else if (stack_size(stack_a) == 3) //If not, and there are three numbers, call the sort three algorithm
+			sort_three(&stack_a);
+		else if (stack_size(stack_a) == 4 || stack_size(stack_a) == 5)
+			sort_five(&stack_a, &stack_b);
+		else
+			process_nodes_with_new_median(&stack_a, &stack_b);
+	}
+    // printf("Final Stack A: ");
+    // print_list(stack_a);
 
-    printf("Final Stack A: ");
-    print_list(stack_a);
-
-    printf("Final Stack B: ");
-    print_list(stack_b);
+    // printf("Final Stack B: ");
+    // print_list(stack_b);
 
     find_and_push_biggest(&stack_a, &stack_b);
 
     printf("Final Stack A: ");
     print_list(stack_a);
 
-    printf("Final Stack B: ");
-    print_list(stack_b);
+    // printf("Final Stack B: ");
+    // print_list(stack_b);
 
     // Free remaining nodes
     free_list(stack_a);
