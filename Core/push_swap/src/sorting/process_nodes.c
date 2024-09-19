@@ -6,11 +6,11 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:53:35 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:22:08 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:32:17 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/push_swap.h"
+#include "push_swap.h"
 
 void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
 {
@@ -34,7 +34,7 @@ void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
         median = find_median(temp_stack);
         process_nodes(stack_a, stack_b, median.value);
         if (temp_stack)
-            free_list(temp_stack);
+            free_stack(&temp_stack);
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:36:08 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:01:18 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:20:24 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,9 @@ void pa(t_node **stack_a, t_node **stack_b)
 {
     t_node *first_b;
     if (!stack_b || !*stack_b)
-    {
-        printf("Error: Stack B is empty\n");
         return;
-    }
     if (!stack_a || !*stack_a)
-    {
-        printf("Error: Stack A is empty\n");
         return;
-    }
     first_b = *stack_b;
     *stack_b = (*stack_b)->next;
     first_b->next = *stack_a;

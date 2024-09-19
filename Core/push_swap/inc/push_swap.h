@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:28:16 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:32:00 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/19 20:58:40 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,16 @@ t_node	*find_last_node(t_node *stack);
 void	init_stack_a(t_node **stack_a, char **argv);
 
 // utils
-static long	ft_atol(const char *str);
+long	ft_atol(const char *str);
 int find_min(t_node *stack);
 t_node	*find_max(t_node *stack);
 t_median find_median(t_node *sorted_list);
-static int	wordlen(const char *s, char c);
-static char	*writeword(char const *s, int len);
-static char	**free_array(char **ptr, int i);
-static char	**split_words(const char *s, char c, int word_count);
+int	wordlen(const char *s, char c);
+char	*writeword(char const *s, int len);
+char	**free_array(char **ptr, int i);
+char	**split_words(const char *s, char c, int word_count);
 char	**ft_split(char const *s, char c);
+int	ft_isdigit(int c);
 
 // processing
 void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b);

@@ -6,11 +6,11 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:12:55 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:20:08 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:32:26 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/push_swap.h"
+#include "push_swap.h"
 
 int	check_sorted(t_node *stack)
 {

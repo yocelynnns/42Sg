@@ -6,22 +6,22 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 20:16:36 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:21:56 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:32:33 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/push_swap.h"
+#include "push_swap.h"
 
 // Utility function to convert string to long
-static long	ft_atol(const char *str)
+long	ft_atol(const char *str)
 {
 	long res;
     int sign;
 
 	res = 0;
 	sign = 1;
-	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\f' || \ 
-            *str == '\v' || *str == '\r')
+	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\f' 
+            || *str == '\v' || *str == '\r')
 		str++;
 	if (*str == '+' || *str == '-')
 	{

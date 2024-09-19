@@ -6,13 +6,13 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 20:30:30 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:31:25 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:32:57 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/push_swap.h"
+#include "push_swap.h"
 
-static int	wordlen(const char *s, char c)
+int	wordlen(const char *s, char c)
 {
 	int	i;
 	int	wlen;
@@ -27,7 +27,7 @@ static int	wordlen(const char *s, char c)
 	return (wlen);
 }
 
-static char	*writeword(char const *s, int len)
+char	*writeword(char const *s, int len)
 {
 	char	*word;
 	int		i;
@@ -45,7 +45,7 @@ static char	*writeword(char const *s, int len)
 	return (word);
 }
 
-static char	**free_array(char **ptr, int i)
+char	**free_array(char **ptr, int i)
 {
 	while (i > 0)
 	{
@@ -56,7 +56,7 @@ static char	**free_array(char **ptr, int i)
 	return (0);
 }
 
-static char	**split_words(const char *s, char c, int word_count)
+char	**split_words(const char *s, char c, int word_count)
 {
 	char	**result;
 	int		i;

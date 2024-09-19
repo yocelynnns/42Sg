@@ -6,11 +6,11 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:30:21 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:01:30 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/19 21:32:54 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/push_swap.h"
+#include "push_swap.h"
 
 // Simple argument validation function
 int error_syntax(char *arg)
@@ -67,6 +67,6 @@ void	free_stack(t_node **stack)
 void	free_n_error(t_node **stack_a) //error msg & freestack
 {
 	free_stack(stack_a);
-	ft_printf("Error\n");
+	printf("Error\n");
 	exit(1);
 }
