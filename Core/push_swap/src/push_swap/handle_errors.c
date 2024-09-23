@@ -6,42 +6,38 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:30:21 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 21:32:54 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:55:25 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Simple argument validation function
-int error_syntax(char *arg)
+int	error_syntax(char *arg)
 {
-	int i;
+	int	i;
 
-    if (!(arg[0] == '+' || arg[0] == '-' || (arg[0] >= '0' && arg[0] <= '9')))
-        return (1); // Check if the first character isn't a sign or a digit
-
-    if ((arg[0] == '+' || arg[0] == '-') && !(arg[1] >= '0' && arg[1] <= '9'))
-        return (1); // Check if the first character is a sign, but the second character isn't a digit
-
-    i = 1;
-    while (arg[i])
-    {
-        if (arg[i] < '0' || arg[i] > '9')
-            return (1); // Check if any subsequent character isn't a digit
-        i++;
-    }
-    return (0);
+	if (!(arg[0] == '+' || arg[0] == '-' || (arg[0] >= '0' && arg[0] <= '9')))
+		return (1);
+	if ((arg[0] == '+' || arg[0] == '-') && !(arg[1] >= '0' && arg[1] <= '9'))
+		return (1);
+	i = 1;
+	while (arg[i])
+	{
+		if (arg[i] < '0' || arg[i] > '9')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-// Function to check for duplicate values
-int	check_dup(t_node *stack, int value) 
+int	check_dup(t_node *stack, int value)
 {
-	while (stack) 
+	while (stack)
 	{
-		if (stack->data == value) 
-			return (1); //Check if the current node value = value u want to add
-		stack = stack->next; 
-    }
+		if (stack->data == value)
+			return (1);
+		stack = stack->next;
+	}
 	return (0);
 }
 
@@ -63,8 +59,7 @@ void	free_stack(t_node **stack)
 	*stack = NULL;
 }
 
-// Error handling function
-void	free_n_error(t_node **stack_a) //error msg & freestack
+void	free_n_error(t_node **stack_a)
 {
 	free_stack(stack_a);
 	printf("Error\n");

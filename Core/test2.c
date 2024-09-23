@@ -134,7 +134,6 @@ void add_back(t_node **stack, t_node *new_node)
     new_node->prev = temp;
 }
 
-// Error handling function
 void free_n_error(t_node **stack)
 {
     (void)stack; // Mark stack as unused to avoid warning

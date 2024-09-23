@@ -6,7 +6,7 @@
 #    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/19 20:25:44 by ysetiawa          #+#    #+#              #
-#    Updated: 2024/09/19 21:22:16 by ysetiawa         ###   ########.fr        #
+#    Updated: 2024/09/23 16:59:47 by ysetiawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ OBJS            = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 20:30:30 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 21:32:57 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:08:48 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ char	**ft_split(char const *s, char c)
 	word_count = 0;
 	while (s[i])
 	{
-		if (!(s[i] == c) && ((s[i + 1] == c) || !(s[i + 1])))
-			word_count++;
-		i++;
-	}
+    if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+        word_count++;
+    i++;
+}
 	return (split_words(s, c, word_count));
 }

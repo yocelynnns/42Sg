@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:26:41 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/19 20:01:24 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:53:23 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ra(t_node **stack_a)
 	first = *stack_a;
 	last = first;
 	if (*stack_a == NULL || (*stack_a)->next == NULL)
-		return;
+		return ;
 	while (last->next != NULL)
 		last = last->next;
 	*stack_a = first->next;
