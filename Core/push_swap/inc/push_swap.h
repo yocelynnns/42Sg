@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:28:16 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/23 13:50:05 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:59:29 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ void		sort_stacks(t_node **stack_a, t_node **stack_b);
 int			check_sorted(t_node *stack);
 void		sort_three(t_node **stack_a);
 void		sort_five(t_node **stack_a, t_node **stack_b);
+void find_and_push_biggest_with_cost_analysis(t_node **stack_a, t_node **stack_b);
+
 
 #endif

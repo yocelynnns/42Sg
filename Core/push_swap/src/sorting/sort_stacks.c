@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:13:31 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/23 14:01:34 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:09:02 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ t_node	*sort_list(t_node *stack_a)
 void	sort_stacks(t_node **stack_a, t_node **stack_b)
 {
 	process_nodes_with_new_median(stack_a, stack_b);
-	find_and_push_biggest(stack_a, stack_b);
+	find_and_push_biggest_with_cost_analysis(stack_a, stack_b);
 }

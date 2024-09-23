@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:14:22 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/23 17:18:56 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:03:41 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int main(int argc, char **argv)
     else
         argv++;
     init_stack_a(&stack_a, argv);
-	// printf("Initial Stack A: ");
-    // print_list(stack_a);
+	printf("Initial Stack A: ");
+    print_list(stack_a);
     if (!check_sorted(stack_a))
 	{
         if (stack_size(stack_a) == 2)
@@ -57,8 +57,8 @@ int main(int argc, char **argv)
         else
             sort_stacks(&stack_a, &stack_b);
 	}
-	// printf("Final Stack A: ");
-    // print_list(stack_a);
+	printf("Final Stack A: ");
+    print_list(stack_a);
     free_stack(&stack_a);
     return (0);
 }

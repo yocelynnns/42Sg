@@ -1,309 +1,226 @@
-# include <stdio.h>
-# include <stdbool.h>
-# include <stdlib.h>
-# include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
 
-// Define your t_node structure and function prototypes
 typedef struct s_node {
     int data;
     struct s_node *next;
 } t_node;
 
-// Function prototypes for the helper functions you are using
-// void pb(t_node **stack_a, t_node **stack_b);
-// void pa(t_node **stack_a, t_node **stack_b);
-// void sa(t_node **stack_a);
-// void ra(t_node **stack_a);
-// t_node *find_min(t_node *stack_a);
-// t_node *find_last_node(t_node *stack);
-// int stack_size(t_node *stack);
-// int check_sorted(t_node *stack_a);
-// void sort_three(t_node **stack_a);
-// void sort_five(t_node **stack_a, t_node **stack_b);
+typedef struct s_median {
+    int value;
+} t_median;
 
-void	pa(t_node **stack_a, t_node **stack_b)
-{
-	t_node	*top_b;
-
-	top_b = *stack_b;
-	if (*stack_b == NULL)
-		return ;
-	*stack_b = top_b->next;
-	top_b->next = *stack_a;
-	*stack_a = top_b;
-}
-
-void	pb(t_node **stack_a, t_node **stack_b)
-{
-	t_node	*top_a;
-
-	top_a = *stack_a;
-	if (*stack_a == NULL)
-		return ;
-	*stack_a = top_a->next;
-	top_a->next = *stack_b;
-	*stack_b = top_a;
-}
-
-void	ra(t_node **stack_a)
-{
-	t_node	*first;
-	t_node	*last;
-
-	first = *stack_a;
-	last = first;
-	if (*stack_a == NULL || (*stack_a)->next == NULL)
-		return ;
-	while (last->next != NULL)
-		last = last->next;
-	*stack_a = first->next;
-	first->next = NULL;
-	last->next = first;
-	printf("ra\n");
-}
-
-void	sa(t_node **stack_a)
-{
-	if (*stack_a && (*stack_a)->next)
-	{
-		t_node	*first;
-		t_node	*second;
-
-		first = *stack_a;
-		second = first->next;
-		if (*stack_a == NULL || (*stack_a)->next == NULL)
-		return ;
-        first->next = second->next;
-        second->next = first;
-        *stack_a = second;
-		printf("sa\n");
-    }
-}
-
-void sb(t_node **stack_b)
-{
-    if (*stack_b && (*stack_b)->next)
-	{
-        t_node	*first;
-		t_node	*second;
-
-		first = *stack_b;
-		second = first->next;
-		if (*stack_b == NULL || (*stack_b)->next == NULL)
-			return ;
-		first->next = second->next;
-		second->next = first;
-		*stack_b = second;
-		printf("sb\n");
-    }
-}
-
-void	rra(t_node **stack_a)
-{
-	t_node	*prev;
-	t_node	*curr;
-
-	prev = NULL;
-	curr = *stack_a;
-	if (*stack_a == NULL || (*stack_a)->next == NULL)
-		return ;
-	while (curr->next != NULL)
-	{
-		prev = curr;
-		curr = curr->next;
-	}
-	if (prev != NULL)
-	{
-		prev->next = NULL;
-		curr->next = *stack_a;
-		*stack_a = curr;
-		printf("rra\n");
-	}
-}
-
-t_node	*find_max(t_node *stack) 
-{
-	long			largest; //largest value
-	t_node	*largest_n; //pointer to largest number
-
-	if (!stack)
-		return (NULL);
-	largest = LONG_MIN; 
-	while (stack) 
-	{
-		if (stack->data > largest) 
-		{
-			largest = stack->data; 
-			largest_n = stack; 
-		}
-		stack = stack->next;
-	}
-	return (largest_n);
-}
-
-t_node	*find_min(t_node *stack) 
-{
-	long			smallest; //smallest value
-	t_node	*smallest_n; //pointer to smallest number
-
-	if (!stack)
-		return (NULL);
-	smallest = LONG_MAX;
-	while (stack)
-	{
-		if (stack->data < smallest) 
-		{
-			smallest = stack->data; 
-			smallest_n = stack; 
-		}
-		stack = stack->next;
-	}
-	return (smallest_n); 
-}
-
-t_node	*find_last_node(t_node *stack)
-{
-	if (!stack)
-		return (NULL);
-	while (stack->next != NULL)
-		stack = stack->next;
-	return (stack);
-}
-
-int	stack_size(t_node *stack) 
-{
-	int	count;
-
-	if (!stack) 
-		return (0);
-	count = 0;
-	while (stack) 
-	{
-		stack = stack->next; 
-		count++;
-	}
-	return (count);
-}
-
-int	check_sorted(t_node *stack)
-{
-	if (!stack)
-		return (1);
-	while (stack->next)
-	{
-		if (stack->data > stack->next->data) 
-			return (0); //Check if curr node value > next node
-		stack = stack->next; 
-	}
-	return (1);
-}
-
-// Helper function to create a new node
-t_node *create_node(int data) {
-    t_node *new_node = malloc(sizeof(t_node));
-    new_node->data = data;
-    new_node->next = NULL;
-    return new_node;
-}
-
-// Helper function to add node at the back of the list
-void add_back(t_node **stack, int data) {
-    t_node *new_node = create_node(data);
-    if (!*stack) {
-        *stack = new_node;
-    } else {
-        t_node *temp = *stack;
-        while (temp->next) {
-            temp = temp->next;
-        }
-        temp->next = new_node;
-    }
-}
-
-// Helper function to print the stack
-void print_stack(t_node *stack) {
+// Helper functions for stack management
+int stack_size(t_node *stack) {
+    int size = 0;
     while (stack) {
-        printf("%d ", stack->data);
+        size++;
         stack = stack->next;
     }
-    printf("\n");
+    return size;
 }
 
-void	sort_three(t_node **stack_a) 
-{
-	t_node	*biggest; 
+t_node *find_last_node(t_node *stack) {
+    while (stack && stack->next) {
+        stack = stack->next;
+    }
+    return stack;
+}
 
-	biggest = find_max(*stack_a);
-	if (*stack_a == biggest)
-		ra(stack_a); //If the 1st node is the biggest rotate to bottom
-	else if ((*stack_a)->next == biggest) 
-		rra(stack_a); //If the 2nd node is the biggest rerotate bottom to top
-	if ((*stack_a)->data > (*stack_a)->next->data) 
-		sa(stack_a); //If the bottom node is the biggest, but the top node is higher than the second node, swap 
+t_node *find_max(t_node *stack) {
+    long biggest = LONG_MIN;
+    t_node *max_node = NULL;
+
+    while (stack) {
+        if (stack->data > biggest) {
+            biggest = stack->data;
+            max_node = stack;
+        }
+        stack = stack->next;
+    }
+    return max_node;
+}
+
+t_median find_median(t_node *sorted_list) {
+    int node_count = stack_size(sorted_list);
+    int mid_position = node_count / 2; // Use a simple midpoint for median
+    t_node *current = sorted_list;
+
+    for (int i = 0; i < mid_position; i++) {
+        current = current->next;
+    }
+
+    t_median median;
+    median.value = current->data;
+    return median;
+}
+
+t_node *copy_list(t_node *stack) {
+    t_node *new_list = NULL;
+    t_node *new_node;
+    t_node *temp;
+
+    while (stack) {
+        new_node = malloc(sizeof(t_node));
+        if (!new_node)
+            return NULL;
+        new_node->data = stack->data;
+        new_node->next = NULL;
+
+        if (!new_list) {
+            new_list = new_node;
+            temp = new_list;
+        } else {
+            temp->next = new_node;
+            temp = temp->next;
+        }
+        stack = stack->next;
+    }
+    return new_list;
+}
+
+void free_stack(t_node **stack) {
+    t_node *temp;
+
+    while (*stack) {
+        temp = *stack;
+        *stack = (*stack)->next;
+        free(temp);
+    }
+}
+
+// Rotate cost calculation
+int get_rotate_cost(t_node *stack, t_node *target) {
+    int index = 0;
+    t_node *current = stack;
+    
+    while (current != target) {
+        current = current->next;
+        index++;
+    }
+
+    int rotate_cost = index; // Forward rotation cost
+    int reverse_rotate_cost = stack_size(stack) - index; // Backward rotation cost
+    return (rotate_cost <= reverse_rotate_cost) ? rotate_cost : reverse_rotate_cost;
+}
+
+void rotate_stack_to_target(t_node **stack, t_node *target) {
+    int forward_cost = get_rotate_cost(*stack, target);
+    int reverse_cost = stack_size(*stack) - forward_cost;
+
+    if (forward_cost <= reverse_cost) {
+        for (int i = 0; i < forward_cost; i++) {
+            ra(stack); // Rotate forward
+        }
+    } else {
+        for (int i = 0; i < reverse_cost; i++) {
+            rra(stack); // Rotate backward
+        }
+    }
+}
+
+// Push swap operations
+void pb(t_node **stack_a, t_node **stack_b) {
+    // Push top of A to B
+}
+
+void pa(t_node **stack_a, t_node **stack_b) {
+    // Push top of B to A
+}
+
+void ra(t_node **stack_a) {
+    // Rotate stack A forward
+}
+
+void rra(t_node **stack_a) {
+    // Reverse rotate stack A
+}
+
+void rb(t_node **stack_b) {
+    // Rotate stack B forward
+}
+
+void rrb(t_node **stack_b) {
+    // Reverse rotate stack B
+}
+
+// Main sorting algorithm
+void process_nodes(t_node **stack_a, t_node **stack_b, int median_value) {
+    int total_nodes = stack_size(*stack_a);
+    int nodes_processed = 0;
+
+    while (nodes_processed < total_nodes) {
+        if ((*stack_a)->data < median_value) {
+            pb(stack_a, stack_b); // Push to stack B
+        } else {
+            t_node *last_node = find_last_node(*stack_a);
+            rotate_stack_to_target(stack_a, last_node); // Use rotation cost optimization
+        }
+        nodes_processed++;
+    }
+}
+
+void find_and_push_biggest(t_node **stack_a, t_node **stack_b) {
+    while (*stack_b) {
+        t_node *biggest = find_max(*stack_b);
+        rotate_stack_to_target(stack_b, biggest); // Rotate stack B to bring biggest to top
+        pa(stack_a, stack_b); // Push biggest from B to A
+    }
 }
 
 void sort_five(t_node **stack_a, t_node **stack_b)
 {
-    if (stack_size(*stack_a) == 4)
-        pb(stack_a, stack_b);  // Push one node to stack B
-    else
+    // Step 1: Push the two smallest elements to stack_b
+    int min_index;
+
+    while (count_nodes(*stack_a) > 3) // Loop until only 3 elements are left in stack_a
     {
-        pb(stack_a, stack_b);  // Push two nodes to stack B
-        pb(stack_a, stack_b);
-    }
-
-    sort_three(stack_a);  // Sort the remaining 3 nodes in stack A
-
-    // Ensure the two nodes in stack B are sorted before pushing back to stack A
-    if (stack_size(*stack_b) == 2 && (*stack_b)->data < (*stack_b)->next->data)
-        sb(stack_b);  // Swap in stack B
-
-    // Push back from stack B to stack A
-    pa(stack_a, stack_b);
-
-    // Check if the node just pushed needs to be rotated to its correct position
-    if ((*stack_a)->data > find_last_node(*stack_a)->data)
-        ra(stack_a);
-
-    pa(stack_a, stack_b);
-
-    // Final check if sorting is needed after all pushes
-    if ((*stack_a)->data > (*stack_a)->next->data)
-        sa(stack_a);
-
-    // Ensure stack A is fully sorted
-    while (!check_sorted(*stack_a))
-    {
-        // If stack A is not sorted, rotate or swap as needed
-        if ((*stack_a)->data > (*stack_a)->next->data)
-            sa(stack_a);
+        min_index = find_min_index(*stack_a); // Find index of the smallest element
+        
+        if (min_index == 0)
+            pb(stack_a, stack_b); // Push the smallest element to stack_b
+        else if (min_index <= count_nodes(*stack_a) / 2)
+            ra(stack_a); // Rotate until the smallest is at the top
         else
-            ra(stack_a);
+            rra(stack_a); // Reverse rotate until the smallest is at the top
     }
+
+    // Step 2: Sort the remaining three elements in stack_a
+    sort_three(stack_a); // Sort the three elements left in stack_a (using your sort_three function)
+
+    // Step 3: Push back the two smallest elements from stack_b to stack_a
+    pa(stack_a, stack_b); // Push the smaller element back
+    pa(stack_a, stack_b); // Push the other element back
+
+    // Final step: If needed, sort stack_a again
+    if ((*stack_a)->data > (*stack_a)->next->data)
+        sa(stack_a); // Swap the first two elements if they are out of order
 }
 
+void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b) {
+    t_node *temp_stack;
+    t_median median;
 
-int main(void) {
-    t_node *stack_a = NULL;
-    t_node *stack_b = NULL;
+    while (stack_size(*stack_a) > 5) {
+        temp_stack = copy_list(*stack_a);
+        if (!temp_stack) {
+            printf("Memory allocation failed\n");
+            return;
+        }
+        median = find_median(temp_stack);
+        process_nodes(stack_a, stack_b, median.value);
+        free_stack(&temp_stack);
+    }
+    // Sort the last 5 or fewer elements directly
+    sort_five(stack_a, stack_b);
+}
 
-    // Add elements to stack_a (modify these values to test with different inputs)
-    add_back(&stack_a, 97);
-    add_back(&stack_a, 100);
-    add_back(&stack_a, 96);
-    add_back(&stack_a, 99);
-    add_back(&stack_a, 98);
+void sort_stacks(t_node **stack_a, t_node **stack_b) {
+    process_nodes_with_new_median(stack_a, stack_b);
+    find_and_push_biggest(stack_a, stack_b);
+}
 
-    // Print the original stack_a
-    printf("Original stack A: ");
-    print_stack(stack_a);
-
-    // Call the sort_five function to sort stack_a
-    sort_five(&stack_a, &stack_b);
-
-    // Print the sorted stack_a
-    printf("Sorted stack A: ");
-    print_stack(stack_a);
-
-    return 0;
+void sort_five(t_node **stack_a, t_node **stack_b) {
+    // Implement the logic for sorting 5 or fewer elements in stack_a
 }
