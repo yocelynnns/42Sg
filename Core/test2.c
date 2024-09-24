@@ -15,6 +15,8 @@ typedef struct s_median
     int index;
 } t_median;
 
+t_node *last_node = NULL;
+
 static int	wordlen(const char *s, char c)
 {
 	int	i;
@@ -125,6 +127,7 @@ void add_back(t_node **stack, t_node *new_node)
     if (!*stack)
     {
         *stack = new_node;
+        last_node = new_node; // Update the last_node pointer
         return;
     }
     temp = *stack;
@@ -132,6 +135,7 @@ void add_back(t_node **stack, t_node *new_node)
         temp = temp->next;
     temp->next = new_node;
     new_node->prev = temp;
+    last_node = new_node; // Update the last_node pointer
 }
 
 void free_n_error(t_node **stack)
@@ -450,65 +454,6 @@ int	stack_size(t_node *stack)
 	return (count);
 }
 
-void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
-{
-    int total_nodes = count_nodes(*stack_a); // Count total nodes in stack_a
-    int nodes_processed = 0;
-
-    while (nodes_processed < total_nodes)
-    {
-        t_node *current = *stack_a;
-
-        if (current->data < median_value)
-        {
-            pb(stack_a, stack_b); // Move node to stack B
-        }
-        else
-        {
-            // Check if all remaining nodes in stack A are greater than or equal to the median
-            t_node *temp = *stack_a;
-            int has_smaller = 0;
-            t_node *last_node = *stack_a;
-
-            while (last_node && last_node->next != NULL)
-                last_node = last_node->next;
-            // Look ahead to see if there are still nodes smaller than the median
-            while (temp)
-            {
-                if (temp->data < median_value)
-                {
-                    has_smaller = 1;
-                    break;
-                }
-                temp = temp->next;
-            }
-
-            if (!has_smaller)
-                break; // Stop rotating if all remaining nodes are >= median_value
-
-            if (last_node->data < median_value)
-                rra(stack_a); // Rotate current node to the end
-            else
-                ra(stack_a);
-        }
-
-        nodes_processed++;
-    }
-}
-
-int	stack_sorted(t_node *stack)
-{
-	if (!stack)
-		return (1);
-	while (stack->next)
-	{
-		if (stack->data > stack->next->data) 
-			return (0); //Check if curr node value > next node
-		stack = stack->next; 
-	}
-	return (1);
-}
-
 // Function to print a list
 void print_list(t_node *stack)
 {
@@ -526,6 +471,82 @@ void print_list(t_node *stack)
         current = current->next;
     }
     printf("\n");
+}
+
+t_node *find_last_node(t_node *stack)
+{
+    if (!stack)
+        return NULL;
+    while (stack->next != NULL)
+        stack = stack->next;
+    return stack;
+}
+
+t_node *find_second_last_node(t_node *stack)
+{
+    if (!stack || !stack->next)
+        return NULL;
+    while (stack->next->next != NULL)
+        stack = stack->next;
+    return stack;
+}
+
+void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
+{
+    int total_nodes = count_nodes(*stack_a); // Count total nodes in stack_a
+    int nodes_processed = 0;
+
+    while (nodes_processed < total_nodes)
+    {
+        t_node *current = *stack_a;
+        t_node *last_node = find_last_node(*stack_a);
+        t_node *second_last_node = find_second_last_node(*stack_a);
+        if (current->data < median_value)
+        {
+            pb(stack_a, stack_b); // Move node to stack B
+            // printf("Initial Stack A: ");
+            // print_list(*stack_a);
+            // printf("\nInitial Stack B: ");
+            // print_list(*stack_b);
+        }
+        if (last_node->data < median_value)
+        {
+            rra(stack_a); // Rotate current node to the end
+            pb(stack_a, stack_b);
+            // printf("Initial Stack A: ");
+            // print_list(*stack_a);
+            // printf("\nInitial Stack B: ");
+            // print_list(*stack_b);
+        }
+        else if (second_last_node->data < median_value)
+        {
+            rra(stack_a); // Rotate twice to move the second last node to the top
+            rra(stack_a);
+            pb(stack_a, stack_b); // Move node to stack B
+            // printf("Initial Stack A: ");
+            // print_list(*stack_a);
+            // printf("\nInitial Stack B: ");
+            // print_list(*stack_b);
+        }
+        else
+        {
+            ra(stack_a); // Rotate from the top node
+        }
+        nodes_processed++; // Increment the nodes_processed variable
+    }
+}
+
+int	stack_sorted(t_node *stack)
+{
+	if (!stack)
+		return (1);
+	while (stack->next)
+	{
+		if (stack->data > stack->next->data) 
+			return (0); //Check if curr node value > next node
+		stack = stack->next; 
+	}
+	return (1);
 }
 
 // Function to free all nodes in a list
@@ -574,15 +595,6 @@ void print_list_with_label(t_node *stack, const char *label)
         current = current->next;
     }
     printf("\n");
-}
-
-t_node	*find_last_node(t_node *stack)
-{
-	if (!stack)
-		return (NULL);
-	while (stack->next != NULL)
-		stack = stack->next;
-	return (stack);
 }
 
 t_node	*find_max(t_node *stack) 
@@ -719,41 +731,30 @@ void find_and_push_biggest(t_node **stack_a, t_node **stack_b)
 {
     while (*stack_b)
     {
-        if (!*stack_b)
-            return;
-
-        t_node *biggest = find_max(*stack_b);
+        t_node *max_node = find_max(*stack_b);
         t_node *current = *stack_b;
-        t_node *last_node = *stack_b;
-        int is_biggest = 0;
+        t_node *last_node = find_last_node(*stack_b);
+        t_node *second_last_node = find_second_last_node(*stack_b);
 
-        while (last_node && last_node->next != NULL)
-                last_node = last_node->next;
-
-        // Traverse the stack to find the biggest number
-        while (current->next)
+        if (current == max_node)
         {
-            current = current->next;
-            if (current->data > biggest->data)
-            {
-                biggest = current;
-                is_biggest = 0;
-            }
+            pa(stack_a, stack_b); // Push the biggest number to stack A
         }
-
-        // If the biggest number is not the first node, rotate the stack accordingly
-        if (!is_biggest)
+        else if (last_node == max_node)
         {
-            while (biggest != *stack_b)
-            {
-                if (last_node->data == biggest->data)
-                    rrb(stack_b); 
-                else
-                    rb(stack_b);
-            }
+            rrb(stack_b); // Rotate the stack to move the last node to the top
+            pa(stack_a, stack_b); // Push the biggest number to stack A
         }
-        // Push the biggest number to stack A
-        pa(stack_a, stack_b);
+        else if (second_last_node == max_node)
+        {
+            rrb(stack_b); // Rotate the stack to move the second last node to the top
+            rrb(stack_b); // Rotate the stack again to move the second last node to the top
+            pa(stack_a, stack_b); // Push the biggest number to stack A
+        }
+        else
+        {
+            rb(stack_b); // Rotate the stack from the top node
+        }
     }
 }
 
@@ -793,8 +794,8 @@ int main(int argc, char **argv)
 
     find_and_push_biggest(&stack_a, &stack_b);
 
-    printf("Final Stack A: ");
-    print_list(stack_a);
+    // printf("Final Stack A: ");
+    // print_list(stack_a);
 
     // printf("Final Stack B: ");
     // print_list(stack_b);
