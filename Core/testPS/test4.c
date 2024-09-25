@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <stdbool.h>
 
 typedef struct s_node
 {
@@ -685,14 +684,6 @@ void sort_five(t_node **stack_a, t_node **stack_b)
         sa(stack_a); // Swap the first two elements if they are out of order
 }
 
-bool is_above_middle(t_node *stack, int node_index) {
-    int size = stack_size(stack);  // Get the size of stack A
-    int middle_point = size / 2;   // Calculate the middle index
-
-    // Return true if the node is above or at the middle point, false otherwise
-    return (node_index <= middle_point);
-}
-
 void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
 {
     t_node *temp_stack;
@@ -731,8 +722,8 @@ void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
         process_nodes(stack_a, stack_b, median.value);
 
         // // Print the final state of both stacks after each iteration
-        // print_list_with_label(*stack_a, "Stack A after processing new median");
-        // print_list_with_label(*stack_b, "Stack B");
+        print_list_with_label(*stack_a, "Stack A after processing new median");
+        print_list_with_label(*stack_b, "Stack B");
 
         // Free the temporary sorted list
         if (temp_stack)
@@ -752,6 +743,11 @@ void find_and_push_biggest(t_node **stack_a, t_node **stack_b)
         if (current == max_node)
         {
             pa(stack_a, stack_b); // Push the biggest number to stack A
+        }
+        else if (current->next == max_node)
+        {
+            sb(stack_b); // Rotate current node to the end
+            pa(stack_a, stack_b);
         }
         else if (last_node == max_node)
         {
@@ -803,7 +799,7 @@ int main(int argc, char **argv)
     // print_list(stack_a);
 
     // printf("Final Stack B: ");
-    // print_list(stack_b);
+    //print_list(stack_b);
 
     find_and_push_biggest(&stack_a, &stack_b);
 
