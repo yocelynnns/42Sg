@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdbool.h>
 
 typedef struct s_node
 {
@@ -493,10 +494,17 @@ t_node *find_second_last_node(t_node *stack)
 
 void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
 {
-    int total_nodes = count_nodes(*stack_a); // Count total nodes in stack_a
-    int nodes_processed = 0;
+    int pushed_count = 0;
+    int total_pushed = 0;
 
-    while (nodes_processed < total_nodes)
+    t_node *current = *stack_a;
+    while (current) {
+        if (current->data < median_value) {
+            total_pushed++;
+        }
+        current = current->next;
+    }
+    while (*stack_a && pushed_count < total_pushed)
     {
         t_node *current = *stack_a;
         t_node *last_node = find_last_node(*stack_a);
@@ -504,35 +512,32 @@ void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
         if (current->data < median_value)
         {
             pb(stack_a, stack_b); // Move node to stack B
-            // printf("Initial Stack A: ");
-            // print_list(*stack_a);
-            // printf("\nInitial Stack B: ");
-            // print_list(*stack_b);
+            pushed_count++;
         }
-        if (last_node->data < median_value)
+        else if (current->next->data < median_value)
+        {
+            sa(stack_a); // Rotate current node to the end
+            pb(stack_a, stack_b);
+            pushed_count++;
+        }
+        else if (last_node->data < median_value)
         {
             rra(stack_a); // Rotate current node to the end
             pb(stack_a, stack_b);
-            // printf("Initial Stack A: ");
-            // print_list(*stack_a);
-            // printf("\nInitial Stack B: ");
-            // print_list(*stack_b);
+            pushed_count++;
         }
         else if (second_last_node->data < median_value)
         {
             rra(stack_a); // Rotate twice to move the second last node to the top
             rra(stack_a);
             pb(stack_a, stack_b); // Move node to stack B
-            // printf("Initial Stack A: ");
-            // print_list(*stack_a);
-            // printf("\nInitial Stack B: ");
-            // print_list(*stack_b);
+            pushed_count++;
         }
         else
         {
-            ra(stack_a); // Rotate from the top node
+            if (pushed_count < total_pushed) // Only rotate if we haven't pushed all required nodes
+                ra(stack_a);
         }
-        nodes_processed++; // Increment the nodes_processed variable
     }
 }
 
@@ -680,6 +685,14 @@ void sort_five(t_node **stack_a, t_node **stack_b)
         sa(stack_a); // Swap the first two elements if they are out of order
 }
 
+bool is_above_middle(t_node *stack, int node_index) {
+    int size = stack_size(stack);  // Get the size of stack A
+    int middle_point = size / 2;   // Calculate the middle index
+
+    // Return true if the node is above or at the middle point, false otherwise
+    return (node_index <= middle_point);
+}
+
 void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
 {
     t_node *temp_stack;
@@ -707,12 +720,12 @@ void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
         temp_stack = sort_list(temp_stack);
 
         // // Print the temporary sorted list
-        // print_list_with_label(temp_stack, "Temporary Sorted List");
+        //print_list_with_label(temp_stack, "Temporary Sorted List");
 
         // Find the median of the sorted list
         median = find_median(temp_stack);
 
-        // printf("New Median value: %d\n", median.value);
+       // printf("New Median value: %d\n", median.value);
 
         // Process nodes based on the new median value
         process_nodes(stack_a, stack_b, median.value);

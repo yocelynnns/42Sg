@@ -741,20 +741,20 @@ void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
 
         temp_stack = sort_list(temp_stack);
 
-        printf("Initial Stack A: ");
-        print_list(*stack_a);
+        // printf("Initial Stack A: ");
+        // print_list(*stack_a);
 
         // Print the temporary sorted list
-        print_list_with_label(temp_stack, "Temporary Sorted List");
+        // print_list_with_label(temp_stack, "Temporary Sorted List");
 
         median = find_median(temp_stack);
 
-        printf("New Median value: %d\n", median.value);
+        // printf("New Median value: %d\n", median.value);
 
         process_nodes(stack_a, stack_b, median.value);
 
-        print_list_with_label(*stack_a, "Stack A after processing new median");
-        print_list_with_label(*stack_b, "Stack B");
+        // print_list_with_label(*stack_a, "Stack A after processing new median");
+        // print_list_with_label(*stack_b, "Stack B");
 
         if (temp_stack)
             free_list(temp_stack);
@@ -805,15 +805,23 @@ int main(int argc, char **argv) {
     print_list(stack_a);
 
     sort_group1(&stack_a, &stack_b);
+    // printf("Final Stack A: ");
+    // print_list(stack_a);
+    // printf("\nFinal Stack B: ");
+    // print_list(stack_b);
     sort_group2(&stack_a, &stack_b);
+    // printf("Final Stack A: ");
+    // print_list(stack_a);
+    // printf("\nFinal Stack B: ");
+    // print_list(stack_b);
     sort_group3(&stack_a, &stack_b);
     process_nodes_with_new_median(&stack_a, &stack_b);
     find_and_push_biggest(&stack_a, &stack_b);
 
-    printf("Final Stack A: ");
-    print_list(stack_a);
-    printf("Final Stack B: ");
-    print_list(stack_b);
+    // printf("Final Stack A: ");
+    // print_list(stack_a);
+    // printf("Final Stack B: ");
+    // print_list(stack_b);
 
     // Free the lists
     free_list(stack_a);
