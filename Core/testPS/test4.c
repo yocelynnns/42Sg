@@ -259,7 +259,7 @@ int count_nodes(t_node *stack)
     return count;
 }
 
-t_median find_median(t_node *sorted_list)
+t_median find_median5(t_node *sorted_list)
 {
     int node_count = count_nodes(sorted_list);
     t_node *current = sorted_list;
@@ -473,6 +473,37 @@ void print_list(t_node *stack)
     printf("\n");
 }
 
+void another_split(t_node **stack_b, int median_v)
+{
+     if (!*stack_b || !(*stack_b)->next) return;
+    t_node *current = *stack_b;
+
+    //int new_median = (median_v / 2) + 1;
+
+    //printf("New median for stack B: %d\n", median_v);
+    //printf("Final Stack B: ");
+    //print_list(*stack_b);
+
+    current = *stack_b;
+    int rotate_count = 0;
+    int total_rotate = median_v;
+
+    while (current && rotate_count < total_rotate)
+    {
+        if (current->data < median_v)
+        {
+            if (rotate_count < total_rotate) // Only rotate if we haven't pushed all required nodes
+            {    
+                rb(stack_b);
+                rotate_count++;
+                break;
+            }
+        }
+        else
+            break;
+    }
+}
+
 t_node *find_last_node(t_node *stack)
 {
     if (!stack)
@@ -506,24 +537,36 @@ void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
     while (*stack_a && pushed_count < total_pushed)
     {
         t_node *current = *stack_a;
+        if (!current) break;
         t_node *last_node = find_last_node(*stack_a);
         t_node *second_last_node = find_second_last_node(*stack_a);
+        int new_median = (median_value / 2) + 1; 
+        if (stack_size(*stack_b) >= 2)
+        {
+            another_split(stack_b, new_median);
+        }
         if (current->data < median_value)
         {
             pb(stack_a, stack_b); // Move node to stack B
             pushed_count++;
+            int new_median = (median_value / 2) + 1;   // Replace with correct median calculation if needed
+            another_split(stack_b, new_median);
         }
         else if (current->next->data < median_value)
         {
             sa(stack_a); // Rotate current node to the end
             pb(stack_a, stack_b);
             pushed_count++;
+            int new_median = (median_value / 2) + 1;   // Replace with correct median calculation if needed
+            another_split(stack_b, new_median);
         }
         else if (last_node->data < median_value)
         {
             rra(stack_a); // Rotate current node to the end
             pb(stack_a, stack_b);
             pushed_count++;
+            int new_median = (median_value / 2) + 1;   // Replace with correct median calculation if needed
+            another_split(stack_b, new_median);
         }
         else if (second_last_node->data < median_value)
         {
@@ -531,6 +574,8 @@ void process_nodes(t_node **stack_a, t_node **stack_b, int median_value)
             rra(stack_a);
             pb(stack_a, stack_b); // Move node to stack B
             pushed_count++;
+            int new_median = (median_value / 2) + 1;   // Replace with correct median calculation if needed
+            another_split(stack_b, new_median);
         }
         else
         {
@@ -710,20 +755,22 @@ void process_nodes_with_new_median(t_node **stack_a, t_node **stack_b)
         // Sort the copied list
         temp_stack = sort_list(temp_stack);
 
-        // // Print the temporary sorted list
+        // Print the temporary sorted list
         //print_list_with_label(temp_stack, "Temporary Sorted List");
 
         // Find the median of the sorted list
-        median = find_median(temp_stack);
+        median = find_median5(temp_stack);
 
-       // printf("New Median value: %d\n", median.value);
+        //printf("New Median value: %d\n", median.value);
 
         // Process nodes based on the new median value
         process_nodes(stack_a, stack_b, median.value);
+        //printf("Final Stack B: ");
+        //print_list(*stack_b);
 
         // // Print the final state of both stacks after each iteration
-        print_list_with_label(*stack_a, "Stack A after processing new median");
-        print_list_with_label(*stack_b, "Stack B");
+        //print_list_with_label(*stack_a, "Stack A after processing new median");
+        //print_list_with_label(*stack_b, "Stack B");
 
         // Free the temporary sorted list
         if (temp_stack)
@@ -781,8 +828,8 @@ int main(int argc, char **argv)
 
     initial_a(&stack_a, &argv[1]);
 
-    // printf("Initial Stack A: ");
-    // print_list(stack_a);
+    //printf("Initial Stack A: ");
+    //print_list(stack_a);
 
     if (!stack_sorted(stack_a)) 
 	{
@@ -795,19 +842,19 @@ int main(int argc, char **argv)
 		else
 			process_nodes_with_new_median(&stack_a, &stack_b);
 	}
-    // printf("Final Stack A: ");
-    // print_list(stack_a);
+    //printf("Final Stack A: ");
+    //print_list(stack_a);
 
-    // printf("Final Stack B: ");
+    //printf("Final Stack B: ");
     //print_list(stack_b);
 
     find_and_push_biggest(&stack_a, &stack_b);
 
-    // printf("Final Stack A: ");
-    // print_list(stack_a);
+    //printf("Final Stack A: ");
+    //print_list(stack_a);
 
-    // printf("Final Stack B: ");
-    // print_list(stack_b);
+    //printf("Final Stack B: ");
+    //print_list(stack_b);
 
     // Free remaining nodes
     free_list(stack_a);

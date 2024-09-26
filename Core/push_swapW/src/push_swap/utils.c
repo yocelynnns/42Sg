@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 20:16:36 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/25 20:38:02 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:19:58 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ t_median	find_median(t_node *sorted_list)
 	if (node_count == 0)
 	{
 		median.value = 0;
-		median.index = 0;
 		return (median);
 	}
 	mid_position = node_count / 5;
@@ -104,6 +103,5 @@ t_median	find_median(t_node *sorted_list)
 		i++;
 	}
 	median.value = current->data;
-	median.index = mid_position;
 	return (median);
 }

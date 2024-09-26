@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:28:16 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/26 18:05:26 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:59:29 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,7 @@ void		sort_stacks(t_node **stack_a, t_node **stack_b);
 int			check_sorted(t_node *stack);
 void		sort_three(t_node **stack_a);
 void		sort_five(t_node **stack_a, t_node **stack_b);
-void handle_max_conditions(t_node **stack_a, t_node **stack_b, t_node *max_node);
-void process_nodes(t_node **stack_a, t_node **stack_b, int median_value);
-void handle_push_conditions(t_node **stack_a, t_node **stack_b, int median_value, int *pushed_count);
-int count_pushable_nodes(t_node *stack, int median_value);
-t_node *find_second_last_node(t_node *stack);
-void	print_list(t_node *stack);
-void print_list_with_label(t_node *stack, const char *label);
-void another_split(t_node **stack_b, int median_v);
+void find_and_push_biggest_with_cost_analysis(t_node **stack_a, t_node **stack_b);
+
 
 #endif
