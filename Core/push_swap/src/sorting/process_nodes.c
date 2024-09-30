@@ -60,7 +60,11 @@ void rotate_stack_b_based_on_median(t_node **stack_b, int median)
 }
 
 void process_nodes_with_fixed_ranges(t_node **stack_a, t_node **stack_b, int total_elements) {
-    int range_size = total_elements / 5;  // Divide into 5 equal parts (or adjust if needed)
+     int range_size;
+    if (stack_size(*stack_a) <= 100)
+        range_size = total_elements / 3; 
+    else
+        range_size = total_elements / 5; // Divide into 5 equal parts (or adjust if needed)
     int i = 0;  // Initialize the counter
 
     while (i < 5) {
