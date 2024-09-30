@@ -18,8 +18,8 @@ void	pa(t_node **stack_a, t_node **stack_b)
 
 	if (!stack_b || !*stack_b)
 		return ;
-	if (!stack_a || !*stack_a)
-		return ;
+	// if (!stack_a || !*stack_a)
+		// return ;
 	first_b = *stack_b;
 	*stack_b = (*stack_b)->next;
 	first_b->next = *stack_a;

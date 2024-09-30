@@ -64,10 +64,10 @@ void process_nodes_with_fixed_ranges(t_node **stack_a, t_node **stack_b, int tot
     int i = 0;  // Initialize the counter
 
     while (i < 5) {
-        if (stack_size(*stack_a) <= 5)
-        {
-            break; 
-        }
+        // if (stack_size(*stack_a) <= 5)
+        // {
+        //     break; 
+        // }
 
         int lower_bound = i * range_size + 1;
         int upper_bound = (i == 4) ? total_elements : (i + 1) * range_size;
@@ -102,6 +102,7 @@ void push_range_to_stack_b(t_node **stack_a, t_node **stack_b, int lower_bound, 
         current = *stack_a;
         if (stack_size(*stack_a) <= 5)
         {
+           // printf("adadadad\n");
             break; 
         }
         // Check if the current node is within bounds

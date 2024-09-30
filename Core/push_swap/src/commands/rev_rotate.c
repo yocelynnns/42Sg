@@ -19,7 +19,7 @@ void	rra(t_node **stack_a)
 
 	if (!stack_a || !*stack_a || !(*stack_a)->next)
 	{
-		printf("Error: Stack A is empty or has only one node\n");
+		//printf("Error: Stack A is empty or has only one node\n");
 		return ;
 	}
 	last = *stack_a;
@@ -40,7 +40,7 @@ void	rrb(t_node **stack_b)
 
 	if (!stack_b || !*stack_b || !(*stack_b)->next)
 	{
-		printf("Error: Stack B is empty or has only one node\n");
+		//printf("Error: Stack B is empty or has only one node\n");
 		return ;
 	}
 	last = *stack_b;

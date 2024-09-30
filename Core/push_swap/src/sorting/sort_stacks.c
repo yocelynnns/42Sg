@@ -52,7 +52,13 @@ void	sort_stacks(t_node **stack_a, t_node **stack_b)
 	{
 		if (!check_sorted(*stack_a))
 		{
-			sort_five(stack_a, stack_b);
+			int i = 5;
+			while (i > 0)
+			{
+				pb(stack_a, stack_b);
+				i--;
+			}
+			// sort_five(stack_a, stack_b);
 		}
 	}
 	find_and_push_biggest(stack_a, stack_b);
