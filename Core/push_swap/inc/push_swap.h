@@ -73,7 +73,7 @@ void		sort_five(t_node **stack_a, t_node **stack_b);
 void handle_max_conditions(t_node **stack_a, t_node **stack_b, t_node *max_node);
 void process_nodes(t_node **stack_a, t_node **stack_b, int median_value);
 void handle_push_conditions(t_node **stack_a, t_node **stack_b, int median_value, int *pushed_count);
-int count_pushable_nodes(t_node *stack, int median_value);
+int count_pushable_nodes(t_node *stack, t_node *max_node);
 t_node *find_second_last_node(t_node *stack);
 void	print_list(t_node *stack);
 void print_list_with_label(t_node *stack, const char *label);

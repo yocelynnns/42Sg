@@ -120,31 +120,31 @@ void push_range_to_stack_b(t_node **stack_a, t_node **stack_b, int lower_bound, 
 }
 
 
-void rotate_smaller_half(t_node **stack_b, int median_value_b)
-{
-    int total_rotated = 0;
-    int total_nodes = stack_size(*stack_b);
-    int rotated_count = 0;
+// void rotate_smaller_half(t_node **stack_b, int median_value_b)
+// {
+//     int total_rotated = 0;
+//     int total_nodes = stack_size(*stack_b);
+//     int rotated_count = 0;
 
-    while (rotated_count < total_nodes)
-    {
-        if ((*stack_b)->data < median_value_b)
-        {
-            rb(stack_b); // Rotate smaller half of stack B
-            total_rotated++;
-        }
-        rotated_count++;
-    }
-}
+//     while (rotated_count < total_nodes)
+//     {
+//         if ((*stack_b)->data < median_value_b)
+//         {
+//             rb(stack_b); // Rotate smaller half of stack B
+//             total_rotated++;
+//         }
+//         rotated_count++;
+//     }
+// }
 
-t_node *find_second_last_node(t_node *stack)
-{
-    if (!stack || !stack->next)
-        return NULL;
-    while (stack->next->next != NULL)
-        stack = stack->next;
-    return stack;
-}
+// t_node *find_second_last_node(t_node *stack)
+// {
+//     if (!stack || !stack->next)
+//         return NULL;
+//     while (stack->next->next != NULL)
+//         stack = stack->next;
+//     return stack;
+// }
 
 // int count_pushable_nodes(t_node *stack, int median_value)
 // {
@@ -240,47 +240,113 @@ t_node *find_second_last_node(t_node *stack)
 //     }
 // }
 
+int count_pushable_nodes(t_node *stack, t_node *max_node)
+{
+    int index_push = 0;
+    while (stack)
+    {
+        if (stack != max_node)
+        {
+            stack = stack->next;
+            index_push++;
+        }
+        else
+            break;
+    }
+    return index_push;
+}
+
 void handle_max_conditions(t_node **stack_a, t_node **stack_b, t_node *max_node)
 {
-    t_node *current;
-	t_node *last_node;
-	t_node *second_last_node;
+    // t_node *current;
+	// t_node *last_node;
+	// t_node *second_last_node;
 
-	current = *stack_b;
-    last_node = find_last_node(*stack_b);
-    second_last_node = find_second_last_node(*stack_b);
-	if (current == max_node || current->next == max_node)
+	// current = *stack_b;
+    // last_node = find_last_node(*stack_b);
+    // second_last_node = find_second_last_node(*stack_b);
+    int index = count_pushable_nodes(*stack_b, max_node);
+    int median = stack_size(*stack_b) / 2;
+
+    // while (*stack_b)
+    // {
+    //     if (!stack_size(*stack_b))
+    //         break;
+    //     if (index < median)
+    //     {
+    //         if (current == max_node)
+    //         {
+    //             pa(stack_a, stack_b);
+    //         }
+    //         else
+    //         {
+    //             rb(stack_b);
+    //         }
+    //         current = *stack_b;
+    //     }
+    //     else
+    //     {
+    //         if (current == max_node)
+    //         {
+    //             pa(stack_a, stack_b);
+    //         }
+    //         else
+    //         {
+    //             rrb(stack_b);
+    //         }
+    //         current = *stack_b;
+    //     }
+    // }
+    if (index < median)
     {
-        if (current->next == max_node)
-            sb(stack_b);
+        while (index){
+            rb(stack_b);
+            index--;
+        }
         pa(stack_a, stack_b);
     }
-    else if (last_node == max_node || second_last_node == max_node)
-    {
-        rrb(stack_b);
-        if (second_last_node == max_node)
+    else{
+        int temp = stack_size(*stack_b) - index;
+        while (temp)
+        {
             rrb(stack_b);
+            temp--;
+        }
         pa(stack_a, stack_b);
     }
-    else
-        rb(stack_b);
+}
+
+	// if (current == max_node || current->next == max_node)
+    // {
+    //     if (current->next == max_node)
+    //         sb(stack_b);
+    //     pa(stack_a, stack_b);
+    // }
+    // else if (last_node == max_node || second_last_node == max_node)
+    // {
+    //     rrb(stack_b);
+    //     if (second_last_node == max_node)
+    //         rrb(stack_b);
+    //     pa(stack_a, stack_b);
+    // }
+    // else
+    //     rb(stack_b);
     // printf("Final Stack A: ");
     // print_list(*stack_a);
-}
 
 void find_and_push_biggest(t_node **stack_a, t_node **stack_b)
 {
 	t_node *max_node;
-    t_node *temp_stack;
-    t_median median_b;
+    //t_node *temp_stack;
+    // t_median median_b;
     
     // After stack B contains 1-20, sort and find the new median
-    temp_stack = copy_list(*stack_b); // Copy stack B to find the new median
-    temp_stack = sort_list(temp_stack); // Sort stack B
-    median_b = find_median(temp_stack); // Find the median of 1–20 in stack B
+   // temp_stack = copy_list(*stack_b); // Copy stack B to find the new median
+   // temp_stack = sort_list(temp_stack); // Sort stack B
+   // median_b = find_median(temp_stack); // Find the median of 1–20 in stack B
 
     // Rotate numbers smaller than the new median in stack B
-    rotate_smaller_half(stack_b, median_b.value);
+    //rotate_smaller_half(stack_b, median_b.value);
 
     // Now proceed with your original logic to push back the biggest numbers
     while (*stack_b)
@@ -289,7 +355,7 @@ void find_and_push_biggest(t_node **stack_a, t_node **stack_b)
         handle_max_conditions(stack_a, stack_b, max_node);
     }
 
-    if (temp_stack)
-        free_stack(&temp_stack); // Free the temporary stack
+    // if (temp_stack)
+    //     free_stack(&temp_stack); // Free the temporary stack
 }
 

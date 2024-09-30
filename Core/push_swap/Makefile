@@ -16,7 +16,7 @@ INC             = inc/
 SRC_DIR         = src/
 
 CC              = cc
-CFLAGS          = -Wall -Werror -Wextra -I$(INC)  # Add -I$(INC) here to include the header directory
+CFLAGS          = -Wall -Werror -Wextra -g -I$(INC)  # Add -I$(INC) here to include the header directory
 RM              = rm -f
 
 COMMANDS_DIR    = $(SRC_DIR)commands/push.c \
