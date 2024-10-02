@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:39:20 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/23 13:52:59 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:21:10 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	rra(t_node **stack_a)
 	t_node	*second_last;
 
 	if (!stack_a || !*stack_a || !(*stack_a)->next)
-	{
-		//printf("Error: Stack A is empty or has only one node\n");
 		return ;
-	}
 	last = *stack_a;
 	while (last->next->next)
 		last = last->next;
@@ -39,10 +36,7 @@ void	rrb(t_node **stack_b)
 	t_node	*second_last;
 
 	if (!stack_b || !*stack_b || !(*stack_b)->next)
-	{
-		//printf("Error: Stack B is empty or has only one node\n");
 		return ;
-	}
 	last = *stack_b;
 	while (last->next->next)
 		last = last->next;

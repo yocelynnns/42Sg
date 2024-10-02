@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:22:42 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/23 13:54:35 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:20:59 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	sa(t_node **stack_a)
 	t_node	*second;
 
 	if (!stack_a || !*stack_a || !(*stack_a)->next)
-	{
-		printf("Error: Stack A is empty or has only one node\n");
 		return ;
-	}
 	first = *stack_a;
 	second = (*stack_a)->next;
 	*stack_a = second;

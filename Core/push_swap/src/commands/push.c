@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:36:08 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/23 13:52:21 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:19:26 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	pa(t_node **stack_a, t_node **stack_b)
 
 	if (!stack_b || !*stack_b)
 		return ;
-	// if (!stack_a || !*stack_a)
-		// return ;
 	first_b = *stack_b;
 	*stack_b = (*stack_b)->next;
 	first_b->next = *stack_a;

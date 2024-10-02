@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:28:16 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/26 21:26:34 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:54:14 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,19 @@ char		**free_array(char **ptr, int i);
 char		**split_words(const char *s, char c, int word_count);
 char		**ft_split(char const *s, char c);
 int			ft_isdigit(int c);
-void		process_nodes_with_new_median(t_node **stack_a, t_node **stack_b);
-void		process_nodes(t_node **stack_a, t_node **stack_b, int median_value);
-void		find_and_push_biggest(t_node **stack_a, t_node **stack_b);
+void		process_nodes_with_fixed_ranges(t_node **stack_a, \
+t_node **stack_b, int total_elements);
+void		push_range_to_stack_b(t_node **stack_a, \
+t_node **stack_b, int lower_bound, int upper_bound, int median_b);
+int			count_pushable_nodes(t_node *stack, t_node *max_node);
+void		handle_max_conditions(t_node **stack_a, \
+t_node **stack_b, t_node *max_node);
+void		find_and_push_biggest(t_node **stack_a, \
+t_node **stack_b);
 t_node		*sort_list(t_node *stack_a);
 void		sort_stacks(t_node **stack_a, t_node **stack_b);
 int			check_sorted(t_node *stack);
 void		sort_three(t_node **stack_a);
 void		sort_five(t_node **stack_a, t_node **stack_b);
-void handle_max_conditions(t_node **stack_a, t_node **stack_b, t_node *max_node);
-void process_nodes(t_node **stack_a, t_node **stack_b, int median_value);
-void handle_push_conditions(t_node **stack_a, t_node **stack_b, int median_value, int *pushed_count);
-int count_pushable_nodes(t_node *stack, t_node *max_node);
-t_node *find_second_last_node(t_node *stack);
-void	print_list(t_node *stack);
-void print_list_with_label(t_node *stack, const char *label);
-void another_split(t_node **stack_b, int median_v);
-void rotate_stack_b_based_on_median(t_node **stack_b, int median);
-void process_nodes_with_fixed_ranges(t_node **stack_a, t_node **stack_b, int total_elements);
-void push_range_to_stack_b(t_node **stack_a, t_node **stack_b, int lower_bound, int upper_bound, int median_b);
 
 #endif
