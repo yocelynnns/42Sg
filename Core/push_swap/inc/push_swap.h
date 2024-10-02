@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:28:16 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/02 16:54:14 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:37:10 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ typedef struct s_median
 	int	value;
 	int	index;
 }	t_median;
+
+typedef struct s_push_range_params
+{
+	int	lower_bound;
+	int	upper_bound;
+	int	median_b;
+	int	pushed_count;
+	int	total_pushed;
+}	t_push_range_params;
 
 void		pa(t_node **stack_a, t_node **stack_b);
 void		pb(t_node **stack_a, t_node **stack_b);
@@ -62,10 +71,6 @@ char		**free_array(char **ptr, int i);
 char		**split_words(const char *s, char c, int word_count);
 char		**ft_split(char const *s, char c);
 int			ft_isdigit(int c);
-void		process_nodes_with_fixed_ranges(t_node **stack_a, \
-t_node **stack_b, int total_elements);
-void		push_range_to_stack_b(t_node **stack_a, \
-t_node **stack_b, int lower_bound, int upper_bound, int median_b);
 int			count_pushable_nodes(t_node *stack, t_node *max_node);
 void		handle_max_conditions(t_node **stack_a, \
 t_node **stack_b, t_node *max_node);
@@ -76,5 +81,13 @@ void		sort_stacks(t_node **stack_a, t_node **stack_b);
 int			check_sorted(t_node *stack);
 void		sort_three(t_node **stack_a);
 void		sort_five(t_node **stack_a, t_node **stack_b);
+void		push_range_to_stack_b(t_node **stack_a, t_node **stack_b, \
+t_push_range_params *params);
+int			count_nodes_in_range(t_node *stack_a, int lower_bound, \
+int upper_bound);
+bool		push_to_stack_b_if_in_range(t_node **stack_a, t_node **stack_b, \
+	t_node *current, t_push_range_params *params);
+void		process_nodes_with_fixed_ranges(t_node **stack_a, \
+t_node **stack_b, int total_elements);
 
 #endif

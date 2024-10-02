@@ -6,7 +6,7 @@
 #    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/19 20:25:44 by ysetiawa          #+#    #+#              #
-#    Updated: 2024/10/02 16:38:46 by ysetiawa         ###   ########.fr        #
+#    Updated: 2024/10/02 17:24:08 by ysetiawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ PUSH_SWAP_DIR   = $(SRC_DIR)push_swap/ft_isdigit.c \
                   $(SRC_DIR)push_swap/stack_init.c \
                   $(SRC_DIR)push_swap/utils.c
 
-SORTING_DIR     = $(SRC_DIR)sorting/process_nodes.c \
+SORTING_DIR     = $(SRC_DIR)sorting/stack_a_to_b.c \
+                  $(SRC_DIR)sorting/stack_b_to_a.c \
                   $(SRC_DIR)sorting/sort_stacks.c \
                   $(SRC_DIR)sorting/sorting.c
 
