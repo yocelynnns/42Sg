@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 16:05:18 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/02 17:47:12 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:14:27 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	count_nodes_in_range(t_node *stack_a, int lower_bound, int upper_bound)
 	current = stack_a;
 	while (current)
 	{
-		if (current->data >= lower_bound && current->data <= upper_bound)
+		if (current->index >= lower_bound && current->index <= upper_bound)
 			count++;
 		current = current->next;
 	}
@@ -45,12 +45,12 @@ int	count_nodes_in_range(t_node *stack_a, int lower_bound, int upper_bound)
 bool	push_to_stack_b_if_in_range(t_node **stack_a, t_node **stack_b, \
 	t_node *current, t_push_range_params *params)
 {
-	if (current->data >= params->lower_bound && current->data \
+	if (current->index >= params->lower_bound && current->index \
 	<= params->upper_bound)
 	{
 		pb(stack_a, stack_b);
 		params->pushed_count++;
-		if ((*stack_b)->data < params->median_b)
+		if ((*stack_b)->index < params->median_b)
 			rb(stack_b);
 		return (true);
 	}

@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:30:21 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/23 13:55:25 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:25:25 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ int	check_dup(t_node *stack, int value)
 void	free_stack(t_node **stack)
 {
 	t_node	*temp;
-	t_node	*curr;
+	t_node	*current;
 
 	if (!stack)
 		return ;
-	curr = *stack;
-	while (curr)
+	current = *stack;
+	while (current)
 	{
-		temp = curr->next;
-		curr->data = 0;
-		free(curr);
-		curr = temp;
+		temp = current->next;
+		current->data = 0;
+		free(current);
+		current = temp;
 	}
 	*stack = NULL;
 }
@@ -62,6 +62,6 @@ void	free_stack(t_node **stack)
 void	free_n_error(t_node **stack_a)
 {
 	free_stack(stack_a);
-	printf("Error\n");
+	write(1, "Error\n", 6);
 	exit(1);
 }

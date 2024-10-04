@@ -24,7 +24,7 @@ void	sa(t_node **stack_a)
 	*stack_a = second;
 	first->next = second->next;
 	second->next = first;
-	printf("sa\n");
+	write(1, "sa\n", 3);
 }
 
 void	sb(t_node **stack_b)
@@ -41,7 +41,7 @@ void	sb(t_node **stack_b)
 		first->next = second->next;
 		second->next = first;
 		*stack_b = second;
-		printf("sb\n");
+		write(1, "sb\n", 3);
 	}
 }
 
@@ -49,5 +49,4 @@ void	ss(t_node **stack_a, t_node **stack_b)
 {
 	sa(stack_a);
 	sb(stack_b);
-	printf("ss\n");
 }

@@ -26,7 +26,7 @@ void	ra(t_node **stack_a)
 	*stack_a = first->next;
 	first->next = NULL;
 	last->next = first;
-	printf("ra\n");
+	write(1, "ra\n", 3);
 }
 
 void	rb(t_node **stack_b)
@@ -43,12 +43,11 @@ void	rb(t_node **stack_b)
 	*stack_b = first->next;
 	first->next = NULL;
 	last->next = first;
-	printf("rb\n");
+	write(1, "rb\n", 3);
 }
 
 void	rr(t_node **stack_a, t_node **stack_b)
 {
 	ra(stack_a);
 	rb(stack_b);
-	printf("rr\n");
 }

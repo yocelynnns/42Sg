@@ -6,13 +6,14 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:28:16 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/02 17:37:10 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:14:12 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <unistd.h>
 # include <stdio.h>
 # include <stdbool.h>
 # include <stdlib.h>
@@ -21,6 +22,7 @@
 typedef struct s_node
 {
 	int				data;
+	int				index;
 	struct s_node	*next;
 	struct s_node	*prev;
 }	t_node;
@@ -89,5 +91,6 @@ bool		push_to_stack_b_if_in_range(t_node **stack_a, t_node **stack_b, \
 	t_node *current, t_push_range_params *params);
 void		process_nodes_with_fixed_ranges(t_node **stack_a, \
 t_node **stack_b, int total_elements);
+void		assign_indices(t_node *stack_a, t_node *sorted_list);
 
 #endif

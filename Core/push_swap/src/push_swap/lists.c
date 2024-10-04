@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:19:35 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/09/23 13:56:20 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:24:32 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_node	*create_node(int value)
 	if (!new_node)
 		return (NULL);
 	new_node->data = value;
+	new_node->index = 0;
 	new_node->next = NULL;
 	return (new_node);
 }
