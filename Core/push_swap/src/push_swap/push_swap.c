@@ -37,6 +37,13 @@ int	main(int argc, char **argv)
 		else
 			sort_stacks(&stack_a, &stack_b);
 	}
+	int i = 0;
+    while(argv[i])
+    {
+        free(argv[i]);
+        i++;
+    }
+    free(argv);
 	free_stack(&stack_a);
 	return (0);
 }
