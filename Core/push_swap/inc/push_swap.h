@@ -53,6 +53,12 @@ void		rr(t_node **stack_a, t_node **stack_b);
 void		sa(t_node **stack_a);
 void		sb(t_node **stack_b);
 void		ss(t_node **stack_a, t_node **stack_b);
+int			ft_isdigit(int c);
+int			wordlen(const char *s, char c);
+char		*writeword(char const *s, int len);
+char		**free_array(char **ptr, int i);
+char		**split_words(const char *s, char c, int word_count);
+char		**ft_split(char const *s, char c);
 int			error_syntax(char *arg);
 int			check_dup(t_node *stack, int value);
 void		free_stack(t_node **stack);
@@ -62,23 +68,21 @@ void		add_back(t_node **stack, t_node *new_node);
 int			stack_size(t_node *stack);
 t_node		*copy_list(t_node *src);
 t_node		*find_last_node(t_node *stack);
+void		free_argv(char **argv);
+void		handle_sorting(t_node **stack_a, t_node **stack_b);
+int			setup_stack(int argc, char ***argv, t_node **stack_a, \
+int *is_split);
+int			main(int argc, char **argv);
+void		handle_syntax_error(char **argv, int i, t_node **stack_a);
+void		check_value_errors(long value, t_node **stack_a);
+void		process_node(t_node **stack_a, char *arg);
 void		init_stack_a(t_node **stack_a, char **argv);
 long		ft_atol(const char *str);
 int			find_min(t_node *stack);
 t_node		*find_max(t_node *stack);
 t_median	find_median(t_node *sorted_list);
-int			wordlen(const char *s, char c);
-char		*writeword(char const *s, int len);
-char		**free_array(char **ptr, int i);
-char		**split_words(const char *s, char c, int word_count);
-char		**ft_split(char const *s, char c);
-int			ft_isdigit(int c);
-int			count_pushable_nodes(t_node *stack, t_node *max_node);
-void		handle_max_conditions(t_node **stack_a, \
-t_node **stack_b, t_node *max_node);
-void		find_and_push_biggest(t_node **stack_a, \
-t_node **stack_b);
 t_node		*sort_list(t_node *stack_a);
+void		assign_indices(t_node *stack_a, t_node *sorted_list);
 void		sort_stacks(t_node **stack_a, t_node **stack_b);
 int			check_sorted(t_node *stack);
 void		sort_three(t_node **stack_a);
@@ -90,7 +94,10 @@ int upper_bound);
 bool		push_to_stack_b_if_in_range(t_node **stack_a, t_node **stack_b, \
 	t_node *current, t_push_range_params *params);
 void		process_nodes_with_fixed_ranges(t_node **stack_a, \
-t_node **stack_b, int total_elements);
-void		assign_indices(t_node *stack_a, t_node *sorted_list);
+t_node	**stack_b, int total_elements);
+int			count_pushable_nodes(t_node *stack, t_node *max_node);
+void		handle_max_conditions(t_node **stack_a, \
+t_node **stack_b, t_node *max_node);
+void		find_and_push_biggest(t_node **stack_a, t_node **stack_b);
 
 #endif
