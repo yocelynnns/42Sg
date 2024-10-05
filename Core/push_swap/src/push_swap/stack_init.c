@@ -22,7 +22,15 @@ void	init_stack_a(t_node **stack_a, char **argv)
 	while (argv[i])
 	{
 		if (error_syntax(argv[i]))
+		{
+			while(argv[i])
+			{
+				free(argv[i]);
+				i++;
+			}
+			free(argv);
 			free_n_error(stack_a);
+		}
 		value = ft_atol(argv[i]);
 		if (value > INT_MAX || value < INT_MIN)
 			free_n_error(stack_a);
