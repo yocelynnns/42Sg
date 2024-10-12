@@ -6,7 +6,7 @@
 #    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/19 20:25:44 by ysetiawa          #+#    #+#              #
-#    Updated: 2024/10/02 17:24:08 by ysetiawa         ###   ########.fr        #
+#    Updated: 2024/10/12 14:41:29 by ysetiawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ INC             = inc/
 SRC_DIR         = src/
 
 CC              = cc
-CFLAGS          = -Wall -Werror -Wextra -g -I$(INC)  # Add -I$(INC) here to include the header directory
+CFLAGS          = -Wall -Werror -Wextra -I$(INC)  # Add -I$(INC) here to include the header directory
 RM              = rm -f
 
 COMMANDS_DIR    = $(SRC_DIR)commands/push.c \
@@ -24,7 +24,7 @@ COMMANDS_DIR    = $(SRC_DIR)commands/push.c \
                   $(SRC_DIR)commands/rotate.c \
                   $(SRC_DIR)commands/swap.c
 
-PUSH_SWAP_DIR   = $(SRC_DIR)push_swap/ft_isdigit.c \
+PUSH_SWAP_DIR   = $(SRC_DIR)push_swap/ft_libft.c \
                   $(SRC_DIR)push_swap/ft_split.c \
                   $(SRC_DIR)push_swap/handle_errors.c \
                   $(SRC_DIR)push_swap/lists.c \

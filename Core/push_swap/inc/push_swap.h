@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:28:16 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/03 18:14:12 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:33:46 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ t_node		*copy_list(t_node *src);
 t_node		*find_last_node(t_node *stack);
 void		free_argv(char **argv);
 void		handle_sorting(t_node **stack_a, t_node **stack_b);
-int			setup_stack(int argc, char ***argv, t_node **stack_a, \
+int			setup_stack(int argc, char **argv, t_node **stack_a, \
 int *is_split);
 int			main(int argc, char **argv);
 void		handle_syntax_error(char **argv, int i, t_node **stack_a);
-void		check_value_errors(long value, t_node **stack_a);
-void		process_node(t_node **stack_a, char *arg);
+void		check_value_errors(long value, t_node **stack_a, char **argv);
+void		process_node(t_node **stack_a, long value, char **argv);
 void		init_stack_a(t_node **stack_a, char **argv);
 long		ft_atol(const char *str);
 int			find_min(t_node *stack);
@@ -99,5 +99,8 @@ int			count_pushable_nodes(t_node *stack, t_node *max_node);
 void		handle_max_conditions(t_node **stack_a, \
 t_node **stack_b, t_node *max_node);
 void		find_and_push_biggest(t_node **stack_a, t_node **stack_b);
+size_t		ft_strlen(const char *s);
+char		*ft_strdup(const char *s);
+char		**assign_arr(char **argv, int argc);
 
 #endif

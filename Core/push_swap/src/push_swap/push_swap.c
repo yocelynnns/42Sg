@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:14:22 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/03 14:55:10 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/12 13:59:48 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,47 @@ void	handle_sorting(t_node **stack_a, t_node **stack_b)
 		sort_stacks(stack_a, stack_b);
 }
 
-int	setup_stack(int argc, char ***argv, t_node **stack_a, int *is_split)
+char	**assign_arr(char **argv, int argc)
 {
+	char	**arr;
+	int		i;
+
+	arr = malloc(sizeof(char *) * argc);
+	i = 0;
+	while (argv[i])
+	{
+		arr[i] = ft_strdup(argv[i]);
+		i++;
+	}
+	arr[i] = NULL;
+	return (arr);
+}
+
+int	setup_stack(int argc, char **argv, t_node **stack_a, int *is_split)
+{
+	int		i;
+
 	*is_split = 0;
-	if (argc == 1 || (argc == 2 && !(*argv)[1][0]))
+	if (argc == 1 || (argc == 2 && !(argv)[1][0]))
 		return (1);
 	if (argc == 2)
 	{
-		*argv = ft_split((*argv)[1], ' ');
+		argv = ft_split((argv)[1], ' ');
 		*is_split = 1;
 	}
 	else
-		(*argv)++;
-	init_stack_a(stack_a, *argv);
+	{
+		argv++;
+		argv = assign_arr(argv, argc);
+	}
+	init_stack_a(stack_a, argv);
+	i = 0;
+	while (argv[i])
+	{
+		free(argv[i]);
+		i++;
+	}
+	free(argv);
 	return (0);
 }
 
@@ -61,12 +89,10 @@ int	main(int argc, char **argv)
 
 	stack_a = NULL;
 	stack_b = NULL;
-	if (setup_stack(argc, &argv, &stack_a, &is_split))
+	if (setup_stack(argc, argv, &stack_a, &is_split))
 		return (1);
 	if (!check_sorted(stack_a))
 		handle_sorting(&stack_a, &stack_b);
-	if (is_split)
-		free_argv(argv);
 	free_stack(&stack_a);
 	return (0);
 }
