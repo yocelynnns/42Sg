@@ -6,71 +6,122 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:28:49 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/15 21:40:15 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:43:25 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	execute(char *argv, char **envp)
+void	abs_path(char *argv, char **envp)
 {
 	char	**cmd;
-	int 	i;
-	char	*path;
-	
-	i = -1;
-	cmd = ft_split(argv, ' ');
-	path = find_path(cmd[0], envp);
-	if (!path)	
+
+	cmd = malloc (sizeof (char *) * 2);
+	if (!cmd)
 	{
-		while (cmd[++i])
-			free(cmd[i]);
-		free(cmd);
-		perror("Error path");
+		perror("Memory allocation error");
+		exit(1);
+	}
+	cmd[1] = NULL;
+	cmd[0] = argv;
+	if (access (argv, X_OK) == 0)
+		execve (argv, cmd, envp);
+	else
+		perror ("No such file or directory");
+	free(cmd);
+	exit(1);
+}
+
+void	split_and_exec(char *argv, char **envp)
+{
+	char	**cmd;
+	char	*path;
+
+	cmd = ft_split(argv, ' ');
+	if (!cmd)
+	{
+		perror("Failed to split command");
+		exit(1);
+	}
+	path = find_path(cmd[0], envp);
+	if (!path)
+	{
+		free_mem(cmd);
+		perror("Command not found");
 		exit(1);
 	}
 	if (execve(path, cmd, envp) == -1)
 	{
 		perror("Error exec");
 		free(path);
+		free_mem(cmd);
+		exit(1);
 	}
-	while (cmd[++i])
-        free(cmd[i]);
-    free(cmd);
-    exit(1);
+	free(path);
+	free_mem(cmd);
+}
+
+char	**get_all_paths(char **envp)
+{
+	char	**all_path;
+	int		i;
+
+	i = 0;
+	while (envp[i] && ft_strnstr(envp[i], "PATH", 4) == 0)
+		i++;
+	if (!envp[i])
+	{
+		perror("Error: PATH not found");
+		return (NULL);
+	}
+	all_path = ft_split(envp[i] + 5, ':');
+	if (!all_path)
+	{
+		perror("Error splitting PATH");
+		return (NULL);
+	}
+	return (all_path);
+}
+
+char	*check_command_path(char *cmd, char **all_path)
+{
+	char	*add_backs;
+	char	*path;
+	int		i;
+
+	i = 0;
+	while (all_path[i])
+	{
+		add_backs = ft_strjoin(all_path[i], "/");
+		if (!add_backs)
+		{
+			perror("Error joining path");
+			return (NULL);
+		}
+		path = ft_strjoin(add_backs, cmd);
+		free(add_backs);
+		if (access(path, F_OK) == 0)
+			return (path);
+		free(path);
+		i++;
+	}
+	return (NULL);
 }
 
 char	*find_path(char *cmd, char **envp)
 {
 	char	**all_path;
 	char	*path;
-	int		i;
-	char	*add_backs;
 
-	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
-		i++;
-	all_path = ft_split(envp[i] + 5, ':');
-	i = 0;
-	while (all_path[i])
+	if (!envp || !cmd)
 	{
-		add_backs = ft_strjoin(all_path[i], "/");
-		path = ft_strjoin(add_backs, cmd);
-		free(add_backs);
-		if (access(path, F_OK) == 0)
-		{
-            int j = 0;
-            while (all_path[j])
-                free(all_path[j++]);
-            free(all_path);
-            return (path);
-        }
-		free(path);
-		i++;
+		perror("Env or cmd missing");
+		return (NULL);
 	}
-	i = -1;
-	while (all_path[++i])
-		free(all_path[i]);
-	free(all_path);
-	return (0);
+	all_path = get_all_paths(envp);
+	if (!all_path)
+		return (NULL);
+	path = check_command_path(cmd, all_path);
+	free_mem(all_path);
+	return (path);
 }
