@@ -25,7 +25,7 @@
 void	execute(char *argv, char **envp);
 char	*find_path(char *cmd, char **envp);
 void	childp(char **argv, int *pipe_fd, char **env, int infile);
-void	parentp(char **argv, int *pipe_fd, char **env);
+void	parentp(char **argv, int *pipe_fd, char **env, int infile);
 int		main(int argc, char **argv, char **env);
 void	ft_putstr_fd(char *s, int fd);
 int		wordlen(const char *s, char c);

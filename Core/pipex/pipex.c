@@ -37,7 +37,12 @@ void	execute(char *argv, char **envp)
 
 void	childp(char **argv, int *pipe_fd, char **env, int infile)
 {
-	
+	if (infile == -1)
+	{
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		exit(1);
+	}
 	dup2(infile, STDIN_FILENO);
 	dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
@@ -45,7 +50,7 @@ void	childp(char **argv, int *pipe_fd, char **env, int infile)
 	execute(argv[2], env);
 }
 
-void	parentp(char **argv, int *pipe_fd, char **env)
+void	parentp(char **argv, int *pipe_fd, char **env, int infile)
 {
 	int	outfile;
 
@@ -54,6 +59,12 @@ void	parentp(char **argv, int *pipe_fd, char **env)
 	{
 		perror("Error Outfile");
 		exit(1);
+	}
+	if (infile == -1)
+	{
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		perror("Error Infile");
 	}
 	dup2(pipe_fd[0], STDIN_FILENO);
 	dup2(outfile, STDOUT_FILENO);
@@ -77,11 +88,6 @@ int	main(int argc, char **argv, char **env)
 	int	infile;
 
 	infile = open(argv[1], O_RDONLY, 0777);
-	if (infile == -1)
-	{
-		perror("Error Infile");
-		exit(1);
-	}
 	if (pipe(pipe_fd) == -1)
 		return (perror("Error pipe"), 1);
 	pid = fork();
@@ -91,7 +97,7 @@ int	main(int argc, char **argv, char **env)
 		childp(argv, pipe_fd, env, infile);
 	else
 	{
-		parentp(argv, pipe_fd, env);
+		parentp(argv, pipe_fd, env, infile);
 		waitpid(pid, NULL, 0);
 		if (WIFEXITED(status))
 			return (WEXITSTATUS(status));
