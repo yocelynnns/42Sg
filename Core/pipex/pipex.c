@@ -35,16 +35,9 @@ void	execute(char *argv, char **envp)
 		split_and_exec(argv, envp);
 }
 
-void	childp(char **argv, int *pipe_fd, char **env)
+void	childp(char **argv, int *pipe_fd, char **env, int infile)
 {
-	int	infile;
-
-	infile = open(argv[1], O_RDONLY, 0777);
-	if (infile == -1)
-	{
-		perror("Error Infile");
-		exit(1);
-	}
+	
 	dup2(infile, STDIN_FILENO);
 	dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
@@ -81,13 +74,21 @@ int	main(int argc, char **argv, char **env)
 		ft_putstr_fd("Usage: ./pipex file1 cmd1 cmd2 file2\n", 2);
 		exit(1);
 	}
+	int	infile;
+
+	infile = open(argv[1], O_RDONLY, 0777);
+	if (infile == -1)
+	{
+		perror("Error Infile");
+		exit(1);
+	}
 	if (pipe(pipe_fd) == -1)
 		return (perror("Error pipe"), 1);
 	pid = fork();
 	if (pid == -1)
 		return (perror("Error Fork"), 1);
 	if (pid == 0)
-		childp(argv, pipe_fd, env);
+		childp(argv, pipe_fd, env, infile);
 	else
 	{
 		parentp(argv, pipe_fd, env);
