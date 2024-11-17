@@ -3,42 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   handle_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:47:42 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/23 17:13:50 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/25 01:12:08 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "so_long.h"
 
-void	free_2d(char **memory)
+void	free_arr(char **arr)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (memory[i])
+	while (arr[i])
 	{
-		free(memory[i]);
+		free(arr[i]);
 		i++;
 	}
-	free(memory);
-	memory = NULL;
+	free(arr);
+	arr = NULL;
 }
 
-void	clean_struct(t_struct *m_struct)
+void	clean_struct(t_map *map_s)
 {
-	if (m_struct->map)
-		free_2d(m_struct->map);
-	if (m_struct->map_cp)
-		free_2d(m_struct->map_cp);
-	if (m_struct->map_fd != -1)
-		close(m_struct->map_fd);
+	if (map_s->map)
+		free_arr(map_s->map);
+	if (map_s->map_cp)
+		free_arr(map_s->map_cp);
+	if (map_s->map_fd != -1)
+		close(map_s->map_fd);
 }
 
-void	ft_error(char *s, t_struct *l_struct)
+void	ft_error(char *s, t_map *map_s)
 {
-	clean_struct(l_struct);
-	printf("%s", s);
+	clean_struct(map_s);
+	ft_printf("%s", s);
 	exit(1);
+}
+
+int	close_window(t_game *game)
+{
+	cleanup_game(game);
+	clean_struct(game->map);
+	exit(0);
+	return (0);
 }

@@ -6,10 +6,11 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:54:49 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/22 01:11:57 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2024/10/25 01:12:08 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "so_long.h"
 
 int	wordlen(const char *s, char c)
@@ -114,13 +115,13 @@ char	**ft_split(char const *s, char c)
 //         int i = 0;
 //         while (result[i] != NULL)
 //         {
-//             printf("%s\n", result[i]);
+//             ft_printf("%s\n", result[i]);
 //             free(result[i]);
 //             i++;
 //         }
 //         free(result);
 //     }
 //     else
-//         printf("Memory allocation failed or empty string\n");
+//         ft_printf("Memory allocation failed or empty string\n");
 //     return 0;
 // }
