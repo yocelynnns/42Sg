@@ -55,7 +55,7 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "text_encoding": "cpp",
-        "cinttypes": "cpp",
+        "std::cinttypes": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
         "ranges": "cpp"
