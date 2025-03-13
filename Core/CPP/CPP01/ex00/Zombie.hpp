@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 20:37:03 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/14 00:51:21 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/03/13 22:40:18 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/03/14 01:23:23 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#ifndef ZOMBIE_HPP
+#define ZOMBIE_HPP
 
-#include "Contact.hpp"
-#include <sstream>
+#include <iostream>
+#include <string>
 
-class PhoneBook {
+class Zombie {
 private:
-    Contact contacts[8];
-    int contactIndex;
-    int contactCount;
-
-    bool IsValidPhoneNumber(const std::string& phoneNumber) const;
-
+	std::string Name;
 public:
-    PhoneBook();
-
-    void AddContact();
-    void SearchContact() const;
+	Zombie(std::string name);
+	void announce();
+	~Zombie();
 };
+
+Zombie *newZombie(std::string name);
+void randomChump(std::string name);
 
 #endif

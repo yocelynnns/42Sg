@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 20:37:03 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/14 00:51:21 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/03/14 00:52:53 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/03/14 01:33:12 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+#include "Zombie.hpp"
 
-#include "Contact.hpp"
-#include <sstream>
+Zombie *zombieHorde(std::string name, int n)
+{
+    if (n <= 0)
+    return NULL;
 
-class PhoneBook {
-private:
-    Contact contacts[8];
-    int contactIndex;
-    int contactCount;
+    Zombie *horde = new Zombie[n];
 
-    bool IsValidPhoneNumber(const std::string& phoneNumber) const;
-
-public:
-    PhoneBook();
-
-    void AddContact();
-    void SearchContact() const;
-};
-
-#endif
+    for (int i = 0; i < n; ++i) {
+        horde[i].setName(name);
+    }
+    return horde;
+}

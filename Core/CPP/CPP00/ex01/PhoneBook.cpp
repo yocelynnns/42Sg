@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 20:37:09 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/13 20:46:43 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/03/14 00:51:10 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 PhoneBook::PhoneBook() : contactIndex(0), contactCount(0) {}
 
-bool PhoneBook::IsValidPhoneNumber(const std::string& phoneNumber) const {
+bool PhoneBook::IsValidPhoneNumber(const std::string &phoneNumber) const {
     for (size_t i = 0; i < phoneNumber.length(); i++) {
         if (!isdigit(phoneNumber[i])) {
             return false;
