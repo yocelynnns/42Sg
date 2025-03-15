@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 21:04:23 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/13 14:37:01 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:03:33 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int main() {
 
     while (1) {
         std::cout << "Enter command (ADD, SEARCH, EXIT): ";
-        getline(std::cin, command);
-
+        if (!getline(std::cin, command))
+            return (1);
         if (command == "ADD") {
             phoneBook.AddContact();
         } 

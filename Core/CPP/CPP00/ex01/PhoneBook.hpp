@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 20:37:03 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/14 00:51:21 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/03/15 21:13:34 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ private:
     int contactIndex;
     int contactCount;
 
-    bool IsValidPhoneNumber(const std::string& phoneNumber) const;
+    bool IsValidPhoneNumber(const std::string &phoneNumber) const;
+    std::string GetValidInput(const std::string& prompt);
+    std::string GetValidPhoneNumber();
 
 public:
     PhoneBook();

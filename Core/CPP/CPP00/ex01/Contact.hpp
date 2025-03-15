@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 20:36:32 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/13 20:45:55 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/03/15 20:58:43 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <cstdlib>
 
 class Contact {
 private:
