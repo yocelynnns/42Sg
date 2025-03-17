@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 20:36:19 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/13 20:45:37 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:18:04 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ void Contact::DisplayInfo() const {
 void Contact::DisplaySummary(int index) const {
     std::cout << std::setw(10) << index << "|";
 
-    if (FirstName.length() > 9) {
-        std::cout << FirstName.substr(0, 9) << ".|";
+    if (FirstName.length() > 10) {
+        std::cout << FirstName.substr(0, 10) << ".|";
     } else {
         std::cout << std::setw(10) << FirstName << "|";
     }
 
-    if (LastName.length() > 9) {
-        std::cout << LastName.substr(0, 9) << ".|";
+    if (LastName.length() > 10) {
+        std::cout << LastName.substr(0, 10) << ".|";
     } else {
         std::cout << std::setw(10) << LastName << "|";
     }
 
-    if (NickName.length() > 9) {
-        std::cout << NickName.substr(0, 9) << ".|";
+    if (NickName.length() > 10) {
+        std::cout << NickName.substr(0, 10) << ".|";
     } else {
         std::cout << std::setw(10) << NickName << "|";
     }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Account.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:39:35 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/13 20:28:26 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:25:13 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ Account::Account(int initial_deposit){
 
 void Account::displayAccountsInfos() {
     _displayTimestamp();
-    std::cout << "accounts:" << _nbAccounts << ";amount:" << _totalAmount
+    std::cout << "accounts:" << _nbAccounts << ";total:" << _totalAmount
               << ";deposits:" << _totalNbDeposits << ";withdrawals:" << _totalNbWithdrawals << std::endl;
 }
 
