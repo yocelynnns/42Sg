@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 22:40:05 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/03/19 02:03:50 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/03/17 17:05:09 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/03/17 18:28:56 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "HumanB.hpp"
 
-int main() {
-    Zombie *zombie1 = NewZombie("Foo");
-    zombie1->Announce();
-    delete zombie1;
-    
-    RandomChump("Hoo");
+HumanB::HumanB(std::string name) : Name(name) {}
 
-    return (0);
+void HumanB::attack() {
+    std::cout << Name << " attacks with their " << weapon->getType() << std::endl;
+};
+
+void HumanB::setWeapon(Weapon &weapon){
+    this->weapon = &weapon;
 }

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Weapon.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 22:40:05 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/03/19 02:03:50 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/03/17 17:05:17 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/03/17 18:14:32 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "Weapon.hpp"
 
-int main() {
-    Zombie *zombie1 = NewZombie("Foo");
-    zombie1->Announce();
-    delete zombie1;
-    
-    RandomChump("Hoo");
+Weapon::Weapon(std::string type) : type(type) {}
 
-    return (0);
+std::string Weapon::getType() {
+    return this->type;
+}
+
+void Weapon::setType(std::string type){
+    this->type = type;
 }

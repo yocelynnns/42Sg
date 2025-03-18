@@ -6,7 +6,7 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 00:52:55 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/03/14 01:35:01 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/03/19 02:04:32 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ private:
 	std::string Name;
 public:
 	Zombie();
-    void announce();
-    void setName(std::string name);
+    void Announce();
+    void SetName(std::string name);
 	~Zombie();
 };
 
-Zombie *zombieHorde(std::string name, int N);
+Zombie *ZombieHorde(std::string name, int N);
 
 #endif

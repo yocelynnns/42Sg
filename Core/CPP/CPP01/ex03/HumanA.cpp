@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   randomChump.cpp                                    :+:      :+:    :+:   */
+/*   HumanA.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 22:40:09 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/03/14 01:23:07 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/03/17 17:05:03 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/03/17 18:25:12 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "HumanA.hpp"
 
-void randomChump(std::string name) {
-    Zombie zombie(name);
-    zombie.announce();
-}
+HumanA::HumanA(std::string name, Weapon &weapon) : Name(name), weapon(weapon) {}
+
+void HumanA::attack() {
+    std::cout << Name << " attacks with their " << weapon.getType() << std::endl;
+};

@@ -6,7 +6,7 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 00:52:58 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/03/14 01:34:51 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/03/19 02:03:17 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 Zombie::Zombie() {}
 
-void Zombie::setName(std::string name) {
+void Zombie::SetName(std::string name) {
     Name = name;
 }
 
-void Zombie::announce() {
+void Zombie::Announce() {
     std::cout << Name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 };
 

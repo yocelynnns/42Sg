@@ -6,7 +6,7 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 22:40:18 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/03/14 01:23:23 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/03/19 02:03:35 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ private:
 	std::string Name;
 public:
 	Zombie(std::string name);
-	void announce();
+	void Announce();
 	~Zombie();
 };
 
-Zombie *newZombie(std::string name);
-void randomChump(std::string name);
+Zombie *NewZombie(std::string name);
+void RandomChump(std::string name);
 
 #endif

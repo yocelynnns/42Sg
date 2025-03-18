@@ -6,7 +6,7 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 20:36:19 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/17 16:18:04 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/03/19 01:57:20 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ void Contact::DisplaySummary(int index) const {
     std::cout << std::setw(10) << index << "|";
 
     if (FirstName.length() > 10) {
-        std::cout << FirstName.substr(0, 10) << ".|";
+        std::cout << FirstName.substr(0, 9) << ".|";
     } else {
         std::cout << std::setw(10) << FirstName << "|";
     }
 
     if (LastName.length() > 10) {
-        std::cout << LastName.substr(0, 10) << ".|";
+        std::cout << LastName.substr(0, 9) << ".|";
     } else {
         std::cout << std::setw(10) << LastName << "|";
     }
 
     if (NickName.length() > 10) {
-        std::cout << NickName.substr(0, 10) << ".|";
+        std::cout << NickName.substr(0, 9) << ".|";
     } else {
         std::cout << std::setw(10) << NickName << "|";
     }
