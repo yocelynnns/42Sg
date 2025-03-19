@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Harl.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 03:07:06 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/03/19 14:10:49 by ysetiawa         ###   ########.fr       */
+/*   Created: 2025/03/19 14:45:17 by ysetiawa          #+#    #+#             */
+/*   Updated: 2025/03/19 16:01:37 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HARL_HPP
-#define HARL_HPP
+#include "Harl.hpp"
 
-#include <iostream>
-#include <fstream>
-#include <string>
+int main(int argc, char **argv)
+{
+    Harl harl;
 
-class Harl {
-private:
-    void debug();
-    void info();
-    void warning();
-    void error();
-public:
-    void complain(std::string level);
-};
+    if (argc != 2) {
+        std::cout << "Error! ";
+        std::cout << "Usage: ./harlFilter <complaint_level>" << std::endl;
+        return 1;
+    }
+    harl.complain(argv[1]);
 
-#endif
+    return 0;
+}
