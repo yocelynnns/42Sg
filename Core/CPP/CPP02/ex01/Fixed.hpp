@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:43:51 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/25 20:51:29 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:40:27 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class Fixed
         Fixed (const int num);
         Fixed (const float num);
         Fixed(const Fixed& copy);
-        Fixed &operator = (const Fixed &copy);
+        Fixed& operator=(const Fixed& copy);
         ~Fixed();
         int getRawBits( void ) const;
         void setRawBits( int const raw );
