@@ -6,7 +6,7 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:45:46 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/05 17:02:16 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/10 03:18:25 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,24 @@
 class ClapTrap
 {
     private:
-        std::string Name;
-        int HitPts;
-        int EnergyPts;
-        int AttackDmg;
+        std::string name;
+        int hitPts;
+        int energyPts;
+        int attackDmg;
     public:
+        // Orthodox Canonical Form
+        ClapTrap();                                // Default constructor
+        ClapTrap(const ClapTrap& other);           // Copy constructor
+        ClapTrap& operator=(const ClapTrap& other); // Copy assignment
+        ~ClapTrap();                               // Destructor
+
+        // Custom constructor
         ClapTrap(std::string name);
+
+        // Member functions
         void attack(const std::string& target);
         void takeDamage(unsigned int amount);
         void beRepaired(unsigned int amount);
-        ~ClapTrap();
-    
 };
 
 #endif

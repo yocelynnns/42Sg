@@ -6,41 +6,56 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:25:16 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/05 22:00:48 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/10 15:31:38 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
-    this->HitPts = 100;
-    this->EnergyPts = 50;
-    this->AttackDmg = 20;
-    std::cout << "ScavTrap " << this->Name << " is created." << std::endl;
+// Default constructor
+ScavTrap::ScavTrap() : ClapTrap("DefaultScav") {
+    hitPts = 100;
+    energyPts = 50;
+    attackDmg = 20;
+    maxHitPts = 100; 
+    std::cout << "ScavTrap " << name << " is created (default)." << std::endl;
 }
 
+// Custom constructor
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
+    hitPts = 100;
+    energyPts = 50;
+    attackDmg = 20;
+    maxHitPts = 100; 
+    std::cout << "ScavTrap " << name << " is created." << std::endl;
+}
+
+// Copy constructor
+ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
+    std::cout << "ScavTrap " << name << " is copied." << std::endl;
+}
+
+// Copy assignment operator
+ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
+    if (this != &other) {
+        ClapTrap::operator=(other); // call base class assignment
+    }
+    std::cout << "ScavTrap " << name << " is assigned." << std::endl;
+    return *this;
+}
+
+// attack
 void ScavTrap::attack(const std::string& target) {
     std::cout << "[ScavTrap] ";
     ClapTrap::attack(target);
 }
 
+// guardGate
 void ScavTrap::guardGate() {
-    std::cout << "ScavTrap " << this->Name << " is now in Gate Keeper mode." << std::endl;
+    std::cout << "ScavTrap " << name << " is now in Gate Keeper mode." << std::endl;
 }
 
+// Destructor
 ScavTrap::~ScavTrap() {
-    std::cout << "ScavTrap " << this->Name << " is destroyed." << std::endl;
+    std::cout << "ScavTrap " << name << " is destroyed." << std::endl;
 }
-
-// void ScavTrap::attack(const std::string& target) {
-//     if (this->HitPts < 1) {
-//         std::cout << "ScavTrap " << this->Name << " is dead and cannot attack." << std::endl;
-//         return ;
-//     }
-//     if (this->EnergyPts < 1) {
-//         std::cout << "ScavTrap " << this->Name << " does not have enough energy to attack." << std::endl;
-//         return ;
-//     }
-//     std::cout << "ScavTrap " << this->Name << " attacks " << target << ", causing " << this->AttackDmg << " points of damage!" << std::endl;
-//     this->EnergyPts -= 1;
-// }

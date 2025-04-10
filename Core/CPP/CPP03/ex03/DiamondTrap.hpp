@@ -6,7 +6,7 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 22:25:27 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/05 22:45:34 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/10 15:53:54 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,20 @@
 
 class DiamondTrap : public ScavTrap, public FragTrap {
     private:
-        std::string Name;
+        std::string name;
     public:
+        // Orthodox Canonical Form
+        DiamondTrap();
+        DiamondTrap(const DiamondTrap& other);
+        DiamondTrap& operator=(const DiamondTrap& other);
+        ~DiamondTrap();
+
+        // Custom constructor
         DiamondTrap(std::string name);
+
+        // Member functions
         void whoAmI();
         void attack(const std::string& target);
-        ~DiamondTrap();
 };
 
 #endif

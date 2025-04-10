@@ -5,18 +5,18 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/04 17:45:52 by yocelynnns        #+#    #+#              #
-#    Updated: 2025/04/10 15:45:07 by yocelynnns       ###   ########.fr        #
+#    Created: 2025/04/05 23:49:06 by yocelynnns        #+#    #+#              #
+#    Updated: 2025/04/11 01:28:16 by yocelynnns       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= fragtrap
+NAME		= ex00
 
 CPP			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -g -std=c++98
 RM			= rm -f
 
-SRCS		= main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+SRCS		= main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
 OBJS		= $(SRCS:.cpp=.o)
 
 all: $(NAME)

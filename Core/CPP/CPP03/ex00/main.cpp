@@ -6,57 +6,42 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:45:50 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/05 17:14:30 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/10 14:04:18 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
 int main() {
-    std::cout << "=== Creating ClapTrap ===" << std::endl;
-    ClapTrap ct("Clappy");
+    std::cout << "=== Creating Original ClapTrap ===" << std::endl;
+    ClapTrap original("OG");
 
-    std::cout << "\n=== Normal Attack ===" << std::endl;
-    ct.attack("TargetBot");
+    std::cout << "\n=== Copying ClapTrap ===" << std::endl;
+    ClapTrap copy = original; // Calls copy constructor
 
-    std::cout << "\n=== Repairing (should work) ===" << std::endl;
-    ct.beRepaired(5);
+    std::cout << "\n=== Modifying Original, Not Copy ===" << std::endl;
+    original.attack("Dummy");
+    original.takeDamage(4);
+    original.beRepaired(6); // Should max at 10 HP
 
-    std::cout << "\n=== Taking Damage (non-fatal) ===" << std::endl;
-    ct.takeDamage(3);
+    std::cout << "\n=== Check Copy Hasn't Changed ===" << std::endl;
+    copy.attack("Still Dummy");
 
-    std::cout << "\n=== Taking Damage (fatal) ===" << std::endl;
-    ct.takeDamage(20); // Should kill the ClapTrap
+    std::cout << "\n=== Repair Beyond Max Test ===" << std::endl;
+    ClapTrap healer("Medic");
+    healer.takeDamage(5); // down to 5 HP
+    healer.beRepaired(10); // should go to max 10 HP, not 15
 
-    std::cout << "\n=== Trying to Attack After Death ===" << std::endl;
-    ct.attack("TargetBot");
+    std::cout << "\n=== Before/After HP & Energy Test ===" << std::endl;
+    ClapTrap stat("Stats");
+    stat.takeDamage(3); // 7 HP
+    stat.beRepaired(2); // 9 HP
+    stat.attack("Target1"); // -1 energy
+    stat.beRepaired(3); // 10 HP capped
 
-    std::cout << "\n=== Trying to Repair After Death ===" << std::endl;
-    ct.beRepaired(5);
-
-    std::cout << "\n=== Creating New ClapTrap for Energy Tests ===" << std::endl;
-    ClapTrap tiredBot("TiredBot");
-
-    std::cout << "\n=== Depleting All Energy with Attacks ===" << std::endl;
-    for (int i = 0; i < 10; i++) {
-        tiredBot.attack("DummyBot");
-    }
-
-    std::cout << "\n=== Trying to Attack With No Energy ===" << std::endl;
-    tiredBot.attack("DummyBot");
-
-    std::cout << "\n=== Trying to Repair With No Energy ===" << std::endl;
-    tiredBot.beRepaired(5);
-
-    std::cout << "\n=== Creating Another ClapTrap to Take Damage ===" << std::endl;
-    ClapTrap punchingBag("PunchingBag");
-
-    punchingBag.takeDamage(5);
-    punchingBag.takeDamage(3);
-    punchingBag.takeDamage(2); // Brings health to 0
-
-    punchingBag.takeDamage(1); // Already dead
-    punchingBag.beRepaired(3); // Should not repair because it's dead
+    std::cout << "\n=== Repair Beyond Max Test ===" << std::endl;
+    ClapTrap ko("Die");
+    ko.takeDamage(100); // 
 
     std::cout << "\n=== End of Test ===" << std::endl;
     return 0;

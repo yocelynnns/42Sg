@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 21:51:37 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/10 15:35:28 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/04/05 23:22:44 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/04/11 00:33:06 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRAGTRAP_HPP
-#define FRAGTRAP_HPP
+#ifndef DOG_HPP
+#define DOG_HPP
 
-#include "ClapTrap.hpp"
+#include "Animal.hpp"
 
-class FragTrap : public ClapTrap {
+class Dog : public Animal {
     public:
         // Orthodox Canonical Form
-        FragTrap();
-        FragTrap(const FragTrap& other);
-        FragTrap& operator=(const FragTrap& other);
-        ~FragTrap();
-
-        // Custom constructor
-        FragTrap(std::string name);
-
-        // Member functions
-        void highFivesGuys(void);
+        Dog();                                // Default constructor
+        Dog(const Dog& other);           // Copy constructor
+        Dog& operator=(const Dog& other); // Copy assignment
+        ~Dog();   
+        
+        // Member Functions
+        void makeSound() const;
 };
 
 #endif
