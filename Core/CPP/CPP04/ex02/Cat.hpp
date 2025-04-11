@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongCat.hpp                                       :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 01:16:05 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 16:20:04 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/04/05 23:41:29 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/04/11 15:38:44 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRONGCAT_HPP
-#define WRONGCAT_HPP
+#ifndef CAT_HPP
+#define CAT_HPP
 
-#include "WrongAnimal.hpp"
+#include "AAnimal.hpp"
 
-class WrongCat : public WrongAnimal {
+class Cat : public AAnimal {
     public:
         // Orthodox Canonical Form
-        WrongCat();                                // Default constructor
-        WrongCat(const WrongCat& other);           // Copy constructor
-        WrongCat& operator=(const WrongCat& other); // Copy assignment
-        ~WrongCat(); 
+        Cat();                                // Default constructor
+        Cat(const Cat& other);           // Copy constructor
+        Cat& operator=(const Cat& other); // Copy assignment
+        ~Cat();   
         
+        // Member Functions
         void makeSound() const;
 };
 
