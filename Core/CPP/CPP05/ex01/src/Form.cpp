@@ -77,10 +77,15 @@ void Form::beSigned(const Bureaucrat& b) {
     isSigned = true;
 }
 
-std::ostream& operator<<(std::ostream& os, const Form& f) {
-    os << "Form \"" << f.getName()
-       << "\", signed: " << (f.getIsSigned() ? "yes" : "no")
-       << ", sign grade: " << f.getSignGrade()
+std::ostream& operator<<(std::ostream& os, const Form& f)
+{
+    os << "Form \"" << f.getName() << "\", signed: ";
+    if (f.getIsSigned()) {
+        os << "yes";
+    } else {
+        os << "no";
+    }
+    os << ", sign grade: " << f.getSignGrade()
        << ", exec grade: " << f.getExecGrade();
     return os;
 }

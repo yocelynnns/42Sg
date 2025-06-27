@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 17:07:48 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/05/30 14:28:43 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/06/27 21:17:26 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 // Default constructor
 RobotomyRequestForm::RobotomyRequestForm()
-    : AForm("RobotomyRequestForm", 72, 48), target("Default")
+    : AForm("RobotomyRequestForm", 72, 45), target("Default")
 {
     std::cout << "RobotomyRequestForm " << target << " is created (default)." << std::endl;
 }
 
 // Custom constructor
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
-    : AForm("RobotomyRequestForm", 72, 48), target(target)
+    : AForm("RobotomyRequestForm", 72, 45), target(target)
 {
     std::srand(std::time(NULL));
     std::cout << "RobotomyRequestForm " << target << " is created." << std::endl;

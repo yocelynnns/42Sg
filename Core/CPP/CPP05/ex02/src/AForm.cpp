@@ -89,10 +89,20 @@ void AForm::execute(const Bureaucrat& executor) const {
     executeAction();
 }
 
-std::ostream& operator<<(std::ostream& os, const AForm& f) {
-    os << "AForm \"" << f.getName()
-       << "\", signed: " << (f.getIsSigned() ? "yes" : "no")
-       << ", sign grade: " << f.getSignGrade()
+std::ostream& operator<<(std::ostream& os, const AForm& f)
+{
+    os << "AForm \"" << f.getName() << "\", signed: ";
+    if (f.getIsSigned())
+        os << "yes";
+    else
+        os << "no";
+    
+    os << ", sign grade: " << f.getSignGrade() 
        << ", exec grade: " << f.getExecGrade();
+
+    if (f.getExecGrade() < 50)
+        os << " (This form can be executed easily.)";
+    else
+        os << " (This form requires a high grade to execute.)";
     return os;
 }

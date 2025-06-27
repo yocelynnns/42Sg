@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
+#    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/28 15:50:21 by yocelynnns        #+#    #+#              #
-#    Updated: 2025/05/30 14:21:52 by yocelynnns       ###   ########.fr        #
+#    Updated: 2025/06/27 21:18:53 by ysetiawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -Iinc -MMD -MP
 
 SRC_DIR = src
 OBJ_DIR = obj
-STUFF = yard_shrubbery
 
 SRC = $(SRC_DIR)/main.cpp \
       $(SRC_DIR)/Bureaucrat.cpp \
@@ -53,8 +52,8 @@ $(NAME): $(OBJ)
 -include $(DEP)
 
 clean:
-	rm -rf $(OBJ_DIR) $(STUFF)
-
+	rm -rf $(OBJ_DIR)
+      
 fclean: clean
 	rm -f $(NAME)
 

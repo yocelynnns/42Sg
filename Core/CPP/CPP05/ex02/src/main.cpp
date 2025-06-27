@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/27 16:59:54 by ysetiawa          #+#    #+#             */
+/*   Updated: 2025/06/27 20:59:50 by ysetiawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
@@ -64,9 +76,22 @@ int main() {
         std::cerr << "Exception: " << e.what() << "\n";
     }
 
-    // TEST 6: Bureaucrat grade boundaries
+    // TEST 6: Proper signing and execution of PresidentialPardonForm
     try {
-        std::cout << "\n[TEST 6] Bureaucrat grade limits\n";
+        std::cout << "\n[TEST 6] Proper signing and execution of PresidentialPardonForm\n";
+        PresidentialPardonForm f6("Snowden"); // target of the pardon
+
+        Bureaucrat b9("Trump", 1); // High enough grade for both signing and execution
+
+        b9.signForm(f6);
+        b9.executeForm(f6);
+    } catch (std::exception& e) {
+        std::cerr << "Exception: " << e.what() << "\n";
+    }
+    
+    // TEST 7: Bureaucrat grade boundaries
+    try {
+        std::cout << "\n[TEST 7] Bureaucrat grade limits\n";
         Bureaucrat tooHigh("God", 0); // Should throw
     } catch (std::exception& e) {
         std::cerr << "Exception (Too High): " << e.what() << "\n";
