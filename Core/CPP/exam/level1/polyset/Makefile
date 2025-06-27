@@ -5,47 +5,33 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/27 16:54:33 by ysetiawa          #+#    #+#              #
-#    Updated: 2025/05/28 15:49:22 by yocelynnns       ###   ########.fr        #
+#    Created: 2025/06/17 19:29:40 by yocelynnns        #+#    #+#              #
+#    Updated: 2025/06/23 20:41:19 by yocelynnns       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex00
+NAME		= test
 
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -Iinc -MMD -MP
+CPP			= c++
+CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
+RM			= rm -f
 
-SRC_DIR = src
-OBJ_DIR = obj
+SRCS		= main.cpp ArrayBag.cpp Set.cpp TreeBag.cpp
+OBJS		= $(SRCS:.cpp=.o)
 
-SRC = $(SRC_DIR)/main.cpp \
-      $(SRC_DIR)/Bureaucrat.cpp
-
-OBJ = $(OBJ_DIR)/main.o \
-      $(OBJ_DIR)/Bureaucrat.o
-
-DEP = $(OBJ:.o=.d)
-
-# Rule to build object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@mkdir -p $(OBJ_DIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Default target
 all: $(NAME)
 
-# Link the executable
-$(NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+$(NAME): $(OBJS)
+	$(CPP) $(CPPFLAGS) -o $(NAME) $(OBJS)
 
-# Include dependencies if they exist
--include $(DEP)
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR)
+	$(RM) $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
