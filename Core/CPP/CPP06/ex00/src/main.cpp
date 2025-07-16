@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   life.h                                             :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/22 16:46:57 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/26 15:10:18 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/07/09 18:00:34 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/07/09 18:07:47 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIFE_H
-#define LIFE_H
+#include "ScalarConverter.hpp"
 
-#include <stdlib.h>
-#include <unistd.h>
+int main(int argc, char** argv) {
+    if (argc != 2) {
+        std::cerr << "Usage: ./convert <literal>" << std::endl;
+        return 1;
+    }
 
-typedef struct s_life {
-    char *board;
-    int width;
-    int height;
-    int x;
-    int y;
-    int drawing;
-} t_life;
-
-void draw_input(t_life *life);
-void simulate(t_life *life);
-void print_board(t_life *life);
-int count_neighbors(t_life *life, int x, int y);
-
-#endif
+    ScalarConverter::convert(argv[1]);
+    // ScalarConverter sc; // cannot instantiate
+    return 0;
+}

@@ -6,18 +6,47 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:54:04 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/02 21:18:29 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/07/10 18:26:40 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 
+// Default constructor
+ScalarConverter::ScalarConverter() {}
+
+// Copy constructor
+ScalarConverter::ScalarConverter(const ScalarConverter& other) {
+    (void)other;
+}
+
+// Copy assignment operator
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
+    (void)other;
+    return *this;
+}
+
+// Destructor
+ScalarConverter::~ScalarConverter() {}
+
 static bool isCharLiteral(const std::string& str) {
-    return (str.length() == 3 && str[0] == '\'' && str[2] == '\'');
-} 
+    return str.length() == 3 && str[0] == '\'' && str[2] == '\'';
+}
 
 static bool isFloatPseudoLiteral(const std::string& str) {
-    return (str == );
+    return str == "nanf" || str == "+inff" || str == "-inff";
+}
+
+static bool isDoublePseudoLiteral(const std::string& str) {
+    return str == "nan" || str == "+inf" || str == "-inf";
+}
+
+static bool isFloatLiteral(const std::string& str) {
+    return str.find('.') != std::string::npos && str[str.length() - 1] == 'f';
+}
+
+static bool isDoubleLiteral(const std::string& str) {
+    return str.find('.') != std::string::npos && str[str.length() - 1] == 'f';
 }
 
 void ScalarConverter::convert(const std::string& literal) {
@@ -26,7 +55,7 @@ void ScalarConverter::convert(const std::string& literal) {
     float f;
     double d;
 
-    std::cout << std::fixed << std::setprecision(1);
+    std::cout << std::fixed << std::setprecision(1); 
 
     // CHAR
     if (isCharLiteral(literal)) {
@@ -39,14 +68,14 @@ void ScalarConverter::convert(const std::string& literal) {
     else if (isFloatPseudoLiteral(literal)) {
         c = 0;
         i = 0;
-        f = std::strtof(literal.c_str(), nullptr);
+        f = std::strtof(literal.c_str(), NULL);
         d = static_cast<double>(f);
     }
     // DOUBLE PSEUDO
     else if (isDoublePseudoLiteral(literal)) {
         c = 0;
         i = 0;
-        d = std::strtod(literal.c_str(), nullptr);
+        d = std::strtod(literal.c_str(), NULL);
         f = static_cast<float>(d);
     }
     // FLOAT

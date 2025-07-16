@@ -6,7 +6,7 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:39:36 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/23 20:42:56 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/07/02 14:47:11 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #define TREEBAG_HPP
 
 #include "SearchableBag.hpp"
+#include <iostream>
 
 struct TreeNode {
     int value;
     TreeNode* left;
     TreeNode* right;
-    TreeNode(int v) : value(v), left(0), right(0) {}
+    TreeNode(int v) : value(v), left(0), right(0) {}  
 };
 
 class TreeBag : public SearchableBag {

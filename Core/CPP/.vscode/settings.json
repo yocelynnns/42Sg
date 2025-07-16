@@ -51,6 +51,8 @@
         "fstream": "cpp",
         "ranges": "cpp",
         "span": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "*.tpp": "cpp",
+        "bsq.h": "c"
     }
 }

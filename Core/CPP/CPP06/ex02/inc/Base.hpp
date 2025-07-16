@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SearchableBag.hpp                                  :+:      :+:    :+:   */
+/*   Base.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 20:38:47 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/07/02 14:02:21 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/07/09 22:44:17 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/07/10 17:42:07 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SEARCHABLEBAG_HPP
-#define SEARCHABLEBAG_HPP
+#ifndef BASE_HPP
+#define BASE_HPP
 
-#include "Bag.hpp"
-
-class SearchableBag : public Bag {
+class Base {
     public:
-        virtual bool has(int value) const = 0;
-        virtual ~SearchableBag() {}  
+        virtual ~Base();
 };
 
 #endif

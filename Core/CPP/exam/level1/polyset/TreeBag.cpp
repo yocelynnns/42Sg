@@ -6,12 +6,11 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:39:50 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/23 20:43:09 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/07/02 14:46:58 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "TreeBag.hpp"
-#include <iostream>
 
 TreeBag::TreeBag() : root(0), count(0) {}
 
@@ -34,7 +33,8 @@ TreeBag& TreeBag::operator=(const TreeBag& other) {
 }
 
 TreeNode* TreeBag::clone(TreeNode* node) {
-    if (!node) return 0;
+    if (!node)
+        return 0;
     TreeNode* newNode = new TreeNode(node->value);
     newNode->left = clone(node->left);
     newNode->right = clone(node->right);
@@ -42,7 +42,8 @@ TreeNode* TreeBag::clone(TreeNode* node) {
 }
 
 void TreeBag::destroy(TreeNode* node) {
-    if (!node) return;
+    if (!node)
+        return;
     destroy(node->left);
     destroy(node->right);
     delete node;
@@ -68,7 +69,8 @@ int TreeBag::size() const {
 }
 
 void TreeBag::print(TreeNode* node) const {
-    if (!node) return;
+    if (!node)
+        return;
     print(node->left);
     std::cout << node->value << " ";
     print(node->right);
@@ -81,8 +83,10 @@ void TreeBag::print() const {
 }
 
 bool TreeBag::has(TreeNode* node, int value) const {
-    if (!node) return false;
-    if (value == node->value) return true;
+    if (!node)
+        return false;
+    if (value == node->value)
+        return true;
     if (value < node->value)
         return has(node->left, value);
     else

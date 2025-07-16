@@ -5,33 +5,45 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/06/17 19:29:40 by yocelynnns        #+#    #+#              #
-#    Updated: 2025/06/23 17:54:05 by yocelynnns       ###   ########.fr        #
+#    Created: 2025/07/11 16:13:43 by yocelynnns        #+#    #+#              #
+#    Updated: 2025/07/11 16:13:56 by yocelynnns       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= test
+NAME = ex01
 
-CC			= cc
-CFLAGS	    = -Wall -Werror -Wextra
-RM			= rm -f
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -Iinc -MMD -MP
 
-SRCS		= main.c bsq.c
-OBJS		= $(SRCS:.c=.o)
+SRC_DIR = src
+OBJ_DIR = obj
 
+SRC = $(SRC_DIR)/main.cpp
+
+OBJ = $(OBJ_DIR)/main.o
+
+DEP = $(OBJ:.o=.d)
+
+# Rule to build object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Default target
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+# Link the executable
+$(NAME): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Include dependencies if they exist
+-include $(DEP)
 
 clean:
-	$(RM) $(OBJS)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

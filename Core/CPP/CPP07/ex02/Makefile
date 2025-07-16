@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/07/09 17:59:46 by yocelynnns        #+#    #+#              #
-#    Updated: 2025/07/09 18:02:57 by yocelynnns       ###   ########.fr        #
+#    Created: 2025/07/11 16:13:43 by yocelynnns        #+#    #+#              #
+#    Updated: 2025/07/11 17:11:52 by yocelynnns       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = convert
+NAME = ex02
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -Iinc -MMD -MP
@@ -18,11 +18,9 @@ CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -Iinc -MMD -MP
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC = $(SRC_DIR)/main.cpp \
-      $(SRC_DIR)/ScalarConverter.cpp
+SRC = $(SRC_DIR)/main.cpp
 
-OBJ = $(OBJ_DIR)/main.o \
-      $(OBJ_DIR)/ScalarConverter.o
+OBJ = $(OBJ_DIR)/main.o
 
 DEP = $(OBJ:.o=.d)
 

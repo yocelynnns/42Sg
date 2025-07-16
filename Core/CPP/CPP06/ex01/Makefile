@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/07/09 17:59:46 by yocelynnns        #+#    #+#              #
-#    Updated: 2025/07/09 18:02:57 by yocelynnns       ###   ########.fr        #
+#    Created: 2025/07/09 19:27:00 by yocelynnns        #+#    #+#              #
+#    Updated: 2025/07/10 17:17:30 by yocelynnns       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = convert
+NAME = serializer
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -Iinc -MMD -MP
@@ -19,10 +19,10 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRC = $(SRC_DIR)/main.cpp \
-      $(SRC_DIR)/ScalarConverter.cpp
+      $(SRC_DIR)/Serializer.cpp
 
 OBJ = $(OBJ_DIR)/main.o \
-      $(OBJ_DIR)/ScalarConverter.o
+      $(OBJ_DIR)/Serializer.o
 
 DEP = $(OBJ:.o=.d)
 

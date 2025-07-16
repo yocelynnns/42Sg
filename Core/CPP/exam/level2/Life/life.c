@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/22 16:47:18 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/26 16:12:28 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/07/16 12:58:48 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/07/16 13:15:45 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ int count_neighbors(t_life *life, int x, int y)
             {
                 int nx = x + dx;
                 int ny = y + dy;
-                if (nx >= 0 && nx < life->width && ny >= 0 && ny < life->height) {
-                    if (life->board[ny * life->width + nx])
+                if (nx >= 0 && ny >= 0 && nx < life->w && ny < life->h)
+                    if (life->board[ny * life->w + nx])
                         count++;
-                }
             }
             ++dx;
         }
@@ -37,18 +36,19 @@ int count_neighbors(t_life *life, int x, int y)
     return count;
 }
 
-void simulate(t_life *life)
+void solve_map(t_life *life)
 {
-    char *next = (char *)calloc(life->width * life->height, sizeof(char));
+    char *next = (char *)calloc(life->w * life->h, sizeof(char));
     int y = 0;
-    while (y < life->height)
+    while (y < life->h)
     {
         int x = 0;
-        while (x < life->width)
+        while (x < life->w)
         {
-            int idx = y * life->width + x;
+            int idx = y * life->w + x;
             int n = count_neighbors(life, x, y);
-            if (life->board[idx]) {
+            if (life->board[idx])
+            {
                 if (n == 2 || n == 3)
                     next[idx] = 1;
             } else {
@@ -60,7 +60,7 @@ void simulate(t_life *life)
         ++y;
     }
     int i = 0;
-    while (i < life->width * life->height)
+    while (i < life->w * life->h)
     {
         life->board[i] = next[i];
         ++i;
@@ -68,29 +68,26 @@ void simulate(t_life *life)
     free(next);
 }
 
-void print_board(t_life *life)
+void print_map(t_life *life)
 {
     int y = 0;
-    while (y < life->height)
+    while (y < life->h)
     {
         int x = 0;
-        while (x < life->width)
+        while (x < life->w)
         {
-            char c;
-            if (life->board[y * life->width + x]) {
-                c = '0';
-            } else {
-                c = ' ';
-            }
-            write(1, &c, 1);
+            if (life->board[y * life->w + x])
+                putchar('O');
+            else
+                putchar(' ');
             ++x;
         }
-        write(1, "\n", 1);
+        putchar('\n');
         ++y;
     }
 }
 
-void draw_input(t_life *life)
+void input_char(t_life *life)
 {
     char buf[1];
     while (read(0, buf, 1) > 0)
@@ -98,19 +95,42 @@ void draw_input(t_life *life)
         char c = buf[0];
         if (c == 'x')
         {
-            life->drawing = !life->drawing;
-            if (life->drawing)
-                life->board[life->y * life->width + life->x] = 1;
+            life->draw = !life->draw;
+            if (life->draw)
+                life->board[life->y * life->w + life->x] = 1;
         }
         else if (c == 'w' && life->y > 0)
             life->y--;
-        else if (c == 's' && life->y < life->height - 1)
+        else if (c == 's' && life-> y < life->h - 1)
             life->y++;
         else if (c == 'a' && life->x > 0)
             life->x--;
-        else if (c == 'd' && life->x < life->width - 1)
+        else if (c == 'd' && life->x < life->w - 1)
             life->x++;
-        if (life->drawing)
-            life->board[life->y * life->width + life->x] = 1;
+        if (life->draw)
+            life->board[life->y * life->w + life->x] = 1;
     }
+}
+
+int main (int argc, char **argv)
+{
+    if (argc != 4)
+        return 1;
+    
+    t_life life;
+    life.w = atoi(argv[1]);
+    life.h = atoi(argv[2]);
+    int iter = atoi(argv[3]);
+
+    life.board = (char *)calloc(life.w * life.h, sizeof(char));
+    life.x = 0;
+    life.y = 0;
+    life.draw = 0;
+
+    input_char(&life);
+    while (iter-- > 0)
+        solve_map(&life);
+    print_map(&life);
+    free(life.board);
+    return 0;
 }

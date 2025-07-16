@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SearchableBag.hpp                                  :+:      :+:    :+:   */
+/*   iter.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 20:38:47 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/07/02 14:02:21 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/07/11 16:13:39 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/07/11 16:27:36 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SEARCHABLEBAG_HPP
-#define SEARCHABLEBAG_HPP
+#ifndef ITER_HPP
+#define ITER_HPP
 
-#include "Bag.hpp"
+#include <iostream>
 
-class SearchableBag : public Bag {
-    public:
-        virtual bool has(int value) const = 0;
-        virtual ~SearchableBag() {}  
-};
+template <typename Type, typename Func>
+void iter(Type* arr, size_t len, Func func)
+{
+    size_t i = 0;
+    while (i < len)
+    {
+        func(arr[i]);
+        ++i;
+    }
+}
 
 #endif

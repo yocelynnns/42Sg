@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bsq.h                                              :+:      :+:    :+:   */
+/*   life.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 17:49:03 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/23 17:49:04 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/07/16 12:58:51 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/07/16 13:16:18 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BSQ_H
-#define BSQ_H
+#ifndef LIFE_H
+#define LIFE_H
 
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
-typedef struct {
-    char **map;
-    int **dp;
-    int rows;
-    int cols;
-} Bsq;
-
-int load_map(Bsq *bsq, const char *filename);
-void solve_bsq(Bsq *bsq);
-void print_map(Bsq *bsq);
-void free_bsq(Bsq *bsq);
+typedef struct s_life {
+    char *board;
+    int w;
+    int h;
+    int x;
+    int y;
+    int draw;
+} t_life;
 
 #endif

@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SearchableBag.hpp                                  :+:      :+:    :+:   */
+/*   Data.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 20:38:47 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/07/02 14:02:21 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/07/10 16:54:14 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/07/10 18:15:33 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SEARCHABLEBAG_HPP
-#define SEARCHABLEBAG_HPP
+#ifndef DATA_HPP
+#define DATA_HPP
 
-#include "Bag.hpp"
+#include <string>
 
-class SearchableBag : public Bag {
-    public:
-        virtual bool has(int value) const = 0;
-        virtual ~SearchableBag() {}  
+struct Data {
+    int id;
+    std::string name;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:39:02 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/23 20:42:26 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/07/02 14:46:17 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define ARRAYBAG_HPP
 
 #include "SearchableBag.hpp"
+#include <iostream>
 
 class ArrayBag : public SearchableBag {
 private:

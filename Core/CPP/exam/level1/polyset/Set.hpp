@@ -6,7 +6,7 @@
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 20:40:02 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/23 20:43:21 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/07/02 14:46:41 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define SET_HPP
 
 #include "SearchableBag.hpp"
+#include "ArrayBag.hpp"
+#include "TreeBag.hpp"
+#include <typeinfo>
 
 class Set : public SearchableBag {
 private:

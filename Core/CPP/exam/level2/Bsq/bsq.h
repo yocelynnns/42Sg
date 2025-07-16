@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   bsq.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/22 16:53:00 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/23 17:49:35 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/07/01 13:06:48 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/07/16 13:49:45 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bsq.h"
+#ifndef BSQ_H
+#define BSQ_H
 
-int main(int argc, char **argv) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <map_file>\n", argv[0]);
-        return 1;
-    }
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
-    Bsq bsq;
-    if (!load_map(&bsq, argv[1]))
-        return 1;
+typedef struct {
+    char **map;
+    int **dp;
+    int cols;
+    int rows;
+} Bsq;
 
-    solve_bsq(&bsq);
-    print_map(&bsq);
-    free_bsq(&bsq);
-
-    return 0;
-}
+#endif
