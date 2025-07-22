@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:54:56 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/07/10 18:25:31 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/07/22 19:18:36 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <iostream>
 #include <cstdlib>  // rand, srand
 #include <ctime>    // time
+
+// <dynamic_cast>
+// Used for Polymorphic types only (classes with at least one virtual function)
 
 Base* generate() {
     int r = rand() % 3;

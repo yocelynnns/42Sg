@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:54:04 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/07/10 18:26:40 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/07/22 21:03:54 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
 ScalarConverter::~ScalarConverter() {}
 
 static bool isCharLiteral(const std::string& str) {
-    return str.length() == 3 && str[0] == '\'' && str[2] == '\'';
+    return str.length() == 1 && isalpha(str[0]);
+    // return str.length() == 3 && str[0] == '\'' && str[2] == '\'';
 }
 
 static bool isFloatPseudoLiteral(const std::string& str) {
@@ -46,9 +47,13 @@ static bool isFloatLiteral(const std::string& str) {
 }
 
 static bool isDoubleLiteral(const std::string& str) {
-    return str.find('.') != std::string::npos && str[str.length() - 1] == 'f';
+    return str.find('.') != std::string::npos && str[str.length() - 1] != 'f';
 }
 
+// <static_cast>
+// type conversion operator that is used to explicitly convert
+// a value from one type to another
+// during compile, checks if its valid to convert
 void ScalarConverter::convert(const std::string& literal) {
     char c;
     int i;
@@ -59,7 +64,8 @@ void ScalarConverter::convert(const std::string& literal) {
 
     // CHAR
     if (isCharLiteral(literal)) {
-        c = literal[1];
+        // c = literal[1];
+        c = literal[0];
         i = static_cast<int>(c);
         f = static_cast<float>(c);
         d = static_cast<double>(c);
@@ -110,7 +116,7 @@ void ScalarConverter::convert(const std::string& literal) {
         errno = 0;
         long val = std::strtol(literal.c_str(), &end, 10);
         if (*end != '\0' || errno == ERANGE || val > INT_MAX || val < INT_MIN) {
-            std::cerr << "int: invalid or out of range\n";
+            std::cerr << "Error: invalid or out of range\n";
             return;
         }
         i = static_cast<int>(val);
