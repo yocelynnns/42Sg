@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 23:29:50 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 15:39:14 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 18:17:51 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "../inc/Dog.hpp"
 
 Dog::Dog() {
     type = "Dog";
@@ -26,14 +26,14 @@ Dog::~Dog() {
 }
 
 // Copy constructor
-Dog::Dog(const Dog& other) : AAnimal(other) {
+Dog::Dog(const Dog& other) : Animal(other) {
     std::cout << "Dog is copied." << std::endl;
 }
 
 // Copy assignment operator
 Dog& Dog::operator=(const Dog& other) {
     if (this != &other) {
-        AAnimal::operator=(other);
+        Animal::operator=(other);
     }
     std::cout << "Dog is assigned." << std::endl;
     return *this;

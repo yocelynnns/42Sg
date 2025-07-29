@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 23:41:17 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 15:37:18 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 18:17:28 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "../inc/Cat.hpp"
 
 Cat::Cat() {
     type = "Cat";
+    brain = new Brain();
     std::cout << "Cat Constructor called" << std::endl;
 }
 
@@ -22,20 +23,27 @@ void Cat::makeSound() const {
 }
 
 Cat::~Cat() {
+    delete brain;
     std::cout << "Cat Destructor called" << std::endl;
 }
 
 // Copy constructor
-Cat::Cat(const Cat& other) : AAnimal(other) {
+Cat::Cat(const Cat& other) : Animal(other) {
+    brain = new Brain(*other.brain);
     std::cout << "Cat is copied." << std::endl;
 }
 
 // Copy assignment operator
 Cat& Cat::operator=(const Cat& other) {
     if (this != &other) {
-        AAnimal::operator=(other);
+        Animal::operator=(other);
+        delete brain;
+        brain = new Brain(*other.brain); // deep copy
     }
     std::cout << "Cat is assigned." << std::endl;
     return *this;
 }
 
+Brain* Cat::getBrain() const {
+    return brain;
+}

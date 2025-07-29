@@ -3,22 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 23:22:44 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 01:37:04 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 18:20:41 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DOG_HPP
 #define DOG_HPP
 
-#include "Animal.hpp"
-#include "Brain.hpp"
+#include "AAnimal.hpp"
 
-class Dog : public Animal {
-    private:
-        Brain* brain;
+class Dog : public AAnimal {
     public:
         // Orthodox Canonical Form
         Dog();                                // Default constructor
@@ -28,7 +25,6 @@ class Dog : public Animal {
         
         // Member Functions
         void makeSound() const;
-        Brain* getBrain() const;
 };
 
 #endif

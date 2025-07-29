@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 23:20:54 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 00:45:16 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/14 13:45:53 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
-#include "Dog.hpp"
-#include "Cat.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
+#include "../inc/Animal.hpp"
+#include "../inc/Dog.hpp"
+#include "../inc/Cat.hpp"
+#include "../inc/WrongAnimal.hpp"
+#include "../inc/WrongCat.hpp"
 
 int main() {
     std::cout << "=== Correct Behavior with Virtual Functions ===" << std::endl;
@@ -69,7 +69,7 @@ int main() {
     copiedDog.makeSound();
     assignedDog.makeSound();
 
-    std::cout << "\n=== Polymorphism Check with Array of Animals ===\n" << std::endl;
+    std::cout << "\n=== Polymorphism Check with Array of Animals ===" << std::endl;
     const int size = 4;
     Animal* animals[size];
 
@@ -88,14 +88,14 @@ int main() {
     for (int i = 0; i < size; i++)
         delete animals[i];
 
-    std::cout << "\n=== Object Slicing Test ===\n" << std::endl;
+    std::cout << "\n=== Object Slicing Test ===" << std::endl;
     Cat realCat;
     Animal slicedAnimal = realCat; // Slicing happens here
 
     std::cout << "Type of slicedAnimal: " << slicedAnimal.getType() << std::endl;
     slicedAnimal.makeSound(); // Will call Animal's sound, not Cat's
 
-    std::cout << "\n=== Stacked Object Destruction Order ===\n" << std::endl;
+    std::cout << "\n=== Stacked Object Destruction Order ===" << std::endl;
     {
         Dog stackDog;
         Cat stackCat;

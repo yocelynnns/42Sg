@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 17:01:27 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/06/27 20:46:47 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/07/23 13:45:04 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
     std::cout << "ShrubberyCreationForm " << target << " is created." << std::endl;
 }
 
-// ✅ Fix: Add AForm initialization
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
     : AForm(other), target(other.target) {
     std::cout << "ShrubberyCreationForm " << target << " is copied." << std::endl;
@@ -43,7 +42,6 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
     std::cout << "ShrubberyCreationForm " << target << " is destroyed." << std::endl;
 }
 
-// ✅ Fix: use .c_str()
 void ShrubberyCreationForm::executeAction() const {
     std::ofstream ofs((target + "_shrubbery").c_str());
     if (!ofs)

@@ -1,49 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 23:41:17 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 01:37:32 by yocelynnns       ###   ########.fr       */
+/*   Created: 2025/04/05 23:29:50 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/04/12 18:17:19 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "../inc/Dog.hpp"
 
-Cat::Cat() {
-    type = "Cat";
+Dog::Dog() {
+    type = "Dog";
     brain = new Brain();
-    std::cout << "Cat Constructor called" << std::endl;
+    std::cout << "Dog Constructor called" << std::endl;
 }
 
-void Cat::makeSound() const {
-    std::cout << "meow! meow!" << std::endl;
+void Dog::makeSound() const {
+    std::cout << "woof! woof!" << std::endl;
 }
 
-Cat::~Cat() {
+Dog::~Dog() {
     delete brain;
-    std::cout << "Cat Destructor called" << std::endl;
+    std::cout << "Dog Destructor called" << std::endl;
 }
 
 // Copy constructor
-Cat::Cat(const Cat& other) : Animal(other) {
+Dog::Dog(const Dog& other) : Animal(other) {
     brain = new Brain(*other.brain);
-    std::cout << "Cat is copied." << std::endl;
+    std::cout << "Dog is copied." << std::endl;
 }
 
 // Copy assignment operator
-Cat& Cat::operator=(const Cat& other) {
+Dog& Dog::operator=(const Dog& other) {
     if (this != &other) {
         Animal::operator=(other);
         delete brain;
         brain = new Brain(*other.brain); // deep copy
     }
-    std::cout << "Cat is assigned." << std::endl;
+    std::cout << "Dog is assigned." << std::endl;
     return *this;
 }
 
-Brain* Cat::getBrain() const {
+Brain* Dog::getBrain() const {
     return brain;
 }

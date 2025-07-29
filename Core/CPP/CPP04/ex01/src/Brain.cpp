@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Brain.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 01:20:37 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 01:23:37 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 18:19:07 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Brain.hpp"
+#include "../inc/Brain.hpp"
 
 Brain::Brain() {
     std::cout << "Brain Constructor called" << std::endl;

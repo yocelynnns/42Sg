@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 23:41:17 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 00:31:45 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 18:17:41 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "../inc/Cat.hpp"
 
 Cat::Cat() {
     type = "Cat";

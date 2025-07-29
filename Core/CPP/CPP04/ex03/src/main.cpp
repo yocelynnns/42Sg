@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 15:53:09 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/05/28 14:14:47 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/14 18:37:06 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MateriaSource.hpp"
-#include "Ice.hpp"
-#include "Cure.hpp"
-#include "Character.hpp"
-#include "ICharacter.hpp"
+#include "../inc/MateriaSource.hpp"
+#include "../inc/Ice.hpp"
+#include "../inc/Cure.hpp"
+#include "../inc/Character.hpp"
+#include "../inc/ICharacter.hpp"
 
 int main()
 {
     IMateriaSource* src = new MateriaSource();
-    src->learnMateria(new Ice());
-    src->learnMateria(new Cure());
+    AMateria* i = new Ice();
+    AMateria* c = new Cure();
+    src->learnMateria(i);
+    src->learnMateria(c);
+    delete i;
+    delete c;
 
     ICharacter* me = new Character("me");
 

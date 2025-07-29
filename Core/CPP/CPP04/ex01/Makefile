@@ -3,35 +3,37 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
+#    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 23:49:06 by yocelynnns        #+#    #+#              #
-#    Updated: 2025/04/11 01:43:11 by yocelynnns       ###   ########.fr        #
+#    Updated: 2025/04/14 13:50:07 by ysetiawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= ex01
+NAME = ex01
 
-CPP			= c++
-CPPFLAGS	= -Wall -Werror -Wextra -g -std=c++98
-RM			= rm -f
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Iinc -g
 
-SRCS		= main.cpp Animal.cpp Dog.cpp Cat.cpp Brain.cpp
-OBJS		= $(SRCS:.cpp=.o)
+SRC_DIR = src
+SRC = $(SRC_DIR)/main.cpp \
+      $(SRC_DIR)/Animal.cpp \
+      $(SRC_DIR)/Dog.cpp \
+      $(SRC_DIR)/Cat.cpp \
+      $(SRC_DIR)/Brain.cpp
+
+OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CPP) $(CPPFLAGS) -o $(NAME) $(OBJS)
-
-%.o: %.cpp
-	$(CPP) $(CPPFLAGS) -c $< -o $@
+$(NAME): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
-	$(RM) $(OBJS)
+	rm -f $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

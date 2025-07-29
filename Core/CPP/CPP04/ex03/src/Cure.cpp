@@ -3,22 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   Cure.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:18:21 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 23:52:02 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/14 16:25:24 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cure.hpp"
+#include "../inc/Cure.hpp"
 
-Cure::Cure() : AMateria("cure") {}
-Cure::Cure(const Cure& other) : AMateria(other) {}
-Cure& Cure::operator=(const Cure& other) {
+Cure::Cure() : AMateria("cure")
+{
+    std::cout << "[Cure] " << type << " is created (default)." << std::endl;
+}
+
+Cure::Cure(const Cure& other) : AMateria(other)
+{
+    std::cout << "[Cure] " << type << " is copied." << std::endl;
+}
+
+Cure& Cure::operator=(const Cure& other)
+{
     AMateria::operator=(other);
+    std::cout << "Cure " << type << " is assigned." << std::endl;
     return *this;
 }
-Cure::~Cure() {}
+
+Cure::~Cure() {
+    std::cout << "Cure " << type << " is destroyed." << std::endl;
+}
 
 AMateria* Cure::clone() const {
     return new Cure(*this);

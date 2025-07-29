@@ -3,19 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
+#    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 23:49:06 by yocelynnns        #+#    #+#              #
-#    Updated: 2025/04/11 23:58:20 by yocelynnns       ###   ########.fr        #
+#    Updated: 2025/04/14 16:11:42 by ysetiawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex03
+NAME     = ex03
 
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Iinc
+INC      = inc/
+SRC_DIR  = src/
 
-SRC_DIR = src
+CXX      = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -I$(INC) -g
+RM       = rm -f
+
 SRC = $(SRC_DIR)/main.cpp \
       $(SRC_DIR)/AMateria.cpp \
       $(SRC_DIR)/Ice.cpp \
@@ -28,13 +31,16 @@ OBJ = $(SRC:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
+
+%.o: %.c
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	$(RM) $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 

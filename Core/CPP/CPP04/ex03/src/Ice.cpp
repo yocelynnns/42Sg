@@ -3,22 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   Ice.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:18:26 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 23:51:36 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/14 15:35:02 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Ice.hpp"
+#include "../inc/Ice.hpp"
 
-Ice::Ice() : AMateria("ice") {}
-Ice::Ice(const Ice& other) : AMateria(other) {}
+Ice::Ice() : AMateria("ice")
+{
+    std::cout << "[Ice] " << type << " is created (default)." << std::endl;
+}
+
+Ice::Ice(const Ice& other) : AMateria(other)
+{
+    std::cout << "[Ice] " << type << " is copied." << std::endl;
+}
+
 Ice& Ice::operator=(const Ice& other) {
     AMateria::operator=(other);
+    std::cout << "Ice " << type << " is assigned." << std::endl;
     return *this;
 }
-Ice::~Ice() {}
+Ice::~Ice() {
+    std::cout << "Ice " << type << " is destroyed." << std::endl;
+}
 
 AMateria* Ice::clone() const {
     return new Ice(*this);

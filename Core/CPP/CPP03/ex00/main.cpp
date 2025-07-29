@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:45:50 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/10 14:04:18 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 17:50:16 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,21 @@ int main() {
     ClapTrap stat("Stats");
     stat.takeDamage(3); // 7 HP
     stat.beRepaired(2); // 9 HP
-    stat.attack("Target1"); // -1 energy
+    stat.attack("Target1");
     stat.beRepaired(3); // 10 HP capped
 
-    std::cout << "\n=== Repair Beyond Max Test ===" << std::endl;
+    std::cout << "\n=== Damage Beyond Max Test ===" << std::endl;
     ClapTrap ko("Die");
-    ko.takeDamage(100); // 
+    ko.takeDamage(100);
+    ko.beRepaired(1);
+
+    std::cout << "\n=== Using All Energy ===" << std::endl;
+    ClapTrap no("Energy");
+    for (int i = 0; i <= 10; i++) {
+        no.attack("something");
+    }
+    no.takeDamage(1);
+    no.beRepaired(1);
 
     std::cout << "\n=== End of Test ===" << std::endl;
     return 0;

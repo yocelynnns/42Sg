@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   AMateria.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 15:53:07 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 23:51:14 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 18:22:51 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "AMateria.hpp"
+#include "../inc/AMateria.hpp"
 
 // Default constructor
 AMateria::AMateria() : type("Unknown")

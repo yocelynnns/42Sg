@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 23:20:54 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 15:42:26 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 18:20:29 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "AAnimal.hpp"
-#include "Dog.hpp"
-#include "Cat.hpp"
+#include "../inc/AAnimal.hpp"
+#include "../inc/Dog.hpp"
+#include "../inc/Cat.hpp"
 
 int main() {
     std::cout << "=== Basic Instantiation ===" << std::endl;

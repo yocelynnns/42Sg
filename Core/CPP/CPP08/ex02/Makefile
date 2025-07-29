@@ -6,11 +6,11 @@
 #    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/11 15:34:16 by yocelynnns        #+#    #+#              #
-#    Updated: 2025/07/25 15:45:27 by yocelynnns       ###   ########.fr        #
+#    Updated: 2025/07/25 15:45:18 by yocelynnns       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex01
+NAME = ex02
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -Iinc -MMD -MP
@@ -18,11 +18,9 @@ CXXFLAGS = -Wall -Wextra -Werror -pedantic -std=c++98 -Iinc -MMD -MP
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC = $(SRC_DIR)/main.cpp \
-	  $(SRC_DIR)/Span.cpp
+SRC = $(SRC_DIR)/main.cpp
 
-OBJ = $(OBJ_DIR)/main.o \
-	  $(OBJ_DIR)/Span.o
+OBJ = $(OBJ_DIR)/main.o
 
 DEP = $(OBJ:.o=.d)
 

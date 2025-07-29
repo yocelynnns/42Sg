@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:45:48 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/11 16:26:15 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 17:38:58 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void ClapTrap::attack(const std::string& target)
         return ;
     }
     std::cout << "ClapTrap " << name << " attacks " << target << ", causing " << attackDmg << " points of damage!" << std::endl;
+    int oldEnergy = energyPts;
     energyPts -= 1;
+    std::cout << "ENERGYY------- Before: " << oldEnergy << " After: " << energyPts << std::endl;
 }
 
 // takeDamage
@@ -76,10 +78,10 @@ void ClapTrap::takeDamage(unsigned int amount)
     {
         hitPts = 0;
         std::cout << "ClapTrap " << name << " has died." << std::endl;
-        std::cout << "Before Damage: " << oldHP << " After Damage: " << hitPts << " HP." << std::endl;
+        std::cout << "HP--------- Before: " << oldHP << " After: " << hitPts << std::endl;
         return ;
     }
-    std::cout << "Before Damage: " << oldHP << " After Damage: " << hitPts << " HP." << std::endl;
+    std::cout << "HP--------- Before: " << oldHP << " After: " << hitPts << std::endl;
 }
 
 // beRepaired
@@ -98,7 +100,9 @@ void ClapTrap::beRepaired(unsigned int amount)
     if (hitPts > 10)
         hitPts = 10;
     std::cout << "ClapTrap " << name << " is repaired: " << oldHP << " -> " << hitPts << " HP." << std::endl;
+    int oldEnergy = energyPts;
     energyPts -= 1;
+    std::cout << "ENERGYY------- Before: " << oldEnergy << " After: " << energyPts << std::endl;
 }
 
 // Destructor

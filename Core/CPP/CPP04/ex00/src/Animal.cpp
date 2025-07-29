@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Animal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 23:25:20 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/04/10 16:46:58 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2025/04/12 18:18:22 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "../inc/Animal.hpp"
 
 Animal::Animal() {
     type = "Animal";
