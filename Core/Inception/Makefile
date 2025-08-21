@@ -1,5 +1,5 @@
 NAME = inception
-COMPOSE = docker-compose -f srcs/docker-compose.yml
+COMPOSE = docker compose -f srcs/docker-compose.yml
 
 all: up
 
@@ -10,10 +10,11 @@ down:
 	$(COMPOSE) down
 
 clean: down
-	docker system prune -af --volumes
 
 fclean: clean
 	docker volume rm $$(docker volume ls -q) || true
-	docker network rm $$(docker network ls -q) || true
+	docker network rm inception || true
+	sudo rm -rf /home/ysetiawa/data/wordpress/*
+	sudo rm -rf /home/ysetiawa/data/mariadb/*
 
 re: fclean all
