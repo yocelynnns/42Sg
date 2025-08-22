@@ -12,8 +12,10 @@ down:
 clean: down
 
 fclean: clean
-	docker volume rm $$(docker volume ls -q) || true
-	docker network rm inception || true
+# 	docker volume ls -q | xargs -r docker volume rm
+# 	docker network ls | grep -q inception && docker network rm inception || true
+	$(COMPOSE) down -v --rmi all --remove-orphans
+	
 	sudo rm -rf /home/ysetiawa/data/wordpress/*
 	sudo rm -rf /home/ysetiawa/data/mariadb/*
 
