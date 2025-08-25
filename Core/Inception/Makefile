@@ -1,22 +1,24 @@
 NAME = inception
 COMPOSE = docker compose -f srcs/docker-compose.yml
 
-all: up
+all: build up   ## Build images and start containers
 
-up:
-	$(COMPOSE) up -d --build
+build:          ## Build only
+	mkdir -p /home/ysetiawa/data/wordpress /home/ysetiawa/data/mariadb
+	$(COMPOSE) build
 
-down:
+up:             ## Start containers
+	$(COMPOSE) up -d
+
+down:           ## Stop containers
 	$(COMPOSE) down
 
-clean: down
+clean: down     ## Stop containers and clean volumes
+	$(COMPOSE) down
 
-fclean: clean
-# 	docker volume ls -q | xargs -r docker volume rm
-# 	docker network ls | grep -q inception && docker network rm inception || true
+fclean: clean   ## Full clean: remove volumes, images, networks
 	$(COMPOSE) down -v --rmi all --remove-orphans
-	
-	sudo rm -rf /home/ysetiawa/data/wordpress/*
-	sudo rm -rf /home/ysetiawa/data/mariadb/*
+	sudo rm -rf /home/ysetiawa/data/wordpress
+	sudo rm -rf /home/ysetiawa/data/mariadb
 
-re: fclean all
+re: fclean all  ## Full rebuild from scratch
