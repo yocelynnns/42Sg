@@ -17,4 +17,4 @@ RUN chmod +x /usr/local/bin/setup_wp.sh
 RUN sed -i 's|^listen = .*|listen = 9000|' /etc/php/8.2/fpm/pool.d/www.conf
 
 EXPOSE 9000
-CMD ["/usr/local/bin/setup_wp.sh"]
+ENTRYPOINT ["/usr/local/bin/setup_wp.sh"]

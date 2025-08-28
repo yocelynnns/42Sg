@@ -25,6 +25,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
         GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
         FLUSH PRIVILEGES;
         ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+        ALTER USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';
 EOSQL
 
     wait
