@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 16:12:09 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/09/02 20:30:15 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:16:43 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ private:
     };
 
     std::vector<ServerBlock> servers;
-
-    void validateServer(const ServerBlock &server, int line_number) const;
 
 public:
     ConfigParser(const std::string &filename);

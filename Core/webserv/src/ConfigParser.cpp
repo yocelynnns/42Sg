@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 16:18:52 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/09/02 21:12:10 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:17:04 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,49 +24,20 @@ const std::vector<ConfigParser::ServerBlock>& ConfigParser::getServers() const {
     return servers;
 }
 
-void ConfigParser::validateServer(const ServerBlock &server, int line_number) const
-{
-    for (size_t i = 0; i < server.listen_ports.size(); ++i)
-    {
-        int port = server.listen_ports[i];
-        if (port < 1 || port > 65535)
-        {
-            std::ostringstream oss;
-            oss << line_number;
-            std::ostringstream port_stream;
-            port_stream << port;
-            throw std::runtime_error("Error at line " + oss.str() + ": invalid port " + port_stream.str());
-        }
-    }
-    if (server.index_files.empty() && server.extra_directives.find("return") == server.extra_directives.end()) {
-        std::ostringstream oss;
-        oss << line_number;
-        throw std::runtime_error("Error at line " + oss.str() + ": index files cannot be empty");
-    }
-
-    if (server.server_names.empty())
-    {
-        std::ostringstream oss; oss << line_number;
-        throw std::runtime_error("Error at line " + oss.str() + ": server_name cannot be empty");
-    }
-    if (server.index_files.empty())
-    {
-        std::ostringstream oss; oss << line_number;
-        throw std::runtime_error("Error at line " + oss.str() + ": index files cannot be empty");
-    }
-}
-
 void ConfigParser::parse()
 {
     std::ifstream file(_filename.c_str());
+    // Check can open or not
     if (!file.is_open())
-        throw std::runtime_error(std::string("Cannot open config file: ") + _filename);
+        throw std::runtime_error("Cannot open config file: " + _filename);
 
+    // Check conf file extension
     if (_filename.size() < 5 || _filename.substr(_filename.size() - 5) != ".conf")
         throw std::runtime_error("Error: invalid config file extension (expected .conf)");
 
+    // Empty config is valid in nginx
     if (file.peek() == std::ifstream::traits_type::eof())
-        throw std::runtime_error("Error: config file is empty");
+        return;
 
     std::string line;
     int line_number = 0;
@@ -84,9 +55,10 @@ void ConfigParser::parse()
         size_t end = line.find_last_not_of(" \t");
         line = line.substr(start, end - start + 1);
 
-        if (line[0] == '#')
+        if (line.empty() || line[0] == '#')
             continue;
 
+        // Block close
         if (line == "}")
         {
             if (block_stack.empty())
@@ -98,15 +70,14 @@ void ConfigParser::parse()
             block_stack.pop();
 
             if (top_block == "server")
-            {
-                validateServer(*current_server, line_number);
                 current_server = NULL;
-            }
             else if (top_block.find("location") == 0)
                 current_location = NULL;
+
             continue;
         }
 
+        // Block open
         size_t brace_pos = line.find('{');
         if (brace_pos != std::string::npos)
         {
@@ -122,33 +93,34 @@ void ConfigParser::parse()
             {
                 if (!current_server)
                 {
-                    std::ostringstream oss_line;
-                    oss_line << line_number;
-                    throw std::runtime_error("Location block outside of server at line " + oss_line.str());
+                    std::ostringstream oss; oss << line_number;
+                    throw std::runtime_error("Location block outside of server at line " + oss.str());
                 }
 
                 current_server->locations.push_back(LocationBlock());
                 current_location = &current_server->locations.back();
 
-                size_t path_start = block_name.find(" ") + 1;
+                size_t path_start = block_name.find(" ");
                 if (path_start != std::string::npos)
-                    current_location->path = block_name.substr(path_start);
+                    current_location->path = block_name.substr(path_start + 1);
             }
 
             block_stack.push(block_name);
 
+            // Handle inline `{}` case
             size_t close_brace = line.find('}', brace_pos);
             if (close_brace != std::string::npos)
             {
                 block_stack.pop();
                 if (block_name == "server")
                     current_server = NULL;
-                if (block_name.find("location") == 0)
+                else if (block_name.find("location") == 0)
                     current_location = NULL;
             }
             continue;
         }
 
+        // Directives must end with ';'
         size_t semicolon_pos = line.find(';');
         if (semicolon_pos == std::string::npos)
         {
@@ -157,7 +129,6 @@ void ConfigParser::parse()
         }
 
         std::string directive_line = line.substr(0, semicolon_pos);
-
         size_t key_end = directive_line.find_first_of(" \t");
         if (key_end == std::string::npos)
         {
@@ -169,11 +140,9 @@ void ConfigParser::parse()
         std::string value = directive_line.substr(key_end);
         size_t val_start = value.find_first_not_of(" \t");
         size_t val_end = value.find_last_not_of(" \t");
-        if (val_start != std::string::npos)
-            value = value.substr(val_start, val_end - val_start + 1);
-        else
-            value = "";
+        value = (val_start != std::string::npos) ? value.substr(val_start, val_end - val_start + 1) : "";
 
+        // Store directives
         if (current_location)
         {
             if (key == "root")
@@ -188,7 +157,8 @@ void ConfigParser::parse()
                 current_location->autoindex = (value == "on");
             else if (key == "methods")
             {
-                std::istringstream iss(value); std::string m;
+                std::istringstream iss(value);
+                std::string m;
                 while (iss >> m)
                     current_location->methods.push_back(m);
             }
@@ -206,9 +176,8 @@ void ConfigParser::parse()
                 std::istringstream iss(value);
                 int port;
                 std::string flag;
-                
-                iss >> port;
-                current_server->listen_ports.push_back(port);
+                if (iss >> port)
+                    current_server->listen_ports.push_back(port);
                 while (iss >> flag)
                 {
                     if (flag == "ssl")
@@ -220,7 +189,7 @@ void ConfigParser::parse()
                 std::istringstream iss(value);
                 std::string name;
                 while (iss >> name)
-                    current_server->server_names.push_back(name);
+                current_server->server_names.push_back(name);
             }
             else if (key == "root")
                 current_server->root = value;
@@ -238,6 +207,9 @@ void ConfigParser::parse()
         {
             if (key == "include")
                 includes.push_back(value);
+            else {
+                // top-level directive: just store it somewhere if needed
+            }
         }
     }
 
