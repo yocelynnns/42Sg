@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 14:35:39 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/25 23:18:27 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2024/10/26 16:17:23 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct s_game
 	int			new_x;
 	int			prev_y;
 	int			prev_x;
-	t_map	*map;
-}   t_game;
+	t_map		*map;
+}	t_game;
 
 typedef struct s_temp
 {
@@ -110,7 +110,7 @@ void	load_images(t_game *game);
 void	load_single(t_game *game, void **img_ptr, char *filename);
 void	cleanup_game(t_game *game);
 int		close_window(t_game *game);
-void		init_game(t_map *map_s, t_game *game);
+void	init_game(t_map *map_s, t_game *game);
 int		init_win(t_game *game, t_map *map_s);
 void	put_image(t_game *game, t_map *map_s, int x, int y);
 

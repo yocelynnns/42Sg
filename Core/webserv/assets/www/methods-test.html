@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" href="data:,">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTTP Methods Test - Webserv</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			min-height: 100vh;
+			padding: 20px;
+		}
+		
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+		
+		.header {
+			text-align: center;
+			color: white;
+			margin-bottom: 30px;
+		}
+		
+		.header h1 {
+			font-size: 2.5em;
+			margin-bottom: 10px;
+			text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+		}
+		
+		.test-section {
+			background: white;
+			border-radius: 15px;
+			padding: 25px;
+			margin-bottom: 20px;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+		}
+		
+		.method-header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 20px;
+			padding-bottom: 15px;
+			border-bottom: 3px solid #667eea;
+		}
+		
+		.method-badge {
+			padding: 8px 15px;
+			border-radius: 8px;
+			font-weight: bold;
+			margin-right: 15px;
+			font-size: 1.1em;
+			color: white;
+		}
+		
+		.get-badge { background: #4CAF50; }
+		.post-badge { background: #2196F3; }
+		.delete-badge { background: #f44336; }
+		
+		.method-title {
+			font-size: 1.5em;
+			color: #333;
+		}
+		
+		.test-form {
+			margin: 15px 0;
+		}
+		
+		.form-group {
+			margin-bottom: 15px;
+		}
+		
+		label {
+			display: block;
+			margin-bottom: 5px;
+			color: #666;
+			font-weight: 600;
+		}
+		
+		input[type="text"],
+		input[type="file"],
+		textarea,
+		select {
+			width: 100%;
+			padding: 10px;
+			border: 2px solid #ddd;
+			border-radius: 8px;
+			font-size: 1em;
+			font-family: inherit;
+		}
+		
+		textarea {
+			min-height: 100px;
+			resize: vertical;
+		}
+		
+		button {
+			padding: 12px 25px;
+			background: #667eea;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			font-size: 1em;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s;
+		}
+		
+		button:hover {
+			background: #5568d3;
+			transform: translateY(-2px);
+			box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+		}
+		
+		.response-box {
+			margin-top: 20px;
+			padding: 15px;
+			background: #f5f5f5;
+			border-radius: 8px;
+			border-left: 4px solid #667eea;
+			display: none;
+		}
+		
+		.response-box.show {
+			display: block;
+		}
+		
+		.response-box h4 {
+			margin-bottom: 10px;
+			color: #333;
+		}
+		
+		.response-status {
+			padding: 8px 12px;
+			border-radius: 5px;
+			display: inline-block;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+		
+		.status-success { background: #4CAF50; color: white; }
+		.status-error { background: #f44336; color: white; }
+		.status-info { background: #2196F3; color: white; }
+		
+		.response-headers,
+		.response-body {
+			background: white;
+			padding: 10px;
+			border-radius: 5px;
+			margin-top: 10px;
+			font-family: 'Courier New', monospace;
+			font-size: 0.9em;
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+		
+		.back-link {
+			display: inline-block;
+			margin-top: 20px;
+			padding: 10px 20px;
+			background: rgba(255,255,255,0.2);
+			color: white;
+			text-decoration: none;
+			border-radius: 8px;
+			transition: all 0.3s;
+		}
+		
+		.back-link:hover {
+			background: rgba(255,255,255,0.3);
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>⚡ HTTP Methods Test</h1>
+			<p>Test GET, POST, and DELETE methods</p>
+		</div>
+
+		<!-- GET Method Tests -->
+		<div class="test-section">
+			<div class="method-header">
+				<div class="method-badge get-badge">GET</div>
+				<div class="method-title">GET Method Tests</div>
+			</div>
+			
+			<p style="color: #666; margin-bottom: 15px;">
+				Retrieve resources from the server. Open browser DevTools Network tab to inspect requests.
+			</p>
+			
+			<div class="test-form">
+				<div class="form-group">
+					<label>Test URL:</label>
+					<select id="getUrl">
+						<option value="/test.html">Static HTML File</option>
+						<option value="/style.css">CSS File</option>
+						<option value="/script.js">JavaScript File</option>
+						<option value="/files">Directory Listing</option>
+						<option value="/cgi-bin/python/hello.py">CGI Script</option>
+						<option value="/nonexistent.html">404 Error</option>
+					</select>
+				</div>
+				<button onclick="testGet()">Test GET Request</button>
+			</div>
+			
+			<div id="getResponse" class="response-box"></div>
+		</div>
+
+		<!-- POST Method Tests -->
+		<div class="test-section">
+			<div class="method-header">
+				<div class="method-badge post-badge">POST</div>
+				<div class="method-title">POST Method Tests</div>
+			</div>
+			
+			<p style="color: #666; margin-bottom: 15px;">
+				Send data to the server. Tests form data and file uploads.
+			</p>
+			
+			<!-- Text Data POST -->
+			<h3 style="color: #333; margin-bottom: 10px;">📝 POST Form Data</h3>
+			<div class="test-form">
+				<div class="form-group">
+					<label>Name:</label>
+					<input type="text" id="postName" placeholder="Enter your name" value="John Doe">
+				</div>
+				<div class="form-group">
+					<label>Message:</label>
+					<textarea id="postMessage" placeholder="Enter a message">Hello from POST test!</textarea>
+				</div>
+				<button onclick="testPostForm()">Send POST Request</button>
+			</div>
+			
+			<div id="postFormResponse" class="response-box"></div>
+			
+			<!-- File Upload POST -->
+			<h3 style="color: #333; margin: 20px 0 10px;">📤 POST File Upload</h3>
+			<form id="uploadForm" class="test-form">
+				<div class="form-group">
+					<label>Choose File:</label>
+					<input type="file" id="fileInput" name="file">
+				</div>
+				<button type="button" onclick="testPostFile()">Upload File</button>
+			</form>
+			
+			<div id="postFileResponse" class="response-box"></div>
+		</div>
+
+		<!-- DELETE Method Tests -->
+		<div class="test-section">
+			<div class="method-header">
+				<div class="method-badge delete-badge">DELETE</div>
+				<div class="method-title">DELETE Method Tests</div>
+			</div>
+			
+			<p style="color: #666; margin-bottom: 15px;">
+				Delete resources from the server. ⚠️ Use with caution!
+			</p>
+			
+			<div class="test-form">
+				<div class="form-group">
+					<label>File Path to Delete:</label>
+					<input type="text" id="deletePath" placeholder="/files/test.txt" value="/files/deleteme.txt">
+					<small style="color: #999; display: block; margin-top: 5px;">
+						Note: Only files in allowed locations can be deleted
+					</small>
+				</div>
+				<button onclick="testDelete()" style="background: #f44336;">Delete File</button>
+			</div>
+			
+			<div id="deleteResponse" class="response-box"></div>
+		</div>
+
+		<div style="text-align: center;">
+			<a href="/" class="back-link">← Back to Main Page</a>
+		</div>
+	</div>
+
+	<script>
+		// Helper function to display response
+		function displayResponse(elementId, status, headers, body) {
+			const responseBox = document.getElementById(elementId);
+			const statusClass = status >= 200 && status < 300 ? 'status-success' : 
+							status >= 400 ? 'status-error' : 'status-info';
+			
+			let html = `
+				<h4>Response:</h4>
+				<div class="response-status ${statusClass}">Status: ${status}</div>
+				<div class="response-headers"><strong>Headers:</strong>\n${headers}</div>
+				<div class="response-body"><strong>Body:</strong>\n${body}</div>
+			`;
+			
+			responseBox.innerHTML = html;
+			responseBox.classList.add('show');
+		}
+
+		// GET Request Test
+		function testGet() {
+			const url = document.getElementById('getUrl').value;
+			
+			fetch(url)
+				.then(response => {
+					const headers = Array.from(response.headers.entries())
+						.map(([key, value]) => `${key}: ${value}`)
+						.join('\n');
+					
+					return response.text().then(body => {
+						displayResponse('getResponse', response.status, headers, body.substring(0, 500) + '...');
+					});
+				})
+				.catch(error => {
+					displayResponse('getResponse', 'Error', '', error.message);
+				});
+		}
+
+		// POST Form Data Test
+		function testPostForm() {
+			const name = document.getElementById('postName').value;
+			const message = document.getElementById('postMessage').value;
+			
+			const formData = new URLSearchParams();
+			formData.append('name', name);
+			formData.append('message', message);
+			
+			fetch('/cgi-bin/python/form.py', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: formData
+			})
+				.then(response => {
+					const headers = Array.from(response.headers.entries())
+						.map(([key, value]) => `${key}: ${value}`)
+						.join('\n');
+					
+					return response.text().then(body => {
+						displayResponse('postFormResponse', response.status, headers, body);
+					});
+				})
+				.catch(error => {
+					displayResponse('postFormResponse', 'Error', '', error.message);
+				});
+		}
+
+		// POST File Upload Test
+		function testPostFile() {
+			const fileInput = document.getElementById('fileInput');
+			
+			if (!fileInput.files.length) {
+				alert('Please select a file first!');
+				return;
+			}
+			
+			const formData = new FormData();
+			formData.append('file', fileInput.files[0]);
+			
+			fetch('/upload', {
+				method: 'POST',
+				body: formData
+			})
+				.then(response => {
+					const headers = Array.from(response.headers.entries())
+						.map(([key, value]) => `${key}: ${value}`)
+						.join('\n');
+					
+					return response.text().then(body => {
+						displayResponse('postFileResponse', response.status, headers, body);
+					});
+				})
+				.catch(error => {
+					displayResponse('postFileResponse', 'Error', '', error.message);
+				});
+		}
+
+		// DELETE Request Test
+		function testDelete() {
+			const path = document.getElementById('deletePath').value;
+			
+			if (!confirm(`Are you sure you want to delete ${path}?`)) {
+				return;
+			}
+			
+			fetch(path, {
+				method: 'DELETE'
+			})
+				.then(response => {
+					const headers = Array.from(response.headers.entries())
+						.map(([key, value]) => `${key}: ${value}`)
+						.join('\n');
+					
+					return response.text().then(body => {
+						displayResponse('deleteResponse', response.status, headers, body);
+					});
+				})
+				.catch(error => {
+					displayResponse('deleteResponse', 'Error', '', error.message);
+				});
+		}
+	</script>
+</body>
+</html>

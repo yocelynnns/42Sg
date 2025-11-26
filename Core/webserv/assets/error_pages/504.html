@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="icon" href="data:,">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>504 — Gateway Timeout</title>
+	<style>
+		:root {
+			--bg: #141414;
+			--card: #242424;
+			--text: #f0f0f0;
+			--muted: #b3b3b3;
+			--accent1: #ffcc00;
+			--accent2: #ff9900;
+			--accent3: #ff6600;
+			--ring: #ffcc0033;
+			--danger: #ff6a6a;
+			--shadow: 0 20px 60px rgba(0, 0, 0, .4);
+			--radius: 18px;
+		}
+
+		@media (prefers-color-scheme: light) {
+			:root {
+				--bg: #f6f6f6;
+				--card: #ffffff;
+				--text: #141414;
+				--muted: #6b6b6b;
+				--ring: #ffcc0020;
+				--shadow: 0 20px 40px rgba(2, 7, 27, .12);
+			}
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			height: 100%;
+		}
+
+		body {
+			margin: 0;
+			background:
+				radial-gradient(1200px 700px at 10% 0%, #202020 0%, var(--bg) 60%),
+				radial-gradient(1200px 700px at 90% 100%, #242018 0%, var(--bg) 60%);
+			color: var(--text);
+			font: 500 16px/1.6 system-ui, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+			display: grid;
+			place-items: center;
+		}
+
+		.wrap {
+			width: min(900px, 92%);
+			text-align: center;
+			position: relative;
+		}
+
+		.card {
+			background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .02));
+			border-radius: var(--radius);
+			padding: 32px 28px;
+			box-shadow: var(--shadow);
+			border: 1px solid var(--ring);
+			backdrop-filter: blur(8px);
+		}
+
+		h1 {
+			margin: 0 0 10px;
+			font-size: 64px;
+			letter-spacing: 1px;
+		}
+
+		.code {
+			display: inline-flex;
+			gap: 10px;
+			align-items: center;
+			padding: 8px 14px;
+			border-radius: 999px;
+			background: linear-gradient(90deg, #242014, #242424);
+			border: 1px solid var(--ring);
+			color: var(--muted);
+			font-weight: 600;
+		}
+
+		.badge {
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background: var(--danger);
+			box-shadow: 0 0 0 6px #ff6a6a20;
+		}
+
+		p {
+			margin: 14px auto;
+			color: var(--muted);
+		}
+
+		.btns {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+			justify-content: center;
+			margin-top: 18px;
+		}
+
+		a.button {
+			display: inline-block;
+			padding: 12px 18px;
+			border-radius: 12px;
+			border: 1px solid var(--ring);
+			text-decoration: none;
+			color: var(--text);
+			font-weight: 700;
+			letter-spacing: .2px;
+			background: linear-gradient(135deg, #242014, #242424);
+			box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+		}
+
+		a.button:hover {
+			transform: translateY(-1px);
+		}
+
+		a.primary {
+			background: linear-gradient(135deg, var(--accent1), var(--accent3));
+			color: #141414;
+		}
+
+		a.ghost {
+			background: transparent;
+		}
+
+		.art {
+			position: relative;
+			height: 180px;
+			margin: 10px auto 6px;
+		}
+
+		svg {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		.glow {
+			filter: blur(24px);
+			opacity: .55;
+		}
+
+		footer {
+			margin-top: 20px;
+			color: var(--muted);
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="card">
+			<div class="art" aria-hidden="true">
+				<svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" role="img">
+					<defs>
+						<linearGradient id="g504" x1="0" x2="1" y1="0" y2="1">
+							<stop offset="0%" stop-color="var(--accent1)" />
+							<stop offset="100%" stop-color="var(--accent3)" />
+						</linearGradient>
+					</defs>
+
+					<circle class="glow" cx="180" cy="100" r="60" fill="var(--accent1)" />
+					<circle class="glow" cx="420" cy="100" r="60" fill="var(--accent3)" />
+
+					<!-- Hourglass shape to represent timeout -->
+					<path d="M180 60 L220 60 L200 100 L220 140 L180 140 L160 100 Z" fill="none" stroke="url(#g504)"
+						stroke-width="6" stroke-linecap="round" />
+
+					<!-- Sand flowing down -->
+					<path d="M200 100 L200 140" fill="none" stroke="url(#g504)" stroke-width="3" stroke-linecap="round"
+						stroke-dasharray="5,5" />
+
+					<!-- Clock hands -->
+					<path d="M420 100 L420 60" fill="none" stroke="url(#g504)" stroke-width="4"
+						stroke-linecap="round" />
+					<path d="M420 100 L460 100" fill="none" stroke="url(#g504)" stroke-width="4"
+						stroke-linecap="round" />
+				</svg>
+			</div>
+
+			<div class="code">
+				<span class="badge"></span>
+				<span>504 — Gateway Timeout</span>
+			</div>
+
+			<h1>Time's up!</h1>
+			<p>The server got tired of waiting for a response. It's probably stuck in traffic.</p>
+
+			<div class="btns">
+				<a class="button primary" href="{{HOME_URL}}">Go Home</a>
+				<a class="button ghost" href="#" onclick="history.back();return false;">Go Back</a>
+			</div>
+
+			<footer>
+				Request ID:
+				<script>document.write(Math.random().toString(36).slice(2, 8))</script>
+			</footer>
+		</div>
+	</div>
+</body>
+
+</html>

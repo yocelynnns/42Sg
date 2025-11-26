@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="icon" href="data:,">
+	<meta charset="UTF-8">
+	<title>Webserv Method Tester</title>
+	<style>
+		:root {
+			--bg: #1e1e2e;
+			--card: #2d2d44;
+			--text: #e0e0e0;
+			--muted: #888;
+			--accent-primary: #00ff88;
+			--accent-secondary: #00dd66;
+			--ring: rgba(0, 255, 136, 0.2);
+			--shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+		}
+
+		@media (prefers-color-scheme: light) {
+			:root {
+				--bg: #f8f7ff;
+				--card: #ffffff;
+				--text: #1a1a3e;
+				--muted: #6b7280;
+				--accent-primary: #00cc88;
+				--accent-secondary: #00aa66;
+				--ring: rgba(0, 200, 136, 0.15);
+				--shadow: 0 25px 50px rgba(0, 0, 0, .1);
+			}
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+
+		body {
+			font-family: 'Courier New', monospace;
+			background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+			color: var(--text);
+			padding: 40px 20px;
+			min-height: 100vh;
+		}
+
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+
+		header {
+			text-align: center;
+			margin-bottom: 50px;
+		}
+
+		h1 {
+			font-size: 2.5em;
+			margin: 0 0 10px;
+			font-weight: 800;
+			color: var(--accent-primary);
+			text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+			letter-spacing: -1px;
+		}
+
+		header p {
+			color: var(--muted);
+			font-size: 16px;
+			margin: 10px 0 0;
+		}
+
+		.section {
+			margin-bottom: 32px;
+		}
+
+		.card {
+			background: var(--card);
+			border: 2px solid var(--accent-primary);
+			border-radius: 8px;
+			padding: 32px;
+			box-shadow: var(--shadow);
+			position: relative;
+			overflow: hidden;
+			transition: all 0.3s ease;
+		}
+
+		.card:hover {
+			background: #353550;
+			box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+		}
+
+		.card-content {
+			position: relative;
+			z-index: 1;
+		}
+
+		h2 {
+			color: var(--text);
+			margin-top: 0;
+			margin-bottom: 20px;
+			font-size: 1.5em;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.info-box {
+			background: rgba(0, 255, 136, 0.1);
+			border-left: 4px solid var(--accent-primary);
+			padding: 16px;
+			margin-bottom: 24px;
+			border-radius: 12px;
+			font-size: 14px;
+			color: var(--muted);
+		}
+
+		.info-box code {
+			background: rgba(0, 0, 0, 0.3);
+			padding: 2px 6px;
+			border-radius: 4px;
+			color: var(--accent-primary);
+			font-family: 'Courier New', monospace;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: 700;
+			color: var(--text);
+			font-size: 14px;
+		}
+
+		input[type="file"],
+		input[type="text"],
+		select,
+		textarea {
+			width: 100%;
+			padding: 12px 16px;
+			border: 2px solid var(--accent-primary);
+			border-radius: 8px;
+			background: rgba(0, 255, 136, 0.05);
+			color: var(--text);
+			font-size: 14px;
+			font-family: inherit;
+			transition: all 0.3s ease;
+		}
+
+		input[type="file"]::file-selector-button {
+			padding: 8px 16px;
+			background: var(--accent-primary);
+			color: var(--bg);
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-weight: 700;
+			margin-right: 12px;
+		}
+
+		input:focus,
+		select:focus,
+		textarea:focus {
+			outline: none;
+			border-color: var(--accent-secondary);
+			background: rgba(0, 255, 136, 0.1);
+			box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+		}
+
+		.file-size {
+			font-size: 12px;
+			color: var(--accent-primary);
+			margin-top: 6px;
+		}
+
+		button {
+			background: var(--accent-primary);
+			color: var(--bg);
+			padding: 12px 28px;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			font-size: 14px;
+			font-weight: 700;
+			letter-spacing: 0.3px;
+			transition: all 0.3s ease;
+			box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+		}
+
+		button:hover {
+			background: var(--accent-secondary);
+			transform: translateY(-2px);
+			box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+		}
+
+		button:disabled {
+			background: var(--muted);
+			cursor: not-allowed;
+			transform: none;
+			box-shadow: none;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+
+		.progress-container {
+			margin-top: 20px;
+			display: none;
+		}
+
+		.progress-bar {
+			width: 100%;
+			height: 24px;
+			background: rgba(0, 255, 136, 0.1);
+			border: 2px solid var(--accent-primary);
+			border-radius: 8px;
+			overflow: hidden;
+		}
+
+		.progress-fill {
+			height: 100%;
+			background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+			transition: width 0.1s ease;
+			width: 0%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--bg);
+			font-size: 12px;
+			font-weight: 700;
+			box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+		}
+
+		.status-message {
+			margin-top: 16px;
+			padding: 14px 16px;
+			border-radius: 8px;
+			display: none;
+			font-size: 14px;
+			border-left: 4px solid transparent;
+		}
+
+		.status-message.success {
+			background: rgba(0, 255, 136, 0.15);
+			color: var(--accent-primary);
+			border-left-color: var(--accent-primary);
+			display: block;
+		}
+
+		.status-message.error {
+			background: rgba(255, 80, 80, 0.15);
+			color: #ff6b6b;
+			border-left-color: #ff5050;
+			display: block;
+		}
+
+		.size-buttons {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+			gap: 10px;
+			margin-bottom: 20px;
+		}
+
+		.size-btn {
+			padding: 10px 16px;
+			font-size: 13px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<h1>🧪 Webserv Method Tester</h1>
+			<p>Test all HTTP methods in one place</p>
+		</header>
+
+		<!-- Generate Test Files Section -->
+		<div class="section">
+			<div class="card">
+				<div class="card-content">
+					<h2>📦 Generate Test Files</h2>
+					<div class="info-box">
+						Generate files of various sizes to test upload and download capabilities.
+					</div>
+
+					<div class="form-group">
+						<label>File Size (click to generate):</label>
+						<div class="size-buttons">
+							<button type="button" class="size-btn" data-size="1">1 KB</button>
+							<button type="button" class="size-btn" data-size="100">100 KB</button>
+							<button type="button" class="size-btn" data-size="1024">1 MB</button>
+							<button type="button" class="size-btn" data-size="51200">50 MB</button>
+							<button type="button" class="size-btn" data-size="102400">100 MB</button>
+						</div>
+					</div>
+
+					<div class="status-message" id="generateStatus"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Upload Files Section -->
+		<div class="section">
+			<div class="card">
+				<div class="card-content">
+					<h2>📤 Upload Files</h2>
+					<div class="info-box">
+						<strong>Allowed extensions:</strong> .txt, .png, .jpg, .pdf<br>
+						<strong>Max file size:</strong> 10 MB (per file validation)<br>
+						<strong>Server max:</strong> 50 MB
+					</div>
+
+					<form id="uploadForm">
+						<div class="form-group">
+							<label for="uploadFile">Select File to Upload:</label>
+							<input type="file" id="uploadFile" name="file" required>
+							<div class="file-size" id="fileSize"></div>
+						</div>
+
+						<div class="btn-group">
+							<button type="submit" id="uploadBtn">Upload File</button>
+						</div>
+
+						<div class="progress-container" id="uploadProgress">
+							<div class="progress-bar">
+								<div class="progress-fill" id="uploadProgressFill">0%</div>
+							</div>
+						</div>
+
+						<div class="status-message" id="uploadStatus"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Browse Files Section -->
+		<div class="section">
+			<div class="card">
+				<div class="card-content">
+					<h2>📁 Browse Uploaded Files</h2>
+					<div class="info-box">
+						View your uploaded files in the file directory using autoindex.
+					</div>
+
+					<div class="form-group">
+						<label>Open file directory in a new window:</label>
+						<button type="button" id="browseBtn">Browse Filedump Directory</button>
+					</div>
+
+					<div class="status-message" id="browseStatus"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Delete Files Section -->
+		<div class="section">
+			<div class="card">
+				<div class="card-content">
+					<h2>🗑️ Delete Files</h2>
+					<div class="info-box">
+						Delete files from the filedump directory using DELETE method.
+					</div>
+
+					<form id="deleteForm">
+						<div class="form-group">
+							<label for="deleteFile">Filename to Delete:</label>
+							<input type="text" id="deleteFile" name="filename" placeholder="e.g., testfile.txt"
+								required>
+						</div>
+
+						<button type="submit" id="deleteBtn">Delete File</button>
+					</form>
+
+					<div class="status-message" id="deleteStatus"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- POST Message Section -->
+		<div class="section">
+			<div class="card">
+				<div class="card-content">
+					<h2>📝 POST HTML Message</h2>
+					<div class="info-box">
+						Send a POST request with form data to test POST method handling.
+					</div>
+
+					<form id="messageForm">
+						<div class="form-group">
+							<label for="messageName">Your Name:</label>
+							<input type="text" id="messageName" name="name" placeholder="Enter your name" required>
+						</div>
+
+						<div class="form-group">
+							<label for="messageContent">Message:</label>
+							<textarea id="messageContent" name="message" placeholder="Enter your message" rows="4"
+								required></textarea>
+						</div>
+
+						<button type="submit" id="messageBtn">Send Message</button>
+					</form>
+
+					<div class="status-message" id="messageStatus"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// Generate test files with button clicks
+		document.querySelectorAll('.size-btn').forEach(button => {
+			button.addEventListener('click', function () {
+				const sizeKB = parseInt(this.getAttribute('data-size'));
+				let sizeBytes;
+				let sizeLabel;
+
+				if (sizeKB < 1024) {
+					sizeBytes = sizeKB * 1024;
+					sizeLabel = `${sizeKB} KB`;
+				} else {
+					const sizeMB = sizeKB / 1024;
+					sizeBytes = sizeMB * 1024 * 1024;
+					sizeLabel = `${sizeMB} MB`;
+				}
+
+				const status = document.getElementById('generateStatus');
+				const arr = new Uint8Array(sizeBytes);
+
+				for (let i = 0; i < sizeBytes; i++) {
+					arr[i] = Math.floor(Math.random() * 256);
+				}
+
+				const blob = new Blob([arr], { type: 'application/octet-stream' });
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+
+				let filename;
+				if (sizeKB < 1024) {
+					filename = `testfile_${sizeKB}KB.bin`;
+				} else {
+					filename = `testfile_${sizeKB / 1024}MB.bin`;
+				}
+
+				a.download = filename;
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+				document.body.removeChild(a);
+
+				showStatus('generateStatus', `✓ Generated ${sizeLabel} test file: ${filename}`, 'success');
+			});
+		});
+
+		document.getElementById('uploadFile').addEventListener('change', function () {
+			const file = this.files[0];
+			if (file) {
+				const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+				document.getElementById('fileSize').textContent = `File size: ${sizeInMB} MB`;
+			}
+		});
+
+		document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+			const fileInput = document.getElementById('uploadFile');
+			const file = fileInput.files[0];
+
+			if (!file) {
+				showStatus('uploadStatus', '✗ Please select a file', 'error');
+				return;
+			}
+
+			const formData = new FormData();
+			formData.append('file', file);
+			const uploadProgress = document.getElementById('uploadProgress');
+			const progressFill = document.getElementById('uploadProgressFill');
+
+			uploadProgress.style.display = 'block';
+
+			try {
+				const xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener('progress', function (e) {
+					if (e.lengthComputable) {
+						const percentComplete = (e.loaded / e.total) * 100;
+						progressFill.style.width = percentComplete + '%';
+						progressFill.textContent = Math.round(percentComplete) + '%';
+					}
+				});
+
+				xhr.addEventListener('load', function () {
+					if (xhr.status === 200) {
+						showStatus('uploadStatus', `✓ File uploaded successfully!`, 'success');
+						fileInput.value = '';
+						document.getElementById('fileSize').textContent = '';
+						progressFill.style.width = '0%';
+						progressFill.textContent = '0%';
+					} else {
+						showStatus('uploadStatus', `✗ Upload failed (HTTP ${xhr.status})`, 'error');
+					}
+				});
+
+				xhr.addEventListener('error', function () {
+					showStatus('uploadStatus', '✗ Upload failed: Network error', 'error');
+				});
+
+				xhr.open('POST', '/');
+				xhr.send(formData);
+			} catch (error) {
+				showStatus('uploadStatus', `✗ Error: ${error.message}`, 'error');
+			}
+		});
+
+		document.getElementById('browseBtn').addEventListener('click', function () {
+			window.open('http://method.localhost:8013/filedump', '_blank');
+			showStatus('browseStatus', '✓ Opened filedump directory in new window', 'success');
+		});
+
+		document.getElementById('deleteForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+			const filename = document.getElementById('deleteFile').value.trim();
+
+			if (!filename) {
+				showStatus('deleteStatus', '✗ Please enter a filename', 'error');
+				return;
+			}
+
+			try {
+				const response = await fetch(`/filedump/${filename}`, {
+					method: 'DELETE'
+				});
+
+				if (response.ok) {
+					showStatus('deleteStatus', `✓ File '${filename}' deleted successfully!`, 'success');
+					document.getElementById('deleteFile').value = '';
+				} else {
+					showStatus('deleteStatus', `✗ Delete failed (HTTP ${response.status})`, 'error');
+				}
+			} catch (error) {
+				showStatus('deleteStatus', `✗ Error: ${error.message}`, 'error');
+			}
+		});
+
+		document.getElementById('messageForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+			const name = document.getElementById('messageName').value.trim();
+			const message = document.getElementById('messageContent').value.trim();
+
+			if (!name || !message) {
+				showStatus('messageStatus', '✗ Please fill in all fields', 'error');
+				return;
+			}
+
+			try {
+				const formData = new FormData();
+				formData.append('name', name);
+				formData.append('message', message);
+
+				const response = await fetch('/', {
+					method: 'POST',
+					body: formData
+				});
+
+				if (response.ok) {
+					showStatus('messageStatus', `✓ Message sent successfully!`, 'success');
+					document.getElementById('messageName').value = '';
+					document.getElementById('messageContent').value = '';
+				} else {
+					showStatus('messageStatus', `✗ Message sending failed (HTTP ${response.status})`, 'error');
+				}
+			} catch (error) {
+				showStatus('messageStatus', `✗ Error: ${error.message}`, 'error');
+			}
+		});
+
+		function showStatus(elementId, message, type) {
+			const element = document.getElementById(elementId);
+			element.textContent = message;
+			element.className = `status-message ${type}`;
+		}
+	</script>
+</body>
+
+</html>

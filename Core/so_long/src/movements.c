@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:18:02 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/25 01:14:15 by yocelynnns       ###   ########.fr       */
+/*   Updated: 2024/10/26 17:10:03 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	movement(t_game *game, int new_y, int new_x, int key)
 	{
 		ft_printf("Moves: %d\n", game->moves++);
 		ft_printf("\n");
-		ft_printf("Success! You win\n");
+		ft_printf("\033[1;32mSuccess! You win\033[0m\n");
 		close_window(game);
 	}
 	game->prev_x = game->map->player_x;

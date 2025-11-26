@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:28:49 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/17 15:43:25 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:36:13 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,17 @@ void	abs_path(char *argv, char **envp)
 {
 	char	**cmd;
 
-	cmd = malloc (sizeof (char *) * 2);
+	cmd = ft_split(argv, ' ');
 	if (!cmd)
 	{
-		perror("Memory allocation error");
+		perror("Failed to split command");
 		exit(1);
 	}
-	cmd[1] = NULL;
-	cmd[0] = argv;
-	if (access (argv, X_OK) == 0)
-		execve (argv, cmd, envp);
+	if (access(cmd[0], X_OK) == 0)
+		execve(cmd[0], cmd, envp);
 	else
-		perror ("No such file or directory");
-	free(cmd);
+		perror("No such file or directory");
+	free_mem(cmd);
 	exit(1);
 }
 

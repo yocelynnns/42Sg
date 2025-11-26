@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="icon" href="data:,">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CGI Testing Suite - Webserv</title>
+	<style>
+		:root {
+			--bg: #101410;
+			--card: #182424;
+			--text: #f0fff0;
+			--muted: #9bffb3;
+			--accent1: #5cf2b2;
+			--accent2: #00ff88;
+			--accent3: #00dd66;
+			--ring: #6aff9533;
+			--shadow: 0 20px 60px rgba(0, 0, 0, .4);
+			--radius: 18px;
+		}
+
+		@media (prefers-color-scheme: light) {
+			:root {
+				--bg: #f6fcf6;
+				--card: #ffffff;
+				--text: #101410;
+				--muted: #4a6b5a;
+				--ring: #6aff9520;
+				--shadow: 0 20px 40px rgba(2, 7, 27, .12);
+			}
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Courier New', monospace;
+			background:
+				radial-gradient(1200px 700px at 10% 0%, #102010 0%, var(--bg) 60%),
+				radial-gradient(1200px 700px at 90% 100%, #182410 0%, var(--bg) 60%);
+			color: var(--text);
+			min-height: 100vh;
+			padding: 40px 20px;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		header {
+			text-align: center;
+			margin-bottom: 50px;
+		}
+
+		header h1 {
+			font-size: 2.5em;
+			margin-bottom: 10px;
+			color: var(--accent2);
+			text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+		}
+
+		header p {
+			font-size: 1.1em;
+			color: var(--muted);
+		}
+
+		.badge {
+			display: inline-block;
+			background: linear-gradient(135deg, var(--accent1), var(--accent2));
+			color: var(--bg);
+			padding: 6px 14px;
+			border-radius: 999px;
+			font-size: 0.8em;
+			font-weight: bold;
+			margin-top: 10px;
+		}
+
+		.info-box {
+			background: rgba(92, 242, 178, 0.1);
+			border-left: 4px solid var(--accent2);
+			padding: 16px;
+			margin: 30px 0;
+			border-radius: 10px;
+			color: var(--muted);
+		}
+
+		.info-box strong {
+			color: var(--accent2);
+		}
+
+		.section {
+			margin-bottom: 40px;
+		}
+
+		.section h2 {
+			color: var(--accent2);
+			margin-bottom: 25px;
+			font-size: 1.8em;
+			border-bottom: 2px solid var(--accent2);
+			padding-bottom: 10px;
+		}
+
+		.test-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 20px;
+		}
+
+		.test-card {
+			background: var(--card);
+			border: 2px solid var(--accent2);
+			border-radius: var(--radius);
+			padding: 25px;
+			transition: all 0.3s ease;
+			box-shadow: var(--shadow);
+		}
+
+		.test-card:hover {
+			background: #1a2a2a;
+			box-shadow: 0 0 30px rgba(92, 242, 178, 0.3);
+			transform: translateY(-3px);
+		}
+
+		.test-card h3 {
+			color: var(--text);
+			margin-bottom: 10px;
+			font-size: 1.2em;
+		}
+
+		.test-card p {
+			color: var(--muted);
+			margin-bottom: 15px;
+			font-size: 0.95em;
+			line-height: 1.4;
+		}
+
+		.test-link {
+			display: inline-block;
+			background: linear-gradient(135deg, var(--accent2), var(--accent3));
+			color: var(--bg);
+			padding: 10px 20px;
+			text-decoration: none;
+			border-radius: 10px;
+			font-weight: bold;
+			font-size: 0.9em;
+			border: none;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+		}
+
+		.test-link:hover {
+			transform: scale(1.05);
+			box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<h1>🧩 CGI Testing Suite</h1>
+			<p>Webserv Project - Multiple CGI Types Support</p>
+			<span class="badge">BONUS FEATURE</span>
+		</header>
+
+		<div class="info-box">
+			<strong>ℹ️ Info:</strong> This server demonstrates support for multiple CGI interpreters (PHP, Python,
+			Perl).
+			Test each endpoint to verify CGI execution, environment variables, and form handling.
+		</div>
+
+		<!-- PHP Tests -->
+		<div class="section">
+			<h2>🐘 PHP CGI Tests</h2>
+			<div class="test-grid">
+				<div class="test-card">
+					<h3>Hello World</h3>
+					<p>Basic PHP CGI execution test</p>
+					<a href="/php/hello.php" class="test-link">Test Now →</a>
+				</div>
+				<div class="test-card">
+					<h3>Environment Variables</h3>
+					<p>Display all CGI environment variables</p>
+					<a href="/php/env.php" class="test-link">Test Now →</a>
+				</div>
+				<div class="test-card">
+					<h3>Form Handler</h3>
+					<p>POST request processing with PHP</p>
+					<a href="/php/form.php" class="test-link">Test Now →</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Python Tests -->
+		<div class="section">
+			<h2>🐍 Python CGI Tests</h2>
+			<div class="test-grid">
+				<div class="test-card">
+					<h3>Hello World</h3>
+					<p>Basic Python CGI execution test</p>
+					<a href="/python/hello.py" class="test-link">Test Now →</a>
+				</div>
+				<div class="test-card">
+					<h3>Environment Variables</h3>
+					<p>Display all CGI environment variables</p>
+					<a href="/python/env.py" class="test-link">Test Now →</a>
+				</div>
+				<div class="test-card">
+					<h3>Form Handler</h3>
+					<p>POST request processing with Python</p>
+					<a href="/python/form.py" class="test-link">Test Now →</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Perl Tests -->
+		<div class="section">
+			<h2>🐪 Perl CGI Tests</h2>
+			<div class="test-grid">
+				<div class="test-card">
+					<h3>Hello World</h3>
+					<p>Basic Perl CGI execution test</p>
+					<a href="/perl/hello.pl" class="test-link">Test Now →</a>
+				</div>
+				<div class="test-card">
+					<h3>Environment Variables</h3>
+					<p>Display all CGI environment variables</p>
+					<a href="/perl/env.pl" class="test-link">Test Now →</a>
+				</div>
+				<div class="test-card">
+					<h3>Form Handler</h3>
+					<p>POST request processing with Perl</p>
+					<a href="/perl/form.pl" class="test-link">Test Now →</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Mixed Tests -->
+		<div class="section">
+			<h2>🎯 Mixed CGI Tests</h2>
+			<div class="test-grid">
+				<div class="test-card">
+					<h3>PHP Info</h3>
+					<p>PHP configuration and system info</p>
+					<a href="/cgi-mixed/info.php" class="test-link">Test Now →</a>
+				</div>
+				<div class="test-card">
+					<h3>Python Calculator</h3>
+					<p>Interactive calculator via query strings</p>
+					<a href="/cgi-mixed/calc.py?a=10&b=5&op=add" class="test-link">Test Now →</a>
+				</div>
+				<div class="test-card">
+					<h3>Perl Date/Time</h3>
+					<p>Current server date and time</p>
+					<a href="/cgi-mixed/date.pl" class="test-link">Test Now →</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form Testing -->
+		<div class="section">
+			<h2>📝 Form Testing</h2>
+			<div class="test-grid">
+				<div class="test-card">
+					<h3>Interactive Forms</h3>
+					<p>Test POST requests with HTML forms</p>
+					<a href="/forms/test.html" class="test-link">Open Forms →</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

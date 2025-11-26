@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" href="data:,">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>302 — Found</title>
+	<style>
+		:root {
+		--bg: #0b0f14;
+		--card: #111824;
+		--text: #e6f0ff;
+		--muted: #9bb2cf;
+		--accent1: #6ae3ff;
+		--accent2: #a178ff;
+		--accent3: #5cf2b2;
+		--ring: #c1d1ff33;
+		--danger: #66ffcc;
+		--shadow: 0 20px 60px rgba(0,0,0,.4);
+		--radius: 18px;
+		}
+
+		@media (prefers-color-scheme: light) {
+		:root {
+			--bg: #f6f8fc;
+			--card: #ffffff;
+			--text: #0b0f14;
+			--muted: #4a5a6b;
+			--ring: #2b4cff20;
+			--shadow: 0 20px 40px rgba(2,7,27,.12);
+		}
+		}
+
+		* { box-sizing: border-box; }
+		html, body { height: 100%; }
+		body {
+		margin: 0;
+		background: 
+			radial-gradient(1200px 700px at 10% 0%, #102035 0%, var(--bg) 60%),
+			radial-gradient(1200px 700px at 90% 100%, #1b1230 0%, var(--bg) 60%);
+		color: var(--text);
+		font: 500 16px/1.6 system-ui, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+		display: grid;
+		place-items: center;
+		}
+
+		.wrap {
+		width: min(900px, 92%);
+		text-align: center;
+		position: relative;
+		}
+
+		.card {
+		background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+		border-radius: var(--radius);
+		padding: 32px 28px;
+		box-shadow: var(--shadow);
+		border: 1px solid var(--ring);
+		backdrop-filter: blur(8px);
+		}
+
+		h1 { margin: 0 0 10px; font-size: 64px; letter-spacing: 1px; }
+
+		.code {
+		display: inline-flex;
+		gap: 10px;
+		align-items: center;
+		padding: 8px 14px;
+		border-radius: 999px;
+		background: linear-gradient(90deg, #14243a, #151b27);
+		border: 1px solid var(--ring);
+		color: var(--muted);
+		font-weight: 600;
+		}
+
+		.badge {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: var(--danger);
+		box-shadow: 0 0 0 6px #66ffcc20;
+		}
+
+		p { margin: 14px auto; color: var(--muted); }
+
+		.btns {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		justify-content: center;
+		margin-top: 18px;
+		}
+
+		a.button {
+		display: inline-block;
+		padding: 12px 18px;
+		border-radius: 12px;
+		border: 1px solid var(--ring);
+		text-decoration: none;
+		color: var(--text);
+		font-weight: 700;
+		letter-spacing: .2px;
+		background: linear-gradient(135deg, #0d1522, #0e1929);
+		box-shadow: 0 6px 20px rgba(0,0,0,.25);
+		}
+		a.button:hover { transform: translateY(-1px); }
+		a.primary { background: linear-gradient(135deg, var(--accent1), var(--accent3)); color: #081521; }
+		a.ghost { background: transparent; }
+
+		.art { position: relative; height: 180px; margin: 10px auto 6px; }
+		svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+		.glow { filter: blur(24px); opacity: .55; }
+		footer { margin-top: 20px; color: var(--muted); font-size: 14px; }
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="card">
+		<div class="art" aria-hidden="true">
+			<svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" role="img">
+			<defs>
+				<linearGradient id="g302" x1="0" x2="1" y1="0" y2="1">
+				<stop offset="0%" stop-color="var(--accent1)"/>
+				<stop offset="100%" stop-color="var(--accent3)"/>
+				</linearGradient>
+			</defs>
+
+			<circle class="glow" cx="120" cy="100" r="64" fill="var(--accent1)"/>
+			<circle class="glow" cx="480" cy="100" r="64" fill="var(--accent3)"/>
+
+			<path d="M30 150 C110 60, 220 210, 330 120 S 520 100, 590 160"
+					fill="none"
+					stroke="url(#g302)"
+					stroke-width="6"
+					stroke-linecap="round"/>
+			</svg>
+		</div>
+
+		<div class="code">
+			<span class="badge"></span>
+			<span>302 — Found</span>
+		</div>
+
+		<h1>You’re being redirected.</h1>
+		<p>The resource you requested has temporarily moved. You should be redirected shortly.</p>
+
+		<div class="btns">
+			<a class="button primary" href="{{HOME_URL}}">Go Home</a>
+			<a class="button ghost" href="#" onclick="history.back();return false;">Go Back</a>
+		</div>
+
+		<footer>
+			Request ID: <script>document.write(Math.random().toString(36).slice(2,8))</script>
+		</footer>
+		</div>
+	</div>
+</body>
+</html>

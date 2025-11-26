@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:14:15 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/05/27 15:50:18 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:03:54 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ enum
 
 typedef struct s_map
 {
-	char	**lines;
 	char	**map;
 	char	**map_cp;
 	int		map_w;

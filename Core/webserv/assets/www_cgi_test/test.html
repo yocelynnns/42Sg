@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="icon" href="data:,">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CGI Form Testing</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			min-height: 100vh;
+			padding: 20px;
+		}
+
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 20px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			overflow: hidden;
+		}
+
+		header {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			padding: 40px;
+			text-align: center;
+		}
+
+		header h1 {
+			font-size: 2.5em;
+			margin-bottom: 10px;
+		}
+
+		.content {
+			padding: 40px;
+		}
+
+		.form-section {
+			background: #f8f9fa;
+			border-radius: 10px;
+			padding: 30px;
+			margin-bottom: 30px;
+		}
+
+		.form-section h2 {
+			color: #667eea;
+			margin-bottom: 20px;
+			font-size: 1.5em;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: bold;
+			color: #333;
+		}
+
+		input[type="text"],
+		input[type="email"],
+		input[type="number"],
+		input[type="file"],
+		textarea,
+		select {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #e9ecef;
+			border-radius: 5px;
+			font-size: 16px;
+			transition: border-color 0.3s;
+		}
+
+		input:focus,
+		textarea:focus,
+		select:focus {
+			outline: none;
+			border-color: #667eea;
+		}
+
+		textarea {
+			resize: vertical;
+			min-height: 100px;
+		}
+
+		button {
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			color: white;
+			padding: 15px 40px;
+			border: none;
+			border-radius: 5px;
+			font-size: 18px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: transform 0.3s, box-shadow 0.3s;
+		}
+
+		button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+		}
+
+		.radio-group,
+		.checkbox-group {
+			display: flex;
+			gap: 20px;
+			flex-wrap: wrap;
+		}
+
+		.radio-group label,
+		.checkbox-group label {
+			display: flex;
+			align-items: center;
+			font-weight: normal;
+		}
+
+		.radio-group input,
+		.checkbox-group input {
+			width: auto;
+			margin-right: 8px;
+		}
+
+		.info-box {
+			background: #e7f3ff;
+			border-left: 4px solid #2196F3;
+			padding: 15px;
+			margin-bottom: 20px;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<h1>📝 CGI Form Testing Suite</h1>
+			<p>Test POST requests with different CGI interpreters</p>
+		</header>
+
+		<div class="content">
+			<div class="info-box">
+				<strong>ℹ️ Instructions:</strong> Fill out the forms below and submit them to test CGI POST handling.
+				Each form targets a different CGI interpreter (PHP, Python, or Perl).
+			</div>
+
+			<!-- PHP Form -->
+			<div class="form-section">
+				<h2>🐘 PHP Contact Form</h2>
+				<form method="POST" action="/php/form.php">
+					<div class="form-group">
+						<label for="php-name">Name:</label>
+						<input type="text" id="php-name" name="name" required placeholder="Enter your name">
+					</div>
+					<div class="form-group">
+						<label for="php-email">Email:</label>
+						<input type="email" id="php-email" name="email" required placeholder="your.email@example.com">
+					</div>
+					<div class="form-group">
+						<label for="php-message">Message:</label>
+						<textarea id="php-message" name="message" required
+							placeholder="Enter your message here..."></textarea>
+					</div>
+					<button type="submit">Submit to PHP CGI</button>
+				</form>
+			</div>
+
+			<!-- Python Form -->
+			<div class="form-section">
+				<h2>🐍 Python Feedback Form</h2>
+				<form method="POST" action="/python/form.py">
+					<div class="form-group">
+						<label for="py-name">Name:</label>
+						<input type="text" id="py-name" name="name" required placeholder="Enter your name">
+					</div>
+					<div class="form-group">
+						<label for="py-email">Email:</label>
+						<input type="email" id="py-email" name="email" required placeholder="your.email@example.com">
+					</div>
+					<div class="form-group">
+						<label for="py-message">Feedback:</label>
+						<textarea id="py-message" name="message" required
+							placeholder="Share your feedback..."></textarea>
+					</div>
+					<button type="submit">Submit to Python CGI</button>
+				</form>
+			</div>
+
+			<!-- Perl Form -->
+			<div class="form-section">
+				<h2>🐪 Perl Contact Form</h2>
+				<form method="POST" action="/perl/form.pl">
+					<div class="form-group">
+						<label for="pl-name">Name:</label>
+						<input type="text" id="pl-name" name="name" required placeholder="Enter your name">
+					</div>
+					<div class="form-group">
+						<label for="pl-email">Email:</label>
+						<input type="email" id="pl-email" name="email" required placeholder="your.email@example.com">
+					</div>
+					<div class="form-group">
+						<label for="pl-message">Message:</label>
+						<textarea id="pl-message" name="message" required
+							placeholder="Enter your message..."></textarea>
+					</div>
+					<button type="submit">Submit to Perl CGI</button>
+				</form>
+			</div>
+
+			<!-- Advanced Form with Multiple Input Types -->
+			<div class="form-section">
+				<h2>🎯 Advanced Form (PHP)</h2>
+				<form method="POST" action="/php/form.php">
+					<div class="form-group">
+						<label for="adv-name">Full Name:</label>
+						<input type="text" id="adv-name" name="name" required>
+					</div>
+
+					<div class="form-group">
+						<label for="adv-email">Email Address:</label>
+						<input type="email" id="adv-email" name="email" required>
+					</div>
+
+					<div class="form-group">
+						<label for="adv-age">Age:</label>
+						<input type="number" id="adv-age" name="age" min="1" max="120">
+					</div>
+
+					<div class="form-group">
+						<label>Gender:</label>
+						<div class="radio-group">
+							<label><input type="radio" name="gender" value="male"> Male</label>
+							<label><input type="radio" name="gender" value="female"> Female</label>
+							<label><input type="radio" name="gender" value="other"> Other</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="adv-country">Country:</label>
+						<select id="adv-country" name="country">
+							<option value="">Select Country</option>
+							<option value="sg">Singapore</option>
+							<option value="us">United States</option>
+							<option value="uk">United Kingdom</option>
+							<option value="jp">Japan</option>
+							<option value="other">Other</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label>Interests:</label>
+						<div class="checkbox-group">
+							<label><input type="checkbox" name="interests[]" value="programming"> Programming</label>
+							<label><input type="checkbox" name="interests[]" value="design"> Design</label>
+							<label><input type="checkbox" name="interests[]" value="music"> Music</label>
+							<label><input type="checkbox" name="interests[]" value="sports"> Sports</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="adv-comments">Additional Comments:</label>
+						<textarea id="adv-comments" name="message" rows="4"></textarea>
+					</div>
+
+					<button type="submit">Submit Advanced Form</button>
+				</form>
+			</div>
+
+			<p style="text-align: center; margin-top: 30px;">
+				<a href="/" style="color: #667eea; text-decoration: none; font-weight: bold;">← Back to Main Tests</a>
+			</p>
+		</div>
+	</div>
+</body>
+
+</html>

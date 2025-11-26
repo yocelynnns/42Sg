@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 14:35:39 by ysetiawa          #+#    #+#             */
-/*   Updated: 2024/10/17 15:41:35 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:03:53 by yocelynnns       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 void	execute(char *argv, char **envp);
 char	*find_path(char *cmd, char **envp);
-void	childp(char **argv, int *pipe_fd, char **env, int infile);
-void	parentp(char **argv, int *pipe_fd, char **env, int infile);
+void	childp(char **argv, int *pipe_fd, char **env);
+void	parentp(char **argv, int *pipe_fd, char **env);
 int		main(int argc, char **argv, char **env);
 void	ft_putstr_fd(char *s, int fd);
 int		wordlen(const char *s, char c);

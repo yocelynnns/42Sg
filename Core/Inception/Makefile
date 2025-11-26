@@ -22,3 +22,5 @@ fclean: clean   ## Full clean: remove volumes, images, networks
 	sudo rm -rf /home/ysetiawa/data/mariadb
 
 re: fclean all  ## Full rebuild from scratch
+
+.PHONY: all clean fclean re

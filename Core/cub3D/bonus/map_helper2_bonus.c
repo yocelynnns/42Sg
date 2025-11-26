@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:55:13 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/05/26 15:51:06 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:17:53 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	**get_lines_from_buffer(t_map *map)
 	char	**lines;
 
 	buffer = get_full_buffer(map->map_fd);
-	// printf("testtt: %s\n", buffer);
 	if (!buffer)
 		return (close(map->map_fd), NULL);
 	lines = ft_split(buffer, '\n');

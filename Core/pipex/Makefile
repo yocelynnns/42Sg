@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
+#    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/14 14:35:37 by ysetiawa          #+#    #+#              #
-#    Updated: 2024/10/15 16:26:14 by ysetiawa         ###   ########.fr        #
+#    Updated: 2024/10/19 17:45:58 by yocelynnns       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

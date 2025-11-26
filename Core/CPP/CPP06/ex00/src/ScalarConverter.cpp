@@ -6,7 +6,7 @@
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:54:04 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/07/22 21:03:54 by ysetiawa         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:19:23 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
 ScalarConverter::~ScalarConverter() {}
 
 static bool isCharLiteral(const std::string& str) {
-    return str.length() == 1 && isalpha(str[0]);
-    // return str.length() == 3 && str[0] == '\'' && str[2] == '\'';
+    return str.length() == 3 && str[0] == '\'' && str[2] == '\'';
 }
 
 static bool isFloatPseudoLiteral(const std::string& str) {
@@ -64,8 +63,7 @@ void ScalarConverter::convert(const std::string& literal) {
 
     // CHAR
     if (isCharLiteral(literal)) {
-        // c = literal[1];
-        c = literal[0];
+        c = literal[1];
         i = static_cast<int>(c);
         f = static_cast<float>(c);
         d = static_cast<double>(c);

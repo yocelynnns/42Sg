@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" href="data:,">
+	<title>CGI Testing Suite</title>
+	<style>
+		:root {
+			--bg: #101410;
+			--card: #182424;
+			--text: #f0fff0;
+			--muted: #9bffb3;
+			--accent1: #ffff00;
+			--accent2: #5cf2b2;
+			--accent3: #ff9900;
+			--ring: #6aff9533;
+			--danger: #ff6a6a;
+			--shadow: 0 20px 60px rgba(0, 0, 0, .4);
+			--radius: 18px;
+		}
+
+		@media (prefers-color-scheme: light) {
+			:root {
+				--bg: #f6fcf6;
+				--card: #ffffff;
+				--text: #101410;
+				--muted: #4a6b5a;
+				--ring: #6aff9520;
+				--shadow: 0 20px 40px rgba(2, 7, 27, .12);
+			}
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			min-height: 100%;
+		}
+
+		body {
+			margin: 0;
+			padding: 40px 20px;
+			background:
+				radial-gradient(1200px 700px at 10% 0%, #102010 0%, var(--bg) 60%),
+				radial-gradient(1200px 700px at 90% 100%, #182410 0%, var(--bg) 60%);
+			color: var(--text);
+			font: 500 16px/1.6 system-ui, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+		}
+
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 48px;
+			margin: 0 0 40px;
+			letter-spacing: 0.5px;
+		}
+
+		.section {
+			background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .02));
+			border-radius: var(--radius);
+			padding: 28px;
+			margin-bottom: 24px;
+			box-shadow: var(--shadow);
+			border: 1px solid var(--ring);
+			backdrop-filter: blur(8px);
+		}
+
+		.section h2 {
+			margin: 0 0 8px;
+			font-size: 24px;
+			color: var(--accent2);
+		}
+
+		.section p {
+			color: var(--muted);
+			margin: 0 0 16px;
+			font-size: 15px;
+		}
+
+		form {
+			margin-top: 16px;
+		}
+
+		label {
+			display: block;
+			margin: 12px 0 6px;
+			font-weight: 600;
+			font-size: 14px;
+		}
+
+		input,
+		textarea,
+		select {
+			width: 100%;
+			padding: 12px;
+			border: 1px solid var(--ring);
+			border-radius: 10px;
+			background: rgba(255, 255, 255, .05);
+			color: var(--text);
+			font: inherit;
+		}
+
+		input:focus,
+		textarea:focus {
+			outline: none;
+			border-color: var(--accent2);
+			box-shadow: 0 0 0 3px rgba(92, 242, 178, 0.1);
+		}
+
+		button,
+		.button {
+			display: inline-block;
+			background: linear-gradient(135deg, var(--accent1), var(--accent3));
+			color: #101410;
+			border: none;
+			padding: 12px 24px;
+			border-radius: 10px;
+			cursor: pointer;
+			font-weight: 700;
+			font-size: 15px;
+			margin-top: 8px;
+			text-decoration: none;
+			transition: transform 0.2s;
+		}
+
+		button:hover,
+		.button:hover {
+			transform: translateY(-2px);
+		}
+
+		.button.secondary {
+			background: linear-gradient(135deg, #142418, #181824);
+			color: var(--text);
+			border: 1px solid var(--ring);
+			margin-left: 8px;
+		}
+
+		a.link {
+			color: var(--accent2);
+			text-decoration: none;
+			font-weight: 600;
+		}
+
+		a.link:hover {
+			text-decoration: underline;
+		}
+
+		pre {
+			background: rgba(0, 0, 0, .3);
+			padding: 16px;
+			border-radius: 8px;
+			overflow-x: auto;
+			font-size: 13px;
+			border: 1px solid var(--ring);
+			color: var(--muted);
+		}
+
+		code {
+			background: rgba(0, 0, 0, .3);
+			padding: 2px 6px;
+			border-radius: 4px;
+			font-size: 14px;
+			color: var(--accent2);
+		}
+
+		.badge {
+			display: inline-flex;
+			gap: 8px;
+			align-items: center;
+			padding: 6px 12px;
+			border-radius: 999px;
+			background: linear-gradient(90deg, #142418, #181824);
+			border: 1px solid var(--ring);
+			color: var(--muted);
+			font-weight: 600;
+			font-size: 13px;
+			margin-bottom: 12px;
+		}
+
+		.dot {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--accent2);
+			box-shadow: 0 0 0 4px rgba(92, 242, 178, 0.2);
+		}
+
+		.dot.danger {
+			background: var(--danger);
+			box-shadow: 0 0 0 4px rgba(255, 106, 106, 0.2);
+		}
+
+		.dot.warning {
+			background: var(--accent1);
+			box-shadow: 0 0 0 4px rgba(255, 255, 0, 0.2);
+		}
+
+		#delete-result,
+		#timeout-result {
+			margin-top: 12px;
+			min-height: 60px;
+		}
+
+		.button-group {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+			margin-top: 16px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>🧩 CGI Testing Suite</h1>
+
+		<div class="section">
+			<div class="badge"><span class="dot"></span> GET Query Test</div>
+			<h2>1️⃣ GET Query Test</h2>
+			<p>Tests passing data via query string (GET method). Verifies <code>QUERY_STRING</code> and URL decoding.
+			</p>
+			<form method="GET" action="/cgi-bin/python/get_test.py">
+				<label>Name:</label>
+				<input type="text" name="name" placeholder="Enter name">
+				<label>Message:</label>
+				<input type="text" name="message" placeholder="Enter message">
+				<button type="submit">Send GET Request</button>
+			</form>
+		</div>
+
+		<div class="section">
+			<div class="badge"><span class="dot"></span> POST Upload Test</div>
+			<h2>2️⃣ POST (multipart/form-data) — File Upload</h2>
+			<p>Uploads a file using multipart form data. Verifies <code>CONTENT_TYPE</code> and file saving.</p>
+			<form method="POST" action="/cgi-bin/python/upload.py" enctype="multipart/form-data">
+				<label>Your Name:</label>
+				<input type="text" name="name" required>
+				<label>Select File:</label>
+				<input type="file" name="uploadfile" required>
+				<button type="submit">Upload File</button>
+			</form>
+		</div>
+
+		<div class="section">
+			<div class="badge"><span class="dot"></span> Environment Dump</div>
+			<h2>3️⃣ Environment Dump</h2>
+			<p>Lists all CGI environment variables (for debugging server <code>PATH_INFO</code>,
+				<code>QUERY_STRING</code>, etc.).</p>
+			<a class="button secondary" href="/cgi-bin/python/env.py" target="_blank">Open /cgi-bin/python/env.py</a>
+		</div>
+
+		<div class="section">
+			<div class="badge"><span class="dot"></span> Large Body Test</div>
+			<h2>4️⃣ Large Body Test</h2>
+			<p>Send a large message body (check max body size handling).</p>
+			<form method="POST" action="/cgi-bin/python/get_test.py">
+				<textarea name="message" rows="10" placeholder="Paste or type large text here..."></textarea>
+				<button type="submit">Send Large POST</button>
+			</form>
+		</div>
+
+		<div class="section">
+			<div class="badge"><span class="dot danger"></span> Error Simulation</div>
+			<h2>5️⃣ CGI Error Simulation</h2>
+			<p>Script intentionally outputs malformed headers to test server-side error recovery.</p>
+			<a class="button secondary" href="/cgi-bin/python/error.py" target="_blank">Trigger Error CGI</a>
+		</div>
+
+		<div class="section">
+			<div class="badge"><span class="dot"></span> DELETE Request Test</div>
+			<h2>6️⃣ DELETE Request Test</h2>
+			<p>Create a test file, then delete it. Tests both PUT/POST creation and DELETE method.</p>
+			<div class="button-group">
+				<button id="create-btn">Create Test File</button>
+				<button id="delete-btn" class="button secondary">Delete Test File</button>
+			</div>
+			<pre id="delete-result"></pre>
+			<script>
+				document.getElementById('create-btn').onclick = async () => {
+					const result = document.getElementById('delete-result');
+					result.textContent = 'Creating test file...';
+					try {
+						const formData = new FormData();
+						const blob = new Blob(['This is a test file for DELETE operation'], { type: 'text/plain' });
+						formData.append('uploadfile', blob, 'test.txt');
+						formData.append('name', 'CGI Test Suite');
+
+						const res = await fetch('/cgi-bin/python/upload.py', {
+							method: 'POST',
+							body: formData
+						});
+						const text = await res.text();
+						result.textContent = '✅ File created successfully!\n\n' + text;
+					} catch (err) {
+						result.textContent = '❌ Error: ' + err.message;
+					}
+				};
+
+				document.getElementById('delete-btn').onclick = async () => {
+					const result = document.getElementById('delete-result');
+					result.textContent = 'Deleting test file...';
+					try {
+						const res = await fetch('/cgi-bin/python/uploads/test.txt', { method: 'DELETE' });
+						const text = await res.text();
+						result.textContent = '✅ DELETE Response:\n\n' + text;
+					} catch (err) {
+						result.textContent = '❌ Error: ' + err.message;
+					}
+				};
+			</script>
+		</div>
+
+		<div class="section">
+			<div class="badge"><span class="dot warning"></span> Timeout Test</div>
+			<h2>7️⃣ CGI Timeout Test</h2>
+			<p>Tests CGI timeout handling. Script should run for 45+ seconds, triggering the 30-second timeout and
+				returning a 504 Gateway Timeout error.</p>
+			<p><strong>Note:</strong> You need to create <code>/cgi-bin/python/timeout.py</code> with an infinite loop:
+			</p>
+			<pre>#!/usr/bin/env python3
+import time
+
+print("Content-Type: text/html\r")
+print("\r")
+print("<html><body>")
+print("<h1>This should never display</h1>")
+print("</body></html>")
+
+# Infinite loop to trigger timeout
+while True:
+    time.sleep(1)</pre>
+			<a class="button" href="/cgi-bin/python/timeout.py" target="_blank">Test Timeout (wait 30s)</a>
+			<p style="margin-top: 12px; font-size: 14px; color: var(--muted);">Opens in new tab. Wait 30 seconds to see
+				the 504 error page.</p>
+		</div>
+
+		<div class="section">
+			<div class="badge"><span class="dot"></span> Manual Tests</div>
+			<h2>8️⃣ Chunked and Missing Content-Length</h2>
+			<p>Use command-line tools to send:</p>
+			<pre>curl -X POST http://localhost:8080/cgi-bin/python/get_test.py --data-binary @big.txt
+curl -X POST -H "Transfer-Encoding: chunked" --data-binary @big.txt http://localhost:8080/cgi-bin/python/get_test.py</pre>
+		</div>
+
+		<div class="section">
+			<div class="badge"><span class="dot"></span> Working Directory</div>
+			<h2>9️⃣ Working Directory Validation</h2>
+			<p>Ensures script executes in correct directory (check relative file access).</p>
+			<a class="button secondary" href="/cgi-bin/python/env.py">Check current working directory in environment
+				output</a>
+		</div>
+	</div>
+</body>
+
+</html>

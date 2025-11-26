@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" href="data:,">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Webserv Error Testing Suite</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		body {
+			font-family: 'Courier New', monospace;
+			background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+			color: #eee;
+			min-height: 100vh;
+			padding: 20px;
+		}
+		
+		.container {
+			max-width: 1400px;
+			margin: 0 auto;
+		}
+		
+		.ascii-art {
+			text-align: center;
+			font-family: 'Courier New', monospace;
+			font-size: 10px;
+			line-height: 1;
+			color: #00ff88;
+			text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+			margin-bottom: 20px;
+			white-space: pre;
+			overflow-x: auto;
+		}
+		
+		h1 {
+			text-align: center;
+			color: #00ff88;
+			font-size: 2.5em;
+			margin-bottom: 40px;
+			text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+		}
+		
+		.test-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+			gap: 20px;
+			margin-bottom: 40px;
+		}
+		
+		.error-card {
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(0, 255, 136, 0.3);
+			border-radius: 8px;
+			padding: 20px;
+			transition: all 0.3s ease;
+		}
+		
+		.error-card:hover {
+			border-color: #00ff88;
+			box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+			transform: translateY(-2px);
+		}
+		
+		.error-code {
+			font-size: 2em;
+			color: #00ff88;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+		
+		.error-name {
+			font-size: 1.2em;
+			color: #fff;
+			margin-bottom: 15px;
+		}
+		
+		.error-desc {
+			color: #aaa;
+			margin-bottom: 15px;
+			line-height: 1.6;
+		}
+		
+		.disclaimer {
+			background: rgba(33, 150, 243, 0.1);
+			border-left: 4px solid #2196F3;
+			padding: 15px;
+			margin: 15px 0;
+			border-radius: 4px;
+			font-size: 0.9em;
+		}
+		
+		.disclaimer strong {
+			color: #64b5f6;
+			display: block;
+			margin-bottom: 8px;
+		}
+		
+		.disclaimer ul {
+			margin-left: 20px;
+			color: #bbb;
+		}
+		
+		.disclaimer li {
+			margin: 5px 0;
+		}
+		
+		.test-link {
+			display: inline-block;
+			padding: 8px 16px;
+			background: rgba(0, 255, 136, 0.1);
+			color: #00ff88;
+			text-decoration: none;
+			border: 1px solid #00ff88;
+			border-radius: 4px;
+			transition: all 0.3s ease;
+			margin: 5px 5px 5px 0;
+			font-size: 0.9em;
+		}
+		
+		.test-link:hover {
+			background: #00ff88;
+			color: #1a1a2e;
+			box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+		}
+		
+		.code-block {
+			background: rgba(0, 0, 0, 0.5);
+			border: 1px solid rgba(0, 255, 136, 0.3);
+			padding: 15px;
+			border-radius: 5px;
+			overflow-x: auto;
+			color: #00ff88;
+			margin: 10px 0;
+			font-size: 0.9em;
+		}
+		
+		.method-badge {
+			display: inline-block;
+			padding: 4px 10px;
+			border-radius: 3px;
+			font-size: 0.75em;
+			font-weight: bold;
+			margin-left: 10px;
+		}
+		
+		.clickable {
+			background: rgba(76, 175, 80, 0.2);
+			color: #4CAF50;
+			border: 1px solid #4CAF50;
+		}
+		
+		.curl {
+			background: rgba(255, 152, 0, 0.2);
+			color: #FF9800;
+			border: 1px solid #FF9800;
+		}
+		
+		.telnet {
+			background: rgba(156, 39, 176, 0.2);
+			color: #9C27B0;
+			border: 1px solid #9C27B0;
+		}
+
+		.test-button {
+			background: rgba(0, 255, 136, 0.1);
+			color: #00ff88;
+			border: 1px solid #00ff88;
+			padding: 8px 16px;
+			border-radius: 5px;
+			font-family: 'Courier New', monospace;
+			font-size: 0.9em;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			margin-top: 10px;
+			width: 100%;
+			text-align: center;
+		}
+
+		.test-button:hover {
+			background: #00ff88;
+			color: #1a1a2e;
+			box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		
+		<h1>Webserv Error Testing Suite</h1>
+		
+		<div class="test-grid">
+			<!-- 301 Permanent Redirect -->
+			<div class="error-card">
+				<div class="error-code">301 <span class="method-badge clickable">Clickable</span></div>
+				<div class="error-name">Moved Permanently</div>
+				<div class="error-desc">Resource has <strong>permanently moved</strong> to a new location. Sends HTTP 301 with funny countdown page.</div>
+				
+				<button onclick="window.location.href='/old'" class="test-button">→ Test 301 Permanent Redirect</button>
+				
+				<div class="error-desc" style="margin-top: 10px; font-size: 0.85em;">
+					Visits <code style="color: #00ff88;">/old</code> → HTTP 301 response → displays countdown page → auto-redirects to /
+				</div>
+			</div>
+
+			<!-- 302 Temporary Redirect -->
+			<div class="error-card">
+				<div class="error-code">302 <span class="method-badge clickable">Clickable</span></div>
+				<div class="error-name">Temporary Redirect</div>
+				<div class="error-desc">Resource has <strong>temporarily moved</strong> to another location. Sends HTTP 302 with funny countdown page.</div>
+				
+				<button onclick="window.location.href='/old2'" class="test-button">→ Test 302 Temporary Redirect</button>
+				
+				<div class="error-desc" style="margin-top: 10px; font-size: 0.85em;">
+					Visits <code style="color: #00ff88;">/old2</code> → HTTP 302 response → displays countdown page → auto-redirects to /
+				</div>
+			</div>
+
+			<!-- 400 Bad Request -->
+			<div class="error-card">
+				<div class="error-code">400 <span class="method-badge clickable">Clickable</span></div>
+				<div class="error-name">Bad Request</div>
+				<div class="error-desc">POST with wrong Content-Type (application/x-www-form-urlencoded to upload endpoint).</div>
+				
+				<!-- Form with EXPLICIT application/x-www-form-urlencoded (default) -->
+				<form action="/upload-test" method="POST" enctype="application/x-www-form-urlencoded" style="margin-top: 10px;">
+					<input type="hidden" name="data" value="test-payload">
+					<button type="submit" class="test-button">→ Test 400 Bad Request</button>
+				</form>
+				
+				<div class="error-desc" style="margin-top: 10px; font-size: 0.85em;">
+					<strong>What happens:</strong> Form explicitly sends <code style="color: #00ff88;">enctype="application/x-www-form-urlencoded"</code> to <code style="color: #00ff88;">/upload-test</code>
+					<br><br>
+					<strong>Expected:</strong> <code style="color: #00ff88;">multipart/form-data</code> (for file uploads)
+					<br><br>
+					<strong>Result:</strong> Server rejects malformed request → HTTP 400
+				</div>
+			</div>
+
+			<!-- 403 Forbidden -->
+			<div class="error-card">
+				<div class="error-code">403 <span class="method-badge clickable">Clickable</span></div>
+				<div class="error-name">Forbidden</div>
+				<div class="error-desc">Access denied via <strong>deny all</strong> directive. Resource exists but access is explicitly restricted.</div>
+				
+				<button onclick="window.location.href='/forbidden'" class="test-button">→ Test 403 (deny all)</button>
+				
+				<form action="/forbidden.html" method="GET" enctype="multipart/form-data" style="margin-top: 10px;">
+					<input type="hidden" name="file" value="test">
+					<button type="submit" class="test-button">→ Test 403 (POST to GET-only)</button>
+				</form>
+				
+				<div class="error-desc" style="margin-top: 10px; font-size: 0.85em;">
+					<strong>Method 1:</strong> Attempts to access <code style="color: #00ff88;">/forbidden</code> → server applies <code style="color: #00ff88;">deny all</code> → HTTP 403
+					<br><br>
+					<strong>Method 2:</strong> Sends POST to location that only allows GET → HTTP 403
+				</div>
+			</div>
+
+			<!-- 404 Not Found -->
+			<div class="error-card">
+				<div class="error-code">404 <span class="method-badge clickable">Clickable</span></div>
+				<div class="error-name">Not Found</div>
+				<div class="error-desc">Request non-existent files or paths.</div>
+				<a href="/does-not-exist.html" class="test-link">→ Simple 404</a>
+				<a href="/nonexistent/deep/path/file.html" class="test-link">→ Deep Path 404</a>
+				<a href="/missing-directory/" class="test-link">→ Directory 404</a>
+			</div>
+
+			<!-- 405 Method Not Allowed -->
+			<div class="error-card">
+				<div class="error-code">405 <span class="method-badge clickable">Clickable</span></div>
+				<div class="error-name">Method Not Allowed</div>
+				<div class="error-desc">Request GET to a location that only allows POST.</div>
+				<a href="/upload-test/" class="test-link">→ GET to POST-only Location</a>
+			</div>
+
+			<!-- 408 Request Timeout -->
+			<div class="error-card">
+				<div class="error-code">408 <span class="method-badge telnet">telnet</span></div>
+				<div class="error-name">Request Timeout</div>
+				<div class="error-desc">Connection timeout due to inactivity.</div>
+				<div class="code-block">printf 'GET / HTTP/1.1\r\nHost: localhost' | nc localhost 8010 <br><br> 
+					telnet 127.0.0.1 8010 # Wait 10 seconds without sending anything - should have no status code</div>
+			</div>
+
+			<!-- 413 Payload Too Large -->
+			<div class="error-card">
+				<div class="error-code">413 <span class="method-badge clickable">Clickable</span></div>
+				<div class="error-name">Payload Too Large</div>
+				<div class="error-desc">Submit data exceeding the client_max_body_size limit.</div>
+				<a href="/large-form.html" class="test-link">→ Generate Large Form</a>
+			</div>
+
+			<!-- 500 Internal Server Error -->
+			<div class="error-card">
+				<div class="error-code">500</div>
+				<div class="error-name">Internal Server Error</div>
+				
+				<div class="disclaimer">
+					<strong>⚠️ About 500 Errors:</strong>
+					<p style="margin: 10px 0;">True 500 errors indicate <strong>server-side failures</strong>, not script errors:</p>
+					<ul>
+						<li>Web server code crashes or has bugs</li>
+						<li>CGI process fails to start (can't fork, can't execve)</li>
+					</ul>
+					<p style="margin-top: 10px;"><strong>Most CGI script errors return 502 instead.</strong></p>
+				</div>
+			</div>
+
+			<!-- 501 Not Implemented -->
+			<div class="error-card">
+				<div class="error-code">501 <span class="method-badge curl">curl</span></div>
+				<div class="error-name">Not Implemented</div>
+				<div class="error-desc">Use HTTP methods not implemented by your server.</div>
+				<div class="code-block">curl -X TRACE http://127.0.0.1:8010/<br>
+curl -X FOOBAR http://127.0.0.1:8010/</div>
+			</div>
+
+			<!-- 502 Bad Gateway -->
+			<div class="error-card">
+				<div class="error-code">502 <span class="method-badge clickable">Clickable</span></div>
+				<div class="error-name">Bad Gateway</div>
+				
+				<div class="disclaimer">
+					<strong>📘 About 502 Errors:</strong>
+					<p style="margin: 10px 0;">502 means the CGI script ran but produced <strong>invalid output</strong>:</p>
+					<ul>
+						<li>Scripts crash before printing HTTP headers</li>
+						<li>Python syntax errors, import errors, runtime exceptions</li>
+						<li>Malformed or missing Content-Type headers</li>
+					</ul>
+					<p style="margin-top: 10px;"><strong>This matches nginx and Apache behavior!</strong></p>
+				</div>
+
+				<div style="margin-top: 15px;">
+					<a href="http://127.0.0.1:8012/python/crash.py" class="test-link">→ Bad Interpreter</a>
+					<a href="http://127.0.0.1:8012/python/syntax-error.py" class="test-link">→ Syntax Error</a>
+					<a href="http://127.0.0.1:8012/python/import-error.py" class="test-link">→ Missing Module</a>
+					<a href="http://127.0.0.1:8012/python/error.py" class="test-link">→ Malformed CGI</a>
+				</div>
+			</div>
+
+			<!-- 504 Gateway Timeout -->
+			<div class="error-card">
+				<div class="error-code">504 <span class="method-badge clickable">Clickable</span></div>
+				<div class="error-name">Gateway Timeout</div>
+				<div class="error-desc">CGI script runs longer than cgi_timeout (30 seconds).</div>
+				<a href="http://127.0.0.1:8012/python/timeout.py" class="test-link">→ Trigger 504 (Wait 30s)</a>
+			</div>
+
+			<!-- 505 HTTP Version Not Supported -->
+			<div class="error-card">
+				<div class="error-code">505 <span class="method-badge telnet">netcat</span></div>
+				<div class="error-name">HTTP Version Not Supported</div>
+				<div class="error-desc">Run in terminal - Send request with unsupported HTTP version.</div>
+				<div class="code-block">echo -e "GET / HTTP/2.0\r\nHost: localhost\r\n\r\n" | nc 127.0.0.1 8010</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -5,24 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/24 16:46:11 by ysetiawa          #+#    #+#             */
-/*   Updated: 2025/03/27 15:32:50 by ysetiawa         ###   ########.fr       */
+/*   Created: 2025/03/13 22:40:05 by yocelynnns        #+#    #+#             */
+/*   Updated: 2025/03/20 16:55:05 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fixed.hpp"
+#include "Zombie.hpp"
 
-int main( void )
-{
-    Fixed a;
-    Fixed b( a );
-    Fixed c;
+int main() {
+    // zombie on the heap
+    Zombie *zombie1 = NewZombie("Foo");
+    zombie1->Announce(); // zombie announces itself
+    delete zombie1; // free the memory when done
     
-    c = b;
-    
-    std::cout << a.getRawBits() << std::endl;
-    std::cout << b.getRawBits() << std::endl;
-    std::cout << c.getRawBits() << std::endl;
-    
-    return 0;
+    // zombie on the stack
+    RandomChump("Hoo");
+
+    return (0);
 }

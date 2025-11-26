@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="icon" href="data:,">
+	<meta charset="UTF-8">
+	<title>Large Files Server - Upload & Download Test</title>
+	<style>
+		:root {
+			--bg: #0a0e27;
+			--card: #0f1535;
+			--text: #e8eef8;
+			--muted: #a8b5d1;
+			--accent1: #a78bfa;
+			--accent2: #60a5fa;
+			--accent3: #34d399;
+			--ring: #6366f120;
+			--shadow: 0 25px 80px rgba(0, 0, 0, .6);
+			--radius: 20px;
+		}
+
+		@media (prefers-color-scheme: light) {
+			:root {
+				--bg: #f8f7ff;
+				--card: #ffffff;
+				--text: #1a1a3e;
+				--muted: #6b7280;
+				--accent1: #9333ea;
+				--accent2: #3b82f6;
+				--accent3: #10b981;
+				--ring: #9333ea15;
+				--shadow: 0 25px 50px rgba(0, 0, 0, .1);
+			}
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+
+		body {
+			font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+			background:
+				radial-gradient(800px 600px at 20% 10%, rgba(167, 139, 250, 0.08) 0%, transparent 50%),
+				radial-gradient(800px 600px at 80% 90%, rgba(96, 165, 250, 0.08) 0%, transparent 50%),
+				linear-gradient(135deg, #0a0e27 0%, #0d1438 50%, #0a0e27 100%);
+			color: var(--text);
+			padding: 40px 20px;
+			min-height: 100vh;
+		}
+
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+
+		header {
+			text-align: center;
+			margin-bottom: 50px;
+			position: relative;
+			z-index: 1;
+		}
+
+		h1 {
+			font-size: 48px;
+			margin: 0 0 10px;
+			font-weight: 800;
+			background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent3));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			letter-spacing: -1px;
+		}
+
+		header p {
+			color: var(--muted);
+			font-size: 16px;
+			margin: 10px 0 0;
+		}
+
+		.section {
+			margin-bottom: 32px;
+		}
+
+		.card {
+			background: linear-gradient(135deg,
+					rgba(99, 102, 241, 0.05) 0%,
+					rgba(96, 165, 250, 0.03) 50%,
+					rgba(52, 211, 153, 0.05) 100%);
+			border-radius: var(--radius);
+			padding: 32px;
+			border: 2px solid var(--ring);
+			backdrop-filter: blur(12px);
+			box-shadow: var(--shadow);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.card::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: radial-gradient(800px 600px at 0% 0%, rgba(167, 139, 250, 0.1), transparent 80%);
+			pointer-events: none;
+		}
+
+		.card-content {
+			position: relative;
+			z-index: 1;
+		}
+
+		h2 {
+			color: var(--text);
+			margin-top: 0;
+			margin-bottom: 20px;
+			font-size: 24px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.info-box {
+			background: linear-gradient(135deg,
+					rgba(167, 139, 250, 0.1) 0%,
+					rgba(96, 165, 250, 0.1) 100%);
+			border-left: 4px solid var(--accent1);
+			padding: 16px;
+			margin-bottom: 24px;
+			border-radius: 12px;
+			font-size: 14px;
+			color: var(--muted);
+		}
+
+		.info-box code {
+			background: rgba(0, 0, 0, 0.3);
+			padding: 2px 6px;
+			border-radius: 4px;
+			color: var(--accent3);
+			font-family: 'Monaco', monospace;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			font-weight: 700;
+			color: var(--text);
+			font-size: 14px;
+		}
+
+		input[type="file"],
+		input[type="text"],
+		select {
+			width: 100%;
+			padding: 12px 16px;
+			border: 2px solid var(--ring);
+			border-radius: 12px;
+			background: linear-gradient(135deg,
+					rgba(99, 102, 241, 0.05),
+					rgba(96, 165, 250, 0.05));
+			color: var(--text);
+			font-size: 14px;
+			font-family: inherit;
+			transition: all 0.3s ease;
+			backdrop-filter: blur(8px);
+		}
+
+		input[type="file"]::file-selector-button {
+			padding: 8px 16px;
+			background: linear-gradient(135deg, var(--accent1), var(--accent2));
+			color: var(--bg);
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			font-weight: 700;
+			margin-right: 12px;
+		}
+
+		input:focus,
+		select:focus {
+			outline: none;
+			border-color: var(--accent1);
+			background: linear-gradient(135deg,
+					rgba(167, 139, 250, 0.1),
+					rgba(96, 165, 250, 0.1));
+		}
+
+		.file-size {
+			font-size: 12px;
+			color: var(--accent3);
+			margin-top: 6px;
+		}
+
+		button {
+			background: linear-gradient(135deg, var(--accent1), var(--accent2));
+			color: var(--bg);
+			padding: 12px 28px;
+			border: none;
+			border-radius: 12px;
+			cursor: pointer;
+			font-size: 14px;
+			font-weight: 700;
+			letter-spacing: 0.3px;
+			transition: all 0.3s ease;
+			box-shadow: 0 12px 24px rgba(167, 139, 250, 0.3);
+		}
+
+		button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 16px 32px rgba(167, 139, 250, 0.5);
+		}
+
+		button:disabled {
+			background: linear-gradient(135deg, var(--muted), var(--muted));
+			cursor: not-allowed;
+			transform: none;
+			box-shadow: none;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+
+		.progress-container {
+			margin-top: 20px;
+			display: none;
+		}
+
+		.progress-bar {
+			width: 100%;
+			height: 24px;
+			background: linear-gradient(135deg,
+					rgba(99, 102, 241, 0.1),
+					rgba(96, 165, 250, 0.1));
+			border-radius: 12px;
+			overflow: hidden;
+			border: 2px solid var(--ring);
+		}
+
+		.progress-fill {
+			height: 100%;
+			background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+			transition: width 0.1s ease;
+			width: 0%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--bg);
+			font-size: 12px;
+			font-weight: 700;
+			box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+		}
+
+		.status-message {
+			margin-top: 16px;
+			padding: 14px 16px;
+			border-radius: 12px;
+			display: none;
+			font-size: 14px;
+			border-left: 4px solid transparent;
+		}
+
+		.status-message.success {
+			background: linear-gradient(135deg,
+					rgba(52, 211, 153, 0.15),
+					rgba(52, 211, 153, 0.1));
+			color: var(--accent3);
+			border-left-color: var(--accent3);
+			display: block;
+		}
+
+		.status-message.error {
+			background: linear-gradient(135deg,
+					rgba(248, 113, 113, 0.15),
+					rgba(248, 113, 113, 0.1));
+			color: #fca5a5;
+			border-left-color: #f87171;
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<h1>Large Files Server</h1>
+			<p>Test large file uploads and downloads with style</p>
+		</header>
+
+		<div class="section">
+			<div class="card">
+				<div class="card-content">
+					<h2>📤 Upload a File</h2>
+					<div class="info-box">
+						<strong>Allowed extensions:</strong> .txt, .png, .jpg, .pdf<br>
+						<strong>Max file size:</strong> 10 MB (per file validation)<br>
+						<strong>Server max:</strong> 50 MB
+					</div>
+
+					<form id="uploadForm">
+						<div class="form-group">
+							<label for="uploadFile">Select File to Upload:</label>
+							<input type="file" id="uploadFile" name="file" required>
+							<div class="file-size" id="fileSize"></div>
+						</div>
+
+						<div class="btn-group">
+							<button type="submit" id="uploadBtn">Upload File</button>
+							<button type="button" id="generateTestFile">Generate Test File</button>
+						</div>
+
+						<div class="progress-container" id="uploadProgress">
+							<div class="progress-bar">
+								<div class="progress-fill" id="uploadProgressFill">0%</div>
+							</div>
+						</div>
+
+						<div class="status-message" id="uploadStatus"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="section">
+			<div class="card">
+				<div class="card-content">
+					<h2>📥 Download a File</h2>
+					<div class="info-box">
+						<strong>Note:</strong> Files are uploaded to <code>assets/upload/large/</code><br>
+						Replace the filename with the actual uploaded file name.
+					</div>
+
+					<form id="downloadForm">
+						<div class="form-group">
+							<label for="downloadFile">Filename to Download:</label>
+							<input type="text" id="downloadFile" name="filename" placeholder="e.g., testfile.txt"
+								required>
+						</div>
+
+						<button type="submit" id="downloadBtn">Download File</button>
+
+						<div class="progress-container" id="downloadProgress">
+							<div class="progress-bar">
+								<div class="progress-fill" id="downloadProgressFill">0%</div>
+							</div>
+						</div>
+
+						<div class="status-message" id="downloadStatus"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="section">
+			<div class="card">
+				<div class="card-content">
+					<h2>🧪 Generate Test Files</h2>
+					<div class="info-box">
+						Generate files of various sizes to test upload and download capabilities.
+					</div>
+
+					<div class="form-group">
+						<label for="testFileSize">File Size:</label>
+						<select id="testFileSize">
+							<option value="1">1 MB</option>
+							<option value="5">5 MB</option>
+							<option value="10">10 MB</option>
+							<option value="25">25 MB</option>
+							<option value="50">50 MB (max)</option>
+						</select>
+					</div>
+
+					<button type="button" id="generateBtn">Generate Test File</button>
+					<div class="status-message" id="generateStatus"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// Update file size display
+		document.getElementById('uploadFile').addEventListener('change', function () {
+			const file = this.files[0];
+			if (file) {
+				const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+				document.getElementById('fileSize').textContent = `File size: ${sizeInMB} MB`;
+			}
+		});
+
+		// Upload form handler
+		document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+
+			const fileInput = document.getElementById('uploadFile');
+			const file = fileInput.files[0];
+
+			if (!file) {
+				showStatus('uploadStatus', '✗ Please select a file', 'error');
+				return;
+			}
+
+			const formData = new FormData();
+			formData.append('file', file);
+
+			const uploadProgress = document.getElementById('uploadProgress');
+			const progressFill = document.getElementById('uploadProgressFill');
+			const status = document.getElementById('uploadStatus');
+
+			uploadProgress.style.display = 'block';
+			status.classList.remove('success', 'error');
+
+			try {
+				const xhr = new XMLHttpRequest();
+
+				xhr.upload.addEventListener('progress', function (e) {
+					if (e.lengthComputable) {
+						const percentComplete = (e.loaded / e.total) * 100;
+						progressFill.style.width = percentComplete + '%';
+						progressFill.textContent = Math.round(percentComplete) + '%';
+					}
+				});
+
+				xhr.addEventListener('load', function () {
+					if (xhr.status === 200) {
+						showStatus('uploadStatus', `✓ File uploaded successfully!`, 'success');
+						fileInput.value = '';
+						document.getElementById('fileSize').textContent = '';
+						progressFill.style.width = '0%';
+						progressFill.textContent = '0%';
+					} else {
+						showStatus('uploadStatus', `✗ Upload failed (HTTP ${xhr.status})`, 'error');
+					}
+				});
+
+				xhr.addEventListener('error', function () {
+					showStatus('uploadStatus', '✗ Upload failed: Network error', 'error');
+				});
+
+				xhr.open('POST', '/');
+				xhr.send(formData);
+
+			} catch (error) {
+				showStatus('uploadStatus', `✗ Error: ${error.message}`, 'error');
+			}
+		});
+
+		// Download form handler
+		document.getElementById('downloadForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+
+			const filename = document.getElementById('downloadFile').value.trim();
+
+			if (!filename) {
+				showStatus('downloadStatus', '✗ Please enter a filename', 'error');
+				return;
+			}
+
+			const downloadProgress = document.getElementById('downloadProgress');
+			const progressFill = document.getElementById('downloadProgressFill');
+			const status = document.getElementById('downloadStatus');
+
+			downloadProgress.style.display = 'block';
+			status.classList.remove('success', 'error');
+
+			try {
+				const xhr = new XMLHttpRequest();
+
+				xhr.addEventListener('progress', function (e) {
+					if (e.lengthComputable) {
+						const percentComplete = (e.loaded / e.total) * 100;
+						progressFill.style.width = percentComplete + '%';
+						progressFill.textContent = Math.round(percentComplete) + '%';
+					}
+				});
+
+				xhr.addEventListener('load', function () {
+					if (xhr.status === 200) {
+						const blob = xhr.response;
+						const url = window.URL.createObjectURL(blob);
+						const a = document.createElement('a');
+						a.href = url;
+						a.download = filename;
+						document.body.appendChild(a);
+						a.click();
+						window.URL.revokeObjectURL(url);
+						document.body.removeChild(a);
+
+						showStatus('downloadStatus', `✓ File downloaded successfully!`, 'success');
+						progressFill.style.width = '0%';
+						progressFill.textContent = '0%';
+					} else {
+						showStatus('downloadStatus', `✗ Download failed (HTTP ${xhr.status})`, 'error');
+					}
+				});
+
+				xhr.addEventListener('error', function () {
+					showStatus('downloadStatus', '✗ Download failed: Network error', 'error');
+				});
+
+				xhr.open('GET', `/filedump/${filename}`);
+				xhr.responseType = 'blob';
+				xhr.send();
+
+			} catch (error) {
+				showStatus('downloadStatus', `✗ Error: ${error.message}`, 'error');
+			}
+		});
+
+		// Generate test file handler
+		document.getElementById('generateBtn').addEventListener('click', function () {
+			const sizeMB = parseInt(document.getElementById('testFileSize').value);
+			const status = document.getElementById('generateStatus');
+
+			const sizeBytes = sizeMB * 1024 * 1024;
+			const arr = new Uint8Array(sizeBytes);
+
+			for (let i = 0; i < sizeBytes; i++) {
+				arr[i] = Math.floor(Math.random() * 256);
+			}
+
+			const blob = new Blob([arr], { type: 'application/octet-stream' });
+			const url = window.URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = `testfile_${sizeMB}MB.bin`;
+			document.body.appendChild(a);
+			a.click();
+			window.URL.revokeObjectURL(url);
+			document.body.removeChild(a);
+
+			showStatus('generateStatus', `✓ Generated ${sizeMB}MB test file: testfile_${sizeMB}MB.bin`, 'success');
+		});
+
+		// Helper function to show status messages
+		function showStatus(elementId, message, type) {
+			const element = document.getElementById(elementId);
+			element.textContent = message;
+			element.className = `status-message ${type}`;
+		}
+	</script>
+</body>
+
+</html>
