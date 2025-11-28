@@ -68,25 +68,6 @@ minishell/
         ├── utils.c
         └── *.c
 ```
-## 👥 Team Contributions
-
-This project was developed in collaboration with **[@Mess925](https://github.com/Mess925)**.
-
-### Built-in Commands & Environment System
-**Implemented by [@Mess925](https://github.com/Mess925)**
-- `src/builtins/` `src/env/` `src/signals/`
-- `echo`, `cd`, `pwd`, `export`, `unset`, `env`, `exit` commands
-- Environment variable management and expansion
-- Signal handling (Ctrl+C, Ctrl+D, Ctrl+\)
-
-### Core Shell Infrastructure  
-**Implemented by [@yocelynnns](https://github.com/yocelynnns)**
-- `src/parsing/` `src/execute/` `src/main.c`, `src/shell_loop.c`
-- Lexical analysis and tokenization
-- Abstract Syntax Tree (AST) construction
-- Command execution and pipeline management
-- Redirection handling (`<`, `>`, `>>`, `<<`)
-- Main program flow
 
 ## 🔧 Core Features
 
@@ -285,6 +266,26 @@ valgrind --leak-check=full --show-leak-kinds=all ./minishell
 - **Error Codes**: Follow Bash exit status conventions
 - **Norm Compliance**: Strict adherence to 42 coding standards
 - **Edge Cases**: Handle quotes, empty commands, syntax errors
+
+## 👥 Team Contributions
+
+This project was developed in collaboration with **[@Mess925](https://github.com/Mess925)**.
+
+### Built-in Commands & Environment System
+**Implemented by [@Mess925](https://github.com/Mess925)**
+- `src/builtins/` `src/env/` `src/signals/`
+- `echo`, `cd`, `pwd`, `export`, `unset`, `env`, `exit` commands
+- Environment variable management and expansion
+- Signal handling (Ctrl+C, Ctrl+D, Ctrl+\)
+
+### Core Shell Infrastructure  
+**Implemented by [@yocelynnns](https://github.com/yocelynnns)**
+- `src/parsing/` `src/execute/` `src/main.c`, `src/shell_loop.c`
+- Lexical analysis and tokenization
+- Abstract Syntax Tree (AST) construction
+- Command execution and pipeline management
+- Redirection handling (`<`, `>`, `>>`, `<<`)
+- Main program flow
 
 ---
 
