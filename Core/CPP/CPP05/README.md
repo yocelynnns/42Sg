@@ -8,44 +8,52 @@ This module focuses on repetition and exceptions, implementing a bureaucratic sy
 cpp05/
 ├── ex00/ - Bureaucrat Class
 │   ├── Makefile
-│   ├── Bureaucrat.cpp
-│   ├── Bureaucrat.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   └── Bureaucrat.hpp
+│   └── src/
+│       ├── Bureaucrat.cpp
+│       └── main.cpp
 ├── ex01/ - Form Class
 │   ├── Makefile
-│   ├── Bureaucrat.cpp
-│   ├── Bureaucrat.hpp
-│   ├── Form.cpp
-│   ├── Form.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   ├── Bureaucrat.hpp
+│   │   └── Form.hpp
+│   └── src/
+│       ├── Bureaucrat.cpp
+│       ├── Form.cpp
+│       └── main.cpp
 ├── ex02/ - Abstract Forms
 │   ├── Makefile
-│   ├── Bureaucrat.cpp
-│   ├── Bureaucrat.hpp
-│   ├── AForm.cpp
-│   ├── AForm.hpp
-│   ├── ShrubberyCreationForm.cpp
-│   ├── ShrubberyCreationForm.hpp
-│   ├── RobotomyRequestForm.cpp
-│   ├── RobotomyRequestForm.hpp
-│   ├── PresidentialPardonForm.cpp
-│   ├── PresidentialPardonForm.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   ├── AForm.hpp
+│   │   ├── Bureaucrat.hpp
+│   │   ├── PresidentialPardonForm.hpp
+│   │   ├── RobotomyRequestForm.hpp
+│   │   └── ShrubberyCreationForm.hpp
+│   └── src/
+│       ├── AForm.cpp
+│       ├── Bureaucrat.cpp
+│       ├── PresidentialPardonForm.cpp
+│       ├── RobotomyRequestForm.cpp
+│       ├── ShrubberyCreationForm.cpp
+│       └── main.cpp
 ├── ex03/ - Intern Class
 │   ├── Makefile
-│   ├── Bureaucrat.cpp
-│   ├── Bureaucrat.hpp
-│   ├── AForm.cpp
-│   ├── AForm.hpp
-│   ├── ShrubberyCreationForm.cpp
-│   ├── ShrubberyCreationForm.hpp
-│   ├── RobotomyRequestForm.cpp
-│   ├── RobotomyRequestForm.hpp
-│   ├── PresidentialPardonForm.cpp
-│   ├── PresidentialPardonForm.hpp
-│   ├── Intern.cpp
-│   ├── Intern.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   ├── AForm.hpp
+│   │   ├── Bureaucrat.hpp
+│   │   ├── Intern.hpp
+│   │   ├── PresidentialPardonForm.hpp
+│   │   ├── RobotomyRequestForm.hpp
+│   │   └── ShrubberyCreationForm.hpp
+│   └── src/
+│       ├── AForm.cpp
+│       ├── Bureaucrat.cpp
+│       ├── Intern.cpp
+│       ├── PresidentialPardonForm.cpp
+│       ├── RobotomyRequestForm.cpp
+│       ├── ShrubberyCreationForm.cpp
+│       └── main.cpp
 └── README.md
 ```
 
