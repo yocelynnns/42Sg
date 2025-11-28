@@ -8,54 +8,60 @@ This module covers subtype polymorphism, abstract classes, and interfaces.
 cpp04/
 ├── ex00/ - Polymorphism
 │   ├── Makefile
-│   ├── Animal.cpp
-│   ├── Animal.hpp
-│   ├── Dog.cpp
-│   ├── Dog.hpp
-│   ├── Cat.cpp
-│   ├── Cat.hpp
-│   ├── WrongAnimal.cpp
-│   ├── WrongAnimal.hpp
-│   ├── WrongCat.cpp
-│   ├── WrongCat.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   ├── Animal.hpp
+│   │   ├── Cat.hpp
+│   │   ├── Dog.hpp
+│   │   ├── WrongAnimal.hpp
+│   │   └── WrongCat.hpp
+│   └── src/
+│       ├── Animal.cpp
+│       ├── Cat.cpp
+│       ├── Dog.cpp
+│       ├── WrongAnimal.cpp
+│       ├── WrongCat.cpp
+│       └── main.cpp
 ├── ex01/ - Deep Copies and Brain Class
 │   ├── Makefile
-│   ├── Animal.cpp
-│   ├── Animal.hpp
-│   ├── Dog.cpp
-│   ├── Dog.hpp
-│   ├── Cat.cpp
-│   ├── Cat.hpp
-│   ├── Brain.cpp
-│   ├── Brain.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   ├── Animal.hpp
+│   │   ├── Brain.hpp
+│   │   ├── Cat.hpp
+│   │   └── Dog.hpp
+│   └── src/
+│       ├── Animal.cpp
+│       ├── Brain.cpp
+│       ├── Cat.cpp
+│       ├── Dog.cpp
+│       └── main.cpp
 ├── ex02/ - Abstract Classes
 │   ├── Makefile
-│   ├── Animal.cpp
-│   ├── Animal.hpp
-│   ├── Dog.cpp
-│   ├── Dog.hpp
-│   ├── Cat.cpp
-│   ├── Cat.hpp
-│   ├── Brain.cpp
-│   ├── Brain.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   ├── AAnimal.hpp
+│   │   ├── Cat.hpp
+│   │   └── Dog.hpp
+│   └── src/
+│       ├── AAnimal.cpp
+│       ├── Cat.cpp
+│       ├── Dog.cpp
+│       └── main.cpp
 ├── ex03/ - Interface & Recap
 │   ├── Makefile
-│   ├── AMateria.cpp
-│   ├── AMateria.hpp
-│   ├── Ice.cpp
-│   ├── Ice.hpp
-│   ├── Cure.cpp
-│   ├── Cure.hpp
-│   ├── ICharacter.hpp
-│   ├── Character.cpp
-│   ├── Character.hpp
-│   ├── IMateriaSource.hpp
-│   ├── MateriaSource.cpp
-│   ├── MateriaSource.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   ├── AMateria.hpp
+│   │   ├── Character.hpp
+│   │   ├── Cure.hpp
+│   │   ├── ICharacter.hpp
+│   │   ├── IMateriaSource.hpp
+│   │   ├── Ice.hpp
+│   │   └── MateriaSource.hpp
+│   └── src/
+│       ├── AMateria.cpp
+│       ├── Character.cpp
+│       ├── Cure.cpp
+│       ├── Ice.cpp
+│       ├── MateriaSource.cpp
+│       └── main.cpp
 └── README.md
 ```
 
