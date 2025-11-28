@@ -8,17 +8,24 @@ This module focuses on templated containers, iterators, and algorithms using the
 cpp08/
 ├── ex00/ - Easy Find
 │   ├── Makefile
-│   ├── easyfind.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   └── easyfind.hpp
+│   └── src/
+│       └── main.cpp
 ├── ex01/ - Span
 │   ├── Makefile
-│   ├── Span.hpp
-│   ├── Span.cpp
-│   └── main.cpp
+│   ├── inc/
+│   │   └── Span.hpp
+│   └── src/
+│       ├── Span.cpp
+│       └── main.cpp
 ├── ex02/ - Mutant Stack
 │   ├── Makefile
-│   ├── MutantStack.hpp
-│   └── main.cpp
+│   ├── inc/
+│   │   └── MutantStack.hpp
+│   └── src/
+│       ├── MutantStack.tpp
+│       └── main.cpp
 └── README.md
 ```
 
