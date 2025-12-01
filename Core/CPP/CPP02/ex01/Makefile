@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yocelynnns <yocelynnns@student.42.fr>      +#+  +:+       +#+         #
+#    By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/03/14 00:53:00 by yocelynnns        #+#    #+#              #
-#    Updated: 2025/03/19 02:02:49 by yocelynnns       ###   ########.fr        #
+#    Created: 2025/03/25 19:43:31 by ysetiawa          #+#    #+#              #
+#    Updated: 2025/03/25 19:43:33 by ysetiawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= zombie
+NAME		= fixed
 
 CPP			= c++
 CPPFLAGS	= -Wall -Werror -Wextra -std=c++98
 RM			= rm -f
 
-SRCS		= main.cpp Zombie.cpp ZombieHorde.cpp
+SRCS		= main.cpp Fixed.cpp
 OBJS		= $(SRCS:.cpp=.o)
 
 all: $(NAME)

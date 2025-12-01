@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanB.cpp                                         :+:      :+:    :+:   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysetiawa <ysetiawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 17:05:09 by yocelynnns        #+#    #+#             */
-/*   Updated: 2025/03/20 16:37:41 by ysetiawa         ###   ########.fr       */
+/*   Created: 2025/03/24 16:46:13 by ysetiawa          #+#    #+#             */
+/*   Updated: 2025/03/27 15:28:15 by ysetiawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "HumanB.hpp"
+#ifndef FIXED_HPP
+#define FIXED_HPP
 
-HumanB::HumanB(std::string name) : Name(name) {}
+#include <iostream>
+#include <string>
 
-void HumanB::attack() {
-    if (weapon) {
-        std::cout << Name << " attacks with their " << weapon->getType() << std::endl;
-    } else {
-        std::cout << Name << " has no weapon!" << std::endl;
-    }
+class Fixed
+{
+    private:
+        int _fixedValue;
+        static const int _fractBits = 8;
+
+    public:
+        Fixed();
+        Fixed(const Fixed& copy);
+        Fixed& operator=(const Fixed& copy);
+        ~Fixed();
+        int getRawBits( void ) const;
+        void setRawBits( int const raw );
 };
 
-void HumanB::setWeapon(Weapon &weapon){
-    this->weapon = &weapon;
-}
+#endif
